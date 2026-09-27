@@ -1,0 +1,3 @@
+Name,OnProperty,thu_night_before,fri_reception_day,fri_reception_party,sat_day_after,sun_brunch
+Jordan Smith,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE
+Alex Rivera,FALSE,FALSE,FALSE,TRUE,TRUE,FALSE

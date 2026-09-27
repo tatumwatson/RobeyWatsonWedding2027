@@ -1,0 +1,30 @@
+---
+title: "Gifts"
+---
+
+Your presence is the gift. If you'd still like to give something, here are
+the two ways to do that. They support different things, so we've kept them
+separate.
+
+::: {.card-grid}
+
+::: {.fund-card .honeymoon}
+### Honeymoon Fund
+We're skipping a traditional registry. If you'd like to contribute toward
+our honeymoon, this goes directly toward the trip.
+
+[**Give to the honeymoon fund →**](PASTE_HONEYFUND_LINK_HERE){.btn .btn-outline-primary}
+:::
+
+::: {.fund-card .roomboard}
+### Room & Board
+If you're staying with us on-property, this is a voluntary way to help
+cover the cost of your stay. Entirely optional, no pressure either way.
+
+[**Contribute to room & board →**](PASTE_ROOMBOARD_LINK_HERE){.btn .btn-outline-primary}
+:::
+
+:::
+
+If a link above isn't working yet, it just means we haven't finished
+setting it up, check back soon.
