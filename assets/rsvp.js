@@ -4,13 +4,11 @@
 // No guest ever sees an event they weren't invited to.
 // ---------------------------------------------------------------
 
-const EVENT_DEFS = [
-  { key: "thu_night_before",   label: "The Night Before",        day: "Thursday" },
-  { key: "fri_reception_day",  label: "Reception Day",           day: "Friday"   },
-  { key: "fri_reception_party",label: "Reception Party",         day: "Friday"   },
-  { key: "sat_day_after",      label: "The Day After",           day: "Saturday" },
-  { key: "sun_brunch",         label: "Mother's Day Brunch",     day: "Sunday"   },
-];
+// Event details (label, day, time, location, description) come from
+// window.WEDDING_EVENTS, loaded via assets/events-data.js before this file.
+// That's also what the Schedule page renders from, so there's one place
+// to update your event details.
+const EVENT_DEFS = window.WEDDING_EVENTS || [];
 
 function el(tag, attrs = {}, html = "") {
   const node = document.createElement(tag);
@@ -34,6 +32,50 @@ async function lookupGuest(name) {
   const res = await fetch(url, { method: "GET" });
   if (!res.ok) throw new Error("Lookup request failed");
   return res.json();
+}
+
+function downloadSchedulePdf(guest, invitedEvents) {
+  if (!window.jspdf) {
+    alert("The PDF library didn't load. Check your connection and try again.");
+    return;
+  }
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  const pageWidth = 180;
+  let y = 20;
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(18);
+  doc.text(`${guest.name}'s Weekend Schedule`, 15, y);
+  y += 10;
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(11);
+  doc.text("Mariie & [Partner] · Northern Arizona", 15, y);
+  y += 12;
+
+  invitedEvents.forEach((evt) => {
+    if (y > 265) {
+      doc.addPage();
+      y = 20;
+    }
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(13);
+    doc.text(`${evt.day} — ${evt.label}`, 15, y);
+    y += 7;
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.text(`${evt.time} · ${evt.location}`, 15, y);
+    y += 6;
+
+    const lines = doc.splitTextToSize(evt.description || "", pageWidth);
+    doc.text(lines, 15, y);
+    y += lines.length * 5 + 8;
+  });
+
+  const safeName = guest.name.trim().replace(/\s+/g, "-").toLowerCase();
+  doc.save(`${safeName}-weekend-schedule.pdf`);
 }
 
 async function submitRsvp(payload) {
@@ -133,6 +175,13 @@ function renderInvite(container, guest) {
       if (result.ok) {
         form.innerHTML = "";
         showStatus(container, "Thank you! Your RSVP has been received.", "success");
+        const pdfBtn = el(
+          "button",
+          { type: "button", class: "btn btn-outline-primary mt-3" },
+          "Download your weekend schedule (PDF)"
+        );
+        pdfBtn.addEventListener("click", () => downloadSchedulePdf(guest, invitedEvents));
+        container.appendChild(pdfBtn);
       } else {
         showStatus(container, result.error || "Something went wrong. Please try again.", "error");
         submitBtn.disabled = false;
