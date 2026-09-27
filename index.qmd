@@ -3,14 +3,14 @@ title: ""
 ---
 
 ::: {.hero}
-# Mariie & [Partner Name]
+# Tatum & Tavian
 
 ::: {.hero-sub}
-We're getting married
+Wedding Celebration 
 :::
 
 ::: {.hero-date}
-[Month Day, 2027] · Northern Arizona
+[May 7th, 2027] · Heber, Arizona
 :::
 :::
 
@@ -28,6 +28,6 @@ If anything is unclear, just reach out to us directly.
 ## The short version
 
 - **When:** [Thursday–Sunday, Month Day–Day, 2027]
-- **Where:** [Venue name], Northern Arizona
+- **Where:** [Venue name], Arizona
 - **Dress code:** [e.g. Mountain formal — cocktail attire, layers for cool evenings]
 - **Questions:** [couple email or phone]
