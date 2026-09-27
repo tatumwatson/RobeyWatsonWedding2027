@@ -1,0 +1,147 @@
+/* ---------- Hero ---------- */
+.hero {
+  text-align: center;
+  padding: 5rem 1rem 3.5rem 1rem;
+  background: linear-gradient(180deg, #22332A 0%, #37503F 100%);
+  color: #F4EFE4;
+  border-radius: 0 0 12px 12px;
+  margin-bottom: 2.5rem;
+}
+
+.hero h1 {
+  color: #F4EFE4;
+  font-size: 3.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.hero .hero-sub {
+  font-size: 1.2rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #B08D57;
+  margin-bottom: 1.5rem;
+}
+
+.hero .hero-date {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.6rem;
+  color: #EAE1CC;
+}
+
+/* ---------- Cards (events, funds) ---------- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.event-card, .fund-card {
+  background: #ffffff;
+  border: 1px solid #EAE1CC;
+  border-left: 5px solid #37503F;
+  border-radius: 8px;
+  padding: 1.5rem 1.75rem;
+  box-shadow: 0 2px 10px rgba(43, 39, 36, 0.06);
+}
+
+.event-card h3 {
+  margin-top: 0;
+  color: #22332A;
+}
+
+.event-card .event-day {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  color: #B08D57;
+  font-weight: 600;
+}
+
+.event-card .event-meta {
+  font-size: 0.95rem;
+  color: #6B4A32;
+  margin-bottom: 0.5rem;
+}
+
+.fund-card.honeymoon {
+  border-left-color: #B08D57;
+}
+
+.fund-card.roomboard {
+  border-left-color: #6B4A32;
+}
+
+.fund-card h3 {
+  margin-top: 0;
+}
+
+/* ---------- RSVP widget ---------- */
+#rsvp-app {
+  max-width: 640px;
+  margin: 2rem auto;
+  background: #ffffff;
+  border: 1px solid #EAE1CC;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 2px 14px rgba(43, 39, 36, 0.07);
+}
+
+#rsvp-app label {
+  font-weight: 500;
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+#rsvp-app input[type="text"] {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #C9BFA6;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-family: "Jost", sans-serif;
+}
+
+.rsvp-event-block {
+  border-top: 1px solid #EAE1CC;
+  padding: 1rem 0;
+}
+
+.rsvp-event-block h4 {
+  font-family: "Cormorant Garamond", serif;
+  color: #22332A;
+  margin-bottom: 0.3rem;
+}
+
+.rsvp-status-msg {
+  margin-top: 1rem;
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+.rsvp-status-msg.error {
+  background: #F7E4E1;
+  color: #8A3B2E;
+}
+
+.rsvp-status-msg.success {
+  background: #E4EEDF;
+  color: #2F4F3E;
+}
+
+.rsvp-status-msg.hidden {
+  display: none;
+}
+
+/* ---------- QR page ---------- */
+.qr-box {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.qr-box img {
+  max-width: 260px;
+  border: 8px solid #ffffff;
+  box-shadow: 0 2px 14px rgba(43, 39, 36, 0.12);
+}
