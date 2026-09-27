@@ -1,0 +1,36 @@
+---
+title: "Travel & Lodging"
+---
+
+## Getting here
+
+[Nearest airport, drive time, and any shuttle or rideshare notes. Northern
+Arizona mountain roads — mention elevation/weather if relevant for
+Month/timing.]
+
+- **Nearest airport:** [Airport name and code]
+- **Drive time to venue:** [X hours]
+- **Parking on-site:** [Yes/No, details]
+
+## If you're staying on-property
+
+[Details for on-property guests: check-in/out times, what's provided,
+what to bring, wifi, house rules, shared spaces.]
+
+A voluntary contribution toward your stay is welcome but never expected —
+see the [Gifts](funds.qmd) page for details.
+
+## If you're staying off-property
+
+We've held a room block / put together a few recommendations nearby:
+
+- **[Hotel/lodge name]** — [distance from venue], [booking link or code]
+- **[Hotel/lodge name]** — [distance from venue], [booking link or code]
+
+## What to pack
+
+Northern Arizona evenings get cold even when the day is warm. Layers, a
+warm jacket, and shoes you don't mind on dirt or gravel are all a good idea.
+
+- [Packing note 1]
+- [Packing note 2]

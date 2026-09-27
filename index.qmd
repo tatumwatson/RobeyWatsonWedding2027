@@ -1,0 +1,33 @@
+---
+title: ""
+---
+
+::: {.hero}
+# Mariie & [Partner Name]
+
+::: {.hero-sub}
+We're getting married
+:::
+
+::: {.hero-date}
+[Month Day, 2027] · Northern Arizona
+:::
+:::
+
+We can't wait to celebrate with you among the pines. This weekend brings
+together the people we love most for a few days of good food, good company,
+and (hopefully) a crisp mountain evening or two.
+
+Everything you need is here: the schedule, where to stay, and how to RSVP.
+If anything is unclear, just reach out to us directly.
+
+::: {.text-center}
+[**RSVP now →**](rsvp.qmd){.btn .btn-primary .btn-lg}
+:::
+
+## The short version
+
+- **When:** [Thursday–Sunday, Month Day–Day, 2027]
+- **Where:** [Venue name], Northern Arizona
+- **Dress code:** [e.g. Mountain formal — cocktail attire, layers for cool evenings]
+- **Questions:** [couple email or phone]

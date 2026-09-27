@@ -1,0 +1,16 @@
+---
+title: "RSVP"
+---
+
+Type your name exactly as it appears on your invitation, and we'll show you
+what you're invited to.
+
+::: {#rsvp-app}
+Loading...
+:::
+
+Can't find your name, or does something look wrong? Reach out to us
+directly at [couple email/phone] and we'll sort it out.
+
+<script src="assets/rsvp-config.js"></script>
+<script src="assets/rsvp.js"></script>
