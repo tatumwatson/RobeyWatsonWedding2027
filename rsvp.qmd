@@ -4,7 +4,9 @@ title: "RSVP"
 
 Type your name exactly as it appears on your invitation, and we'll show you
 what you're invited to.
-
+```{=html}
+<div class="countdown" data-target="2027-02-14T23:59:59-07:00" data-label="left to RSVP (due February 14)" data-done="RSVPs are now closed. Please reach out to us directly."></div>
+```
 ::: {#rsvp-app}
 Loading...
 :::
@@ -16,3 +18,4 @@ directly at [couple email/phone] and we'll sort it out.
 <script src="assets/events-data.js"></script>
 <script src="assets/rsvp-config.js"></script>
 <script src="assets/rsvp.js"></script>
+<script src="assets/countdown.js"></script>
