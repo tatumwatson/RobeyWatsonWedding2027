@@ -280,55 +280,6 @@ footer.footer,
   text-transform: none;
 }
 
-
-/* ---------- Twinkling string lights ---------- */
-#quarto-header::before,
-#quarto-header::after,
-#quarto-header .navbar::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  height: 44px;
-  background-repeat: repeat-x;
-  background-position: left top;
-  background-size: 200px 44px;
-  pointer-events: none;
-}
-
-#quarto-header::before {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='44' viewBox='0 0 200 44'><path d='M0 2 Q100 42 200 2' fill='none' stroke='%231F2D2B' stroke-opacity='0.6' stroke-width='1.3'/><g fill='%231F2D2B' fill-opacity='0.65'><rect x='18.7' y='9.2' width='2.6' height='3' rx='0.6'/><rect x='58.7' y='18.8' width='2.6' height='3' rx='0.6'/><rect x='98.7' y='22.0' width='2.6' height='3' rx='0.6'/><rect x='138.7' y='18.8' width='2.6' height='3' rx='0.6'/><rect x='178.7' y='9.2' width='2.6' height='3' rx='0.6'/></g><g fill='%23E3D3A6'><circle cx='20' cy='15.9' r='4.2'/><circle cx='60' cy='25.5' r='4.2'/><circle cx='100' cy='28.7' r='4.2'/><circle cx='140' cy='25.5' r='4.2'/><circle cx='180' cy='15.9' r='4.2'/></g></svg>");
-}
-
-#quarto-header::after {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='44' viewBox='0 0 200 44'><defs><radialGradient id='g'><stop offset='0' stop-color='%23FFF3C4'/><stop offset='0.35' stop-color='%23FFD86B' stop-opacity='0.75'/><stop offset='1' stop-color='%23FFD86B' stop-opacity='0'/></radialGradient></defs><circle cx='20' cy='15.9' r='13' fill='url(%23g)'/><circle cx='100' cy='28.7' r='13' fill='url(%23g)'/><circle cx='180' cy='15.9' r='13' fill='url(%23g)'/></svg>");
-  animation: twinkle-a 2.6s ease-in-out infinite alternate;
-}
-
-#quarto-header .navbar::after {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='44' viewBox='0 0 200 44'><defs><radialGradient id='g'><stop offset='0' stop-color='%23FFF3C4'/><stop offset='0.35' stop-color='%23FFD86B' stop-opacity='0.75'/><stop offset='1' stop-color='%23FFD86B' stop-opacity='0'/></radialGradient></defs><circle cx='60' cy='25.5' r='13' fill='url(%23g)'/><circle cx='140' cy='25.5' r='13' fill='url(%23g)'/></svg>");
-  animation: twinkle-b 3.4s ease-in-out infinite alternate;
-}
-
-@keyframes twinkle-a {
-  from { opacity: 0.2; }
-  to   { opacity: 1; }
-}
-
-@keyframes twinkle-b {
-  from { opacity: 1; }
-  to   { opacity: 0.2; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #quarto-header::after,
-  #quarto-header .navbar::after {
-    animation: none;
-    opacity: 0.8;
-  }
-}
-
 /* ---------- Pine tree divider ---------- */
 .pine-divider {
   height: 36px;
