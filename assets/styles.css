@@ -280,51 +280,125 @@ footer.footer,
   text-transform: none;
 }
 
-/* ---------- Twinkling string lights ---------- */
-#quarto-header::before,
-#quarto-header::after,
-#quarto-header .navbar::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  height: 36px;
-  background-repeat: repeat-x;
-  background-position: left top;
-  background-size: 120px 36px;
-  pointer-events: none;
+/* ---------- Weather widget ---------- */
+.weather {
+  margin: 1.5rem 0 2rem 0;
 }
 
-#quarto-header::before {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='36' viewBox='0 0 120 36'><path d='M0 2 Q60 30 120 2' fill='none' stroke='%231F2D2B' stroke-opacity='0.6' stroke-width='1.2'/><g fill='%23E3D3A6'><circle cx='20' cy='13' r='3'/><circle cx='60' cy='20' r='3'/><circle cx='100' cy='13' r='3'/></g></svg>");
+.weather-title {
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #3C4E46;
+  margin-bottom: 0.5rem;
 }
 
-#quarto-header::after {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='36' viewBox='0 0 120 36'><defs><radialGradient id='g'><stop offset='0' stop-color='%23FFF3C4'/><stop offset='0.35' stop-color='%23FFD86B' stop-opacity='0.75'/><stop offset='1' stop-color='%23FFD86B' stop-opacity='0'/></radialGradient></defs><circle cx='20' cy='13' r='10' fill='url(%23g)'/><circle cx='100' cy='13' r='10' fill='url(%23g)'/></svg>");
-  animation: twinkle-a 2.6s ease-in-out infinite alternate;
+.weather-typical {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.1rem 1.4rem;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid #C4CDC8;
+  border-left: 5px solid #3C4E46;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(31, 45, 43, 0.08);
 }
 
-#quarto-header .navbar::after {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='36' viewBox='0 0 120 36'><defs><radialGradient id='g'><stop offset='0' stop-color='%23FFF3C4'/><stop offset='0.35' stop-color='%23FFD86B' stop-opacity='0.75'/><stop offset='1' stop-color='%23FFD86B' stop-opacity='0'/></radialGradient></defs><circle cx='60' cy='20' r='10' fill='url(%23g)'/></svg>");
-  animation: twinkle-b 3.4s ease-in-out infinite alternate;
+.weather-typical-icon {
+  font-size: 2.6rem;
+  line-height: 1;
+  color: #7F9186;
 }
 
-@keyframes twinkle-a {
-  from { opacity: 0.2; }
-  to   { opacity: 1; }
+.weather-typical-body {
+  flex: 1;
 }
 
-@keyframes twinkle-b {
-  from { opacity: 1; }
-  to   { opacity: 0.2; }
+.weather-typical-temps {
+  margin-bottom: 0.15rem;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  #quarto-header::after,
-  #quarto-header .navbar::after {
-    animation: none;
-    opacity: 0.8;
+.weather-big {
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 700;
+  font-size: 1.7rem;
+  color: #1F2D2B;
+}
+
+.weather-small,
+.weather-sep {
+  color: #3C4E46;
+}
+
+.weather-forecast {
+  margin-top: 1.5rem;
+}
+
+.weather-days {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.weather-day {
+  flex: 1 1 8.5rem;
+  padding: 0.9rem 0.8rem;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid #C4CDC8;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(31, 45, 43, 0.08);
+}
+
+.weather-day-name {
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  color: #1F2D2B;
+}
+
+.weather-day-icon {
+  margin: 0.4rem 0;
+  font-size: 2rem;
+  line-height: 1;
+  color: #7F9186;
+}
+
+.weather-day-temps {
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 600;
+  color: #1F2D2B;
+}
+
+.weather-day-text {
+  margin-top: 0.3rem;
+  font-size: 0.85rem;
+  color: #3C4E46;
+}
+
+.weather-note,
+.weather-loading {
+  margin-top: 0.8rem;
+  font-family: "Caveat", "Segoe Script", cursive;
+  font-size: 1.4rem;
+  color: #3C4E46;
+}
+
+.weather-credit {
+  margin-top: 0.6rem;
+  font-size: 0.8rem;
+  color: #3C4E46;
+}
+
+@media (max-width: 520px) {
+  .weather-typical {
+    flex-direction: column;
+    text-align: center;
   }
 }
 
