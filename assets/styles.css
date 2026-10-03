@@ -42,16 +42,14 @@ main.content {
   background-color: #E8E1D0;
   background-image:
     /* dark flecks */
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n' color-interpolation-filters='sRGB'><feTurbulence type='fractalNoise' baseFrequency='0.4' numOctaves='1' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.3  0 0 0 0 0.22  0 0 0 0 0.12  7 0 0 0 -4.5'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n' color-interpolation-filters='sRGB'><feTurbulence type='fractalNoise' baseFrequency='0.4' numOctaves='1' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.3  0 0 0 0 0.22  0 0 0 0 0.12  7 0 0 0 -4.5'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.05'/></svg>"),
     /* long paper fibers */
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='420'><filter id='n' color-interpolation-filters='sRGB'><feTurbulence type='fractalNoise' baseFrequency='0.012 0.55' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.5  0 0 0 0 0.4  0 0 0 0 0.26  1.6 0 0 0 -0.55'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='420'><filter id='n' color-interpolation-filters='sRGB'><feTurbulence type='fractalNoise' baseFrequency='0.012 0.55' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.5  0 0 0 0 0.4  0 0 0 0 0.26  1.6 0 0 0 -0.55'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.05'/></svg>"),
     /* fine grain */
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n' color-interpolation-filters='sRGB'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.42  0 0 0 0 0.33  0 0 0 0 0.2  1.3 0 0 0 -0.4'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"),
-    /* watercolor wash */
-    var(--wash-card);
-  background-repeat: repeat, repeat, repeat, no-repeat, no-repeat, no-repeat, no-repeat;
-  background-size: 300px 300px, 420px 420px, 200px 200px, 100% 380px, 100% 380px, 100% 380px, 100% 380px;
-  background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0;
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n' color-interpolation-filters='sRGB'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.42  0 0 0 0 0.33  0 0 0 0 0.2  1.3 0 0 0 -0.4'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.05'/></svg>");
+  background-repeat: repeat, repeat, repeat;
+  background-size: 300px 300px, 420px 420px, 200px 200px;
+  background-position: 0 0, 0 0, 0 0;
   box-shadow: 0 4px 24px rgba(31, 45, 43, 0.18);
 }
 
@@ -86,14 +84,6 @@ main.content:has(.banner) {
 .intro {
   text-align: center;
   padding: 0.5rem 0 1.5rem 0;
-}
-
-.intro.wash-top,
-.intro {
-  background-image: var(--wash-intro);
-  background-repeat: no-repeat;
-  background-size: 100% 280px;
-  background-position: 0 0;
 }
 
 .hero-kicker {
@@ -643,18 +633,6 @@ footer.footer,
   --fog: #C4CDC8;
   --kraft-cream: #E8E1D0;
   --sky-wash: #E9ECF2;
-
-  --wash-card:
-    radial-gradient(ellipse 34% 75% at 10% 0%, rgba(60, 78, 70, 0.55), rgba(60, 78, 70, 0)),
-    radial-gradient(ellipse 30% 90% at 40% 0%, rgba(127, 145, 134, 0.65), rgba(127, 145, 134, 0)),
-    radial-gradient(ellipse 28% 70% at 68% 0%, rgba(196, 205, 200, 0.95), rgba(196, 205, 200, 0)),
-    radial-gradient(ellipse 32% 85% at 92% 0%, rgba(60, 78, 70, 0.5), rgba(60, 78, 70, 0));
-
-  --wash-intro:
-    radial-gradient(ellipse 20% 90% at 22% 0%, rgba(60, 78, 70, 0.5), rgba(60, 78, 70, 0)),
-    radial-gradient(ellipse 22% 100% at 45% 0%, rgba(127, 145, 134, 0.6), rgba(127, 145, 134, 0)),
-    radial-gradient(ellipse 20% 80% at 68% 0%, rgba(196, 205, 200, 0.95), rgba(196, 205, 200, 0)),
-    radial-gradient(ellipse 18% 85% at 84% 0%, rgba(60, 78, 70, 0.45), rgba(60, 78, 70, 0));
 }
 
 /* ---------- Falling pine needles and leaves ---------- */
