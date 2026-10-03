@@ -1,3 +1,20 @@
+/* ---------- Fonts (self-hosted) ---------- */
+@font-face {
+  font-family: "Josefin Sans";
+  src: url("fonts/josefin-sans.ttf") format("truetype");
+  font-weight: 100 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Lora";
+  src: url("fonts/lora.ttf") format("truetype");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ---------- Hero ---------- */
 .hero {
   width: 100%;
@@ -74,39 +91,40 @@
 }
 
 .event-card, .fund-card {
-  background: #ffffff;
-  border: 1px solid #EAE1CC;
-  border-left: 5px solid #37503F;
-  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid #C4CDC8;
+  border-left: 5px solid #3C4E46;
+  border-radius: 4px;
   padding: 1.5rem 1.75rem;
-  box-shadow: 0 2px 10px rgba(43, 39, 36, 0.06);
+  box-shadow: 0 2px 10px rgba(31, 45, 43, 0.08);
 }
 
 .event-card h3 {
   margin-top: 0;
-  color: #22332A;
+  color: #1F2D2B;
 }
 
 .event-card .event-day {
+  font-family: "Josefin Sans", sans-serif;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.16em;
   font-size: 0.8rem;
-  color: #B08D57;
-  font-weight: 600;
+  color: #3C4E46;
+  font-weight: 700;
 }
 
 .event-card .event-meta {
   font-size: 0.95rem;
-  color: #6B4A32;
+  color: #3C4E46;
   margin-bottom: 0.5rem;
 }
 
 .fund-card.honeymoon {
-  border-left-color: #B08D57;
+  border-left-color: #3C4E46;
 }
 
 .fund-card.roomboard {
-  border-left-color: #6B4A32;
+  border-left-color: #7F9186;
 }
 
 .fund-card h3 {
@@ -117,15 +135,15 @@
 #rsvp-app {
   max-width: 640px;
   margin: 2rem auto;
-  background: #ffffff;
-  border: 1px solid #EAE1CC;
-  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid #C4CDC8;
+  border-radius: 4px;
   padding: 2rem;
-  box-shadow: 0 2px 14px rgba(43, 39, 36, 0.07);
+  box-shadow: 0 2px 14px rgba(31, 45, 43, 0.09);
 }
 
 #rsvp-app label {
-  font-weight: 500;
+  font-weight: 600;
   display: block;
   margin-bottom: 0.4rem;
 }
@@ -133,27 +151,29 @@
 #rsvp-app input[type="text"] {
   width: 100%;
   padding: 0.6rem 0.8rem;
-  border: 1px solid #C9BFA6;
-  border-radius: 6px;
+  border: 1px solid #7F9186;
+  border-radius: 3px;
   margin-bottom: 1rem;
-  font-family: "Jost", sans-serif;
+  font-family: "Lora", Georgia, serif;
+  background: #ffffff;
 }
 
 .rsvp-event-block {
-  border-top: 1px solid #EAE1CC;
+  border-top: 1px solid #C4CDC8;
   padding: 1rem 0;
 }
 
 .rsvp-event-block h4 {
-  font-family: "Cormorant Garamond", serif;
-  color: #22332A;
+  font-family: "Josefin Sans", sans-serif;
+  letter-spacing: 0.06em;
+  color: #1F2D2B;
   margin-bottom: 0.3rem;
 }
 
 .rsvp-status-msg {
   margin-top: 1rem;
   padding: 0.8rem 1rem;
-  border-radius: 6px;
+  border-radius: 4px;
   font-size: 0.95rem;
 }
 
@@ -180,5 +200,5 @@
 .qr-box img {
   max-width: 260px;
   border: 8px solid #ffffff;
-  box-shadow: 0 2px 14px rgba(43, 39, 36, 0.12);
+  box-shadow: 0 2px 14px rgba(31, 45, 43, 0.12);
 }
