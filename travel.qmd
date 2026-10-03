@@ -14,6 +14,9 @@ Month/timing.]
 - **Drive time to venue:** [X hours]
 - **Parking on-site:** [Yes/No, details]
 
+::: {.pine-divider}
+:::
+
 ## If you're staying on-property
 
 [Details for on-property guests: check-in/out times, what's provided,
@@ -28,6 +31,10 @@ We've held a room block / put together a few recommendations nearby:
 
 - **[Hotel/lodge name]** — [distance from venue], [booking link or code]
 - **[Hotel/lodge name]** — [distance from venue], [booking link or code]
+
+::: {.pine-divider}
+:::
+
 ## The weather
 
 ```{=html}
