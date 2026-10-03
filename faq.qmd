@@ -1,0 +1,57 @@
+---
+title: "FAQ"
+---
+
+::: {.script}
+Everything you were about to text us.
+:::
+
+::: {.pine-divider}
+:::
+
+```{=html}
+<details class="faq-item">
+<summary>What should I wear?</summary>
+<div class="faq-answer"><p>[Dress code for each event goes here.]</p></div>
+</details>
+
+<details class="faq-item">
+<summary>Will it be cold?</summary>
+<div class="faq-answer"><p>[Your note about the weather and bringing layers goes here.]</p></div>
+</details>
+
+<details class="faq-item">
+<summary>Where do I park?</summary>
+<div class="faq-answer"><p>[Parking details go here.]</p></div>
+</details>
+
+<details class="faq-item">
+<summary>Where should I stay?</summary>
+<div class="faq-answer"><p>[A line about on-property and nearby lodging goes here.] More details are on the <a href="travel.html">Travel &amp; Lodging</a> page.</p></div>
+</details>
+
+<details class="faq-item">
+<summary>Can I bring a plus-one or my kiddos?</summary>
+<div class="faq-answer"><p>[Your answer goes here. Your invitation lists everyone invited.]</p></div>
+</details>
+
+<details class="faq-item">
+<summary>Is there a shuttle or a ride plan?</summary>
+<div class="faq-answer"><p>[Transportation details go here.]</p></div>
+</details>
+
+<details class="faq-item">
+<summary>I have a dietary restriction. Who do I tell?</summary>
+<div class="faq-answer"><p>Add it to the notes box when you <a href="rsvp.html">RSVP</a>.</p></div>
+</details>
+
+<details class="faq-item">
+<summary>When is the RSVP deadline?</summary>
+<div class="faq-answer"><p>February 14, 2027. You can reply any time before then on the <a href="rsvp.html">RSVP</a> page.</p></div>
+</details>
+
+<details class="faq-item">
+<summary>Who do I ask if I have another question?</summary>
+<div class="faq-answer"><p>[Email or phone for the couple goes here.]</p></div>
+</details>
+```
