@@ -262,3 +262,283 @@ footer.footer,
 .nav-footer a {
   color: #1F2D2B !important;
 }
+/* ---------- Handwritten accents ---------- */
+@font-face {
+  font-family: "Caveat";
+  src: url("fonts/caveat.ttf") format("truetype");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+.script {
+  font-family: "Caveat", "Segoe Script", "Bradley Hand", cursive;
+  font-size: 1.7rem;
+  line-height: 1.2;
+  color: #3C4E46;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* ---------- Twinkling string lights ---------- */
+#quarto-header::before,
+#quarto-header::after,
+#quarto-header .navbar::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 36px;
+  background-repeat: repeat-x;
+  background-position: left top;
+  background-size: 120px 36px;
+  pointer-events: none;
+}
+
+#quarto-header::before {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='36' viewBox='0 0 120 36'><path d='M0 2 Q60 30 120 2' fill='none' stroke='%231F2D2B' stroke-opacity='0.6' stroke-width='1.2'/><g fill='%23E3D3A6'><circle cx='20' cy='13' r='3'/><circle cx='60' cy='20' r='3'/><circle cx='100' cy='13' r='3'/></g></svg>");
+}
+
+#quarto-header::after {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='36' viewBox='0 0 120 36'><defs><radialGradient id='g'><stop offset='0' stop-color='%23FFF3C4'/><stop offset='0.35' stop-color='%23FFD86B' stop-opacity='0.75'/><stop offset='1' stop-color='%23FFD86B' stop-opacity='0'/></radialGradient></defs><circle cx='20' cy='13' r='10' fill='url(%23g)'/><circle cx='100' cy='13' r='10' fill='url(%23g)'/></svg>");
+  animation: twinkle-a 2.6s ease-in-out infinite alternate;
+}
+
+#quarto-header .navbar::after {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='36' viewBox='0 0 120 36'><defs><radialGradient id='g'><stop offset='0' stop-color='%23FFF3C4'/><stop offset='0.35' stop-color='%23FFD86B' stop-opacity='0.75'/><stop offset='1' stop-color='%23FFD86B' stop-opacity='0'/></radialGradient></defs><circle cx='60' cy='20' r='10' fill='url(%23g)'/></svg>");
+  animation: twinkle-b 3.4s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle-a {
+  from { opacity: 0.2; }
+  to   { opacity: 1; }
+}
+
+@keyframes twinkle-b {
+  from { opacity: 1; }
+  to   { opacity: 0.2; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #quarto-header::after,
+  #quarto-header .navbar::after {
+    animation: none;
+    opacity: 0.8;
+  }
+}
+
+/* ---------- Pine tree divider ---------- */
+.pine-divider {
+  height: 36px;
+  margin: 2.2rem 0;
+  background:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='110' height='34' viewBox='0 0 110 34'><g fill='%233C4E46'><polygon points='55,0 66,12 44,12'/><polygon points='55,7 70,21 40,21'/><polygon points='55,14 75,29 35,29'/><rect x='52.5' y='29' width='5' height='5'/><polygon points='22,12 29,21 15,21'/><polygon points='22,17 31,28 13,28'/><rect x='20.5' y='28' width='3' height='6'/><polygon points='88,12 95,21 81,21'/><polygon points='88,17 97,28 79,28'/><rect x='86.5' y='28' width='3' height='6'/></g></svg>") center / 110px 34px no-repeat,
+    linear-gradient(#7F9186, #7F9186) left center / calc(50% - 70px) 1px no-repeat,
+    linear-gradient(#7F9186, #7F9186) right center / calc(50% - 70px) 1px no-repeat;
+}
+
+/* ---------- Countdown ---------- */
+.countdown {
+  text-align: center;
+  margin: 1.5rem auto 2rem auto;
+}
+
+.countdown-tiles {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.countdown-tile {
+  min-width: 4.6rem;
+  padding: 0.75rem 0.5rem 0.6rem 0.5rem;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid #C4CDC8;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(31, 45, 43, 0.08);
+}
+
+.countdown-num {
+  display: block;
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 700;
+  font-size: 1.9rem;
+  line-height: 1;
+  color: #1F2D2B;
+}
+
+.countdown-unit {
+  display: block;
+  margin-top: 0.4rem;
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #3C4E46;
+}
+
+.countdown-label {
+  margin-top: 0.4rem;
+  font-family: "Caveat", "Segoe Script", cursive;
+  font-size: 1.8rem;
+  color: #3C4E46;
+}
+
+.countdown-done {
+  font-family: "Caveat", "Segoe Script", cursive;
+  font-size: 2rem;
+  color: #3C4E46;
+}
+
+/* ---------- FAQ ---------- */
+.faq-item {
+  margin: 0 0 0.9rem 0;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid #C4CDC8;
+  border-left: 5px solid #3C4E46;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(31, 45, 43, 0.08);
+}
+
+.faq-item summary {
+  position: relative;
+  padding: 1rem 2.75rem 1rem 1.25rem;
+  cursor: pointer;
+  list-style: none;
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: #1F2D2B;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::after {
+  content: "+";
+  position: absolute;
+  right: 1.1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: "Caveat", cursive;
+  font-size: 1.9rem;
+  color: #3C4E46;
+}
+
+.faq-item[open] summary::after {
+  content: "\2212";
+}
+
+.faq-answer {
+  padding: 0 1.25rem 1.1rem 1.25rem;
+}
+
+.faq-answer p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Road trip timeline (Our Story) ---------- */
+.roadtrip {
+  position: relative;
+  max-width: 760px;
+  margin: 2rem auto;
+  padding: 0.5rem 0 1rem 0;
+}
+
+.roadtrip::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 16px;
+  margin-left: -8px;
+  border-radius: 8px;
+  background:
+    repeating-linear-gradient(to bottom, #E8E1D0 0, #E8E1D0 12px, transparent 12px, transparent 24px) center / 2px 100% no-repeat,
+    #3C4E46;
+}
+
+.stop {
+  position: relative;
+  width: 50%;
+  box-sizing: border-box;
+  padding: 0 2.5rem 2.5rem 0;
+}
+
+.stop:nth-child(even) {
+  margin-left: 50%;
+  padding: 0 0 2.5rem 2.5rem;
+}
+
+.stop-pin {
+  position: absolute;
+  top: 0.5rem;
+  right: -19px;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #E8E1D0;
+  border-radius: 50%;
+  background: #7F9186;
+  color: #1F2D2B;
+  font-size: 1.05rem;
+  z-index: 1;
+}
+
+.stop:nth-child(even) .stop-pin {
+  right: auto;
+  left: -19px;
+}
+
+.stop-card {
+  padding: 0.9rem 1.25rem 1.1rem 1.25rem;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid #C4CDC8;
+  border-radius: 6px;
+  box-shadow: 0 2px 10px rgba(31, 45, 43, 0.08);
+}
+
+.stop-label {
+  font-family: "Caveat", "Segoe Script", cursive;
+  font-size: 1.6rem;
+  line-height: 1.1;
+  color: #3C4E46;
+}
+
+.stop-card h3 {
+  margin: 0.15rem 0 0.5rem 0;
+}
+
+.stop-card p {
+  margin: 0;
+}
+
+.stop-finish .stop-pin {
+  background: #3C4E46;
+  color: #E8E1D0;
+}
+
+@media (max-width: 700px) {
+  .roadtrip::before {
+    left: 19px;
+  }
+
+  .stop,
+  .stop:nth-child(even) {
+    width: 100%;
+    margin-left: 0;
+    padding: 0 0 2rem 3.5rem;
+  }
+
+  .stop-pin,
+  .stop:nth-child(even) .stop-pin {
+    left: 0;
+    right: auto;
+  }
+}
