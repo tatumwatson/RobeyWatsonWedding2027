@@ -19,7 +19,7 @@ May 7th, 2027 · Heber, Arizona
 :::
 
 :::
-:::
+
 ::: {.script .text-center}
 see you in the pines
 :::
@@ -41,8 +41,9 @@ Need help with anything? Please reach out!
 
 ## The short version
 
-- **When:** [Friday–Saturday, May 7th & 8th, 2027]
+- **When:** Friday–Saturday, May 7th & 8th, 2027
 - **Where:** The Legacy Lodge, Heber, Arizona
 - **Dress code:** Something nice for the reception and something comfy for rehashing the next day! For our non-Arizona friends, bring layers as the mountains can get chilly in the evenings.
 - **Questions:** TheRobeyWatsons@gmail.com
+
 <script src="assets/countdown.js"></script>
