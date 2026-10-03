@@ -1,10 +1,17 @@
 [
   {
-    "objectID": "schedule.html",
-    "href": "schedule.html",
-    "title": "Schedule",
+    "objectID": "faq.html",
+    "href": "faq.html",
+    "title": "FAQ",
     "section": "",
-    "text": "Not every event is for every guest. Your RSVP page will only show you the events you’re invited to, so don’t worry if your weekend looks different from someone else’s. After you RSVP, you can also download a PDF of just your own schedule.\n\nLoading…"
+    "text": "Everything you were about to text us.\n\n\n\n\n\nWhat should I wear?\n[Dress code for each event goes here.]\n\n\n\nWill it be cold?\n[Your note about the weather and bringing layers goes here.]\n\n\n\nWhere do I park?\n[Parking details go here.]\n\n\n\nWhere should I stay?\n[A line about on-property and nearby lodging goes here.] More details are on the Travel & Lodging page.\n\n\n\nCan I bring a plus-one or my kiddos?\n[Your answer goes here. Your invitation lists everyone invited.]\n\n\n\nIs there a shuttle or a ride plan?\n[Transportation details go here.]\n\n\n\nI have a dietary restriction. Who do I tell?\nAdd it to the notes box when you RSVP.\n\n\n\nWhen is the RSVP deadline?\nFebruary 14, 2027. You can reply any time before then on the RSVP page.\n\n\n\nWho do I ask if I have another question?\n[Email or phone for the couple goes here.]"
+  },
+  {
+    "objectID": "funds.html",
+    "href": "funds.html",
+    "title": "Gifts",
+    "section": "",
+    "text": "Your presence is the gift. If you’d still like to give something, here are the two ways to do that. They support different things, so we’ve kept them separate.\n\n\nHoneymoon Fund\nWe’re skipping a traditional registry. If you’d like to contribute toward our honeymoon, this goes directly toward the trip.\nGive to the honeymoon fund →\n\n\nRoom & Board\nIf you’re staying with us on-property, this is a voluntary way to help cover the cost of your stay. Entirely optional, no pressure either way.\nContribute to room & board →\n\n\nIf a link above isn’t working yet, it just means we haven’t finished setting it up, check back soon."
   },
   {
     "objectID": "travel.html",
@@ -63,10 +70,17 @@
     "text": "Type your name exactly as it appears on your invitation, and we’ll show you what you’re invited to.\n\nLoading…\n\nCan’t find your name, or does something look wrong? Reach out to us directly at [couple email/phone] and we’ll sort it out."
   },
   {
-    "objectID": "funds.html",
-    "href": "funds.html",
-    "title": "Gifts",
+    "objectID": "story.html",
+    "href": "story.html",
+    "title": "Our Story",
     "section": "",
-    "text": "Your presence is the gift. If you’d still like to give something, here are the two ways to do that. They support different things, so we’ve kept them separate.\n\n\nHoneymoon Fund\nWe’re skipping a traditional registry. If you’d like to contribute toward our honeymoon, this goes directly toward the trip.\nGive to the honeymoon fund →\n\n\nRoom & Board\nIf you’re staying with us on-property, this is a voluntary way to help cover the cost of your stay. Entirely optional, no pressure either way.\nContribute to room & board →\n\n\nIf a link above isn’t working yet, it just means we haven’t finished setting it up, check back soon."
+    "text": "Buckle up. Here is the road that got us here.\n\n\n\n\n\n\n\n\n\nMile 0\nWhere it all started\n[Write your blurb here. Where did you meet, and what was the first thing you noticed?]\n\n\n\n\n\n\nMile 1\nThe first date\n[Write your blurb here.]\n\n\n\n\n\n\nMile 2\nOur first adventure together\n[Write your blurb here.]\n\n\n\n\n\n\nMile 3\nThe big question\n[Write your blurb here.]\n\n\n\n\n\n\nMile 4\nPlanning the big day\n[Write your blurb here.]\n\n\n\n\n\n\nThe finish line\nJust married\nMay 7, 2027 · Heber, Arizona. To be continued..."
+  },
+  {
+    "objectID": "schedule.html",
+    "href": "schedule.html",
+    "title": "Schedule",
+    "section": "",
+    "text": "Not every event is for every guest. Your RSVP page will only show you the events you’re invited to, so don’t worry if your weekend looks different from someone else’s. After you RSVP, you can also download a PDF of just your own schedule.\n\nLoading…"
   }
 ]
