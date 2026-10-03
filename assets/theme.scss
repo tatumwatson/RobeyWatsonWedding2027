@@ -1,61 +1,81 @@
 /*-- scss:defaults --*/
 
-// Luxury cabin / Northern Arizona pines palette
-$pine-dark:     #22332A;   // deep pine shadow
-$pine:          #37503F;   // primary pine green
-$pine-light:    #5C7A63;   // soft sage
-$bark:          #6B4A32;   // warm cabin wood
-$bark-light:    #9C7C58;
-$cream:         #F4EFE4;   // warm ivory background
-$cream-deep:    #EAE1CC;
-$gold:          #B08D57;   // brass/luxury accent
-$charcoal:      #2B2724;   // body text
+// Palette taken from the invitation
+$ink:   #1F2D2B;
+$pine:  #3C4E46;
+$sage:  #7F9186;
+$fog:   #C4CDC8;
+$kraft: #E8E1D0;
+$sky:   #E9ECF2;
 
-$primary:       $pine;
-$secondary:     $bark;
-$body-bg:       $cream;
-$body-color:    $charcoal;
-$link-color:    $bark;
+$primary:         $pine;
+$secondary:       $sage;
+$body-bg:         $kraft;
+$body-color:      $ink;
+$link-color:      $pine;
+$link-hover-color: $ink;
 
-$font-family-sans-serif: "Jost", "Helvetica Neue", Arial, sans-serif;
-$headings-font-family: "Cormorant Garamond", "Georgia", serif;
-$headings-color: $pine-dark;
-$headings-font-weight: 600;
+$font-family-base:      "Lora", Georgia, serif;
+$headings-font-family:  "Josefin Sans", "Century Gothic", Futura, sans-serif;
+$headings-font-weight:  700;
+$headings-color:        $ink;
 
-$navbar-bg: $pine-dark;
-$navbar-fg: $cream;
-$navbar-hl: $gold;
+$navbar-bg: $ink;
+$navbar-fg: $kraft;
+$navbar-hl: $fog;
 
-$h1-font-size: 3.2rem;
-$h2-font-size: 2.2rem;
-$h3-font-size: 1.6rem;
+$h1-font-size: 2.8rem;
+$h2-font-size: 1.6rem;
+$h3-font-size: 1.3rem;
 
 /*-- scss:rules --*/
-
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@300;400;500;600&display=swap');
 
 body {
   letter-spacing: 0.01em;
 }
 
-.navbar-title {
+.navbar-title,
+.navbar-nav .nav-link {
   font-family: $headings-font-family;
-  font-size: 1.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.navbar-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.navbar-nav .nav-link {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+h1, h2 {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+h3, h4 {
   letter-spacing: 0.04em;
 }
 
-h1, h2, h3 {
-  letter-spacing: 0.01em;
-}
-
 h2 {
-  border-bottom: 1px solid $bark-light;
-  padding-bottom: 0.4rem;
+  border-bottom: 1px solid $sage;
+  padding-bottom: 0.5rem;
   margin-top: 2.5rem;
 }
 
 a {
-  text-decoration-color: $gold;
+  text-decoration-color: $sage;
+}
+
+.btn {
+  font-family: $headings-font-family;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 600;
+  border-radius: 2px;
 }
 
 .btn-primary {
@@ -64,8 +84,8 @@ a {
 }
 
 .btn-primary:hover {
-  background-color: $pine-dark;
-  border-color: $pine-dark;
+  background-color: $ink;
+  border-color: $ink;
 }
 
 .btn-outline-primary {
@@ -75,5 +95,10 @@ a {
 
 .btn-outline-primary:hover {
   background-color: $pine;
-  color: $cream;
+  color: $kraft;
+}
+
+.nav-footer {
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
 }
