@@ -3,23 +3,31 @@ title: ""
 ---
 
 ::: {.hero}
+
+::: {.hero-art}
+![](assets/imgs/couple-arch.webp){.hero-photo fig-alt="Tatum and Tavian holding hands"}
+:::
+
+::: {.hero-text}
+
+::: {.hero-kicker}
+Kindly join us for the wedding celebration of
+:::
+
 # Tatum & Tavian
 
-::: {.hero-sub}
-Wedding Celebration 
-:::
-
 ::: {.hero-date}
-[May 7th, 2027] · Heber, Arizona
-:::
+May 7th, 2027 · Heber, Arizona
 :::
 
-We can't wait to celebrate with you among the pines. This weekend brings
-together the people we love most for a few days of good food, good company,
-and (hopefully) a crisp mountain evening or two.
+:::
 
-Everything you need is here: the schedule, where to stay, and how to RSVP.
-If anything is unclear, just reach out to us directly.
+:::
+
+We can't wait to celebrate with our favorite people for a few days of good food and good company among the gorgeous Northern Arizona pines.
+
+Everything you need is here: schedule, lodging, and RSVPing.
+Need help with anything? Please reach out!
 
 ::: {.text-center}
 [**RSVP now →**](rsvp.qmd){.btn .btn-primary .btn-lg}
@@ -27,7 +35,7 @@ If anything is unclear, just reach out to us directly.
 
 ## The short version
 
-- **When:** [Thursday–Sunday, Month Day–Day, 2027]
-- **Where:** [Venue name], Arizona
-- **Dress code:** [e.g. Mountain formal — cocktail attire, layers for cool evenings]
-- **Questions:** [couple email or phone]
+- **When:** [Friday–Saturday, May 7th & 8th, 2027]
+- **Where:** The Legacy Lodge, Heber, Arizona
+- **Dress code:** Something nice for the reception and something comfy for rehashing the next day! For our non-Arizona friends, bring layers as the mountains can get chilly in the evenings.
+- **Questions:** TheRobeyWatsons@gmail.com
