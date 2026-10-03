@@ -201,6 +201,21 @@ ul.task-list li input[type="checkbox"] {
 </section>
 
 </main> <!-- /main -->
+<div class="fall-layer" id="fall-layer"></div>
+<script>
+  (function () {
+    var layer = document.getElementById("fall-layer");
+    var total = 14;
+    for (var i = 0; i < total; i++) {
+      var el = document.createElement("span");
+      el.className = "fall-piece " + (i % 4 === 0 ? "leaf" : "needle");
+      el.style.left = Math.random() * 100 + "vw";
+      el.style.animationDuration = 14 + Math.random() * 12 + "s";
+      el.style.animationDelay = -Math.random() * 20 + "s";
+      layer.appendChild(el);
+    }
+  })();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
