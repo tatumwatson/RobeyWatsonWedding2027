@@ -6,7 +6,8 @@ website:
   site-url: ""
   description: "Join us at the Legacy Lodge"
   navbar:
-    background: primary
+    background: "#7F9186"
+    foreground: "#1F2D2B"
     pinned: true
     left:
       - href: index.qmd
@@ -20,8 +21,9 @@ website:
       - href: rsvp.qmd
         text: RSVP
   page-footer:
-    center: "Tatum & Tavian Robey-Watson · Married 07.10.2026"
-    background: primary
+    center: "Tatum & Tavian Robey-Watson · Married 07.10.2026."
+    background: "#7F9186"
+    foreground: "#1F2D2B"
 
 format:
   html:
