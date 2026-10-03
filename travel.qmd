@@ -26,6 +26,11 @@ We've held a room block / put together a few recommendations nearby:
 
 - **[Hotel/lodge name]** — [distance from venue], [booking link or code]
 - **[Hotel/lodge name]** — [distance from venue], [booking link or code]
+## The weather
+
+```{=html}
+<div class="weather" data-lat="34.43" data-lon="-110.58" data-place="Heber, Arizona" data-event-start="2027-05-06" data-event-end="2027-05-09" data-typical-high="72" data-typical-low="43" data-source="Typical May averages from WeatherSpark"></div>
+```
 
 ## What to pack
 
@@ -34,3 +39,5 @@ warm jacket, and shoes you don't mind on dirt or gravel are all a good idea.
 
 - [Packing note 1]
 - [Packing note 2]
+
+<script src="assets/weather.js"></script>
