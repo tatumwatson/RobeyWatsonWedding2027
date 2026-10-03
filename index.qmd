@@ -45,3 +45,4 @@ Need help with anything? Please reach out!
 - **Where:** The Legacy Lodge, Heber, Arizona
 - **Dress code:** Something nice for the reception and something comfy for rehashing the next day! For our non-Arizona friends, bring layers as the mountains can get chilly in the evenings.
 - **Questions:** TheRobeyWatsons@gmail.com
+<script src="assets/countdown.js"></script>
