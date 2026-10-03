@@ -12,12 +12,16 @@ website:
     left:
       - href: index.qmd
         text: Home
+      - href: story.qmd
+        text: Our Story
       - href: schedule.qmd
         text: Schedule
       - href: travel.qmd
         text: Travel & Lodging
       - href: funds.qmd
         text: Gifts
+      - href: faq.qmd
+        text: FAQ
       - href: rsvp.qmd
         text: RSVP
   page-footer:
