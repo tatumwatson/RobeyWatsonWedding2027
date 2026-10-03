@@ -224,3 +224,41 @@ main.content:has(.banner) {
   border: 8px solid #ffffff;
   box-shadow: 0 2px 14px rgba(31, 45, 43, 0.12);
 }
+
+
+/* ---------- Navbar and footer (sage green) ---------- */
+.navbar,
+#quarto-header .navbar {
+  background-color: #7F9186 !important;
+}
+
+.navbar .navbar-brand,
+.navbar .navbar-title,
+.navbar .nav-link {
+  color: #1F2D2B !important;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+  color: #1F2D2B !important;
+  text-decoration: underline;
+  text-underline-offset: 0.35em;
+}
+
+.navbar-toggler {
+  border-color: #1F2D2B;
+}
+
+.navbar-toggler-icon {
+  filter: invert(1);
+}
+
+footer.footer,
+.nav-footer {
+  background-color: #7F9186 !important;
+  color: #1F2D2B !important;
+}
+
+.nav-footer a {
+  color: #1F2D2B !important;
+}
