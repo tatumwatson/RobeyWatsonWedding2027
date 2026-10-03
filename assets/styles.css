@@ -616,3 +616,124 @@ footer.footer,
     right: auto;
   }
 }
+/* ---------- Weather widget ---------- */
+.weather {
+  margin: 1.5rem 0 2rem 0;
+}
+
+.weather-title {
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #3C4E46;
+  margin-bottom: 0.5rem;
+}
+
+.weather-typical {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.1rem 1.4rem;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid #C4CDC8;
+  border-left: 5px solid #3C4E46;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(31, 45, 43, 0.08);
+}
+
+.weather-typical-icon {
+  font-size: 2.6rem;
+  line-height: 1;
+  color: #7F9186;
+}
+
+.weather-typical-body {
+  flex: 1;
+}
+
+.weather-typical-temps {
+  margin-bottom: 0.15rem;
+}
+
+.weather-big {
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 700;
+  font-size: 1.7rem;
+  color: #1F2D2B;
+}
+
+.weather-small,
+.weather-sep {
+  color: #3C4E46;
+}
+
+.weather-forecast {
+  margin-top: 1.5rem;
+}
+
+.weather-days {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.weather-day {
+  flex: 1 1 8.5rem;
+  padding: 0.9rem 0.8rem;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid #C4CDC8;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(31, 45, 43, 0.08);
+}
+
+.weather-day-name {
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  color: #1F2D2B;
+}
+
+.weather-day-icon {
+  margin: 0.4rem 0;
+  font-size: 2rem;
+  line-height: 1;
+  color: #7F9186;
+}
+
+.weather-day-temps {
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 600;
+  color: #1F2D2B;
+}
+
+.weather-day-text {
+  margin-top: 0.3rem;
+  font-size: 0.85rem;
+  color: #3C4E46;
+}
+
+.weather-note,
+.weather-loading {
+  margin-top: 0.8rem;
+  font-family: "Caveat", "Segoe Script", cursive;
+  font-size: 1.4rem;
+  color: #3C4E46;
+}
+
+.weather-credit {
+  margin-top: 0.6rem;
+  font-size: 0.8rem;
+  color: #3C4E46;
+}
+
+@media (max-width: 520px) {
+  .weather-typical {
+    flex-direction: column;
+    text-align: center;
+  }
+}
