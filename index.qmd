@@ -8,6 +8,7 @@ title: ""
 
 ::: {.intro}
 
+
 ::: {.hero-kicker}
 Kindly join us for the wedding celebration of
 :::
@@ -21,7 +22,7 @@ May 7th, 2027 · Heber, Arizona
 :::
 
 ```{=html}
-<div class="countdown" data-target="2027-05-07T00:00:00-07:00" data-label="until we say I do" data-done="Today is the day!"></div>
+<div class="countdown" data-target="2027-05-07T00:00:00-07:00" data-label="until we celebrate with you!" data-done="Today is the day!"></div>
 ```
 
 ::: {.pine-divider}
