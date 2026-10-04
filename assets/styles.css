@@ -110,7 +110,7 @@ main.content:has(.banner) {
   font-family: "Josefin Sans", "Century Gothic", Futura, sans-serif;
   font-size: 0.85rem;
   font-weight: 600;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: #3C4E46;
 }
