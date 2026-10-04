@@ -22,7 +22,7 @@ Friday–Saturday, May 7th & 8th, 2027 · The Legacy Lodge, Heber, Arizona
 :::
 
 ```{=html}
-<div class="countdown" data-target="2027-05-07T00:00:00-07:00" data-label="until we celebrate with you" data-done="Today is the day!"></div>
+<div class="countdown" data-target="2027-05-07T17:00:00-07:00" data-label="until we're all together" data-done="Today is the day!"></div>
 ```
 
 ::: {.pine-divider}
