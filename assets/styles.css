@@ -730,3 +730,8 @@ main.content:has(.banner) {
   stroke-width: 2;
   stroke-dasharray: 12 12;
 }
+
+/*  Pull banner up to the navbar  */
+main.content:has(.banner) .banner {
+  margin-top: -2rem;
+}
