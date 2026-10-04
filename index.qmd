@@ -37,7 +37,7 @@ Heber, Arizona
 ::: {.pine-divider}
 :::
 
-::: {.hero-date}
+::: {.welcome-text}
 Come celebrate our recent marriage with us in Arizona's high country. Join us Friday for dinner, toasts, cake, and dancing. Stick around the next day for a laid-back Saturday of games, movies, and good company.
 :::
 
