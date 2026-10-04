@@ -757,13 +757,13 @@ main.content:has(.banner) .banner {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='34' viewBox='0 0 120 34'%3E%3Cg fill='none' stroke='%233C4E46' stroke-width='1.5' stroke-linecap='round'%3E%3Cpath d='M0 22 C20 14 40 14 60 22 S100 30 120 22'/%3E%3Cpath d='M0 22 C20 30 40 30 60 22 S100 14 120 22'/%3E%3C/g%3E%3C/svg%3E");
   background-repeat: repeat-x;
   background-position: left bottom;
-   -webkit-mask-image: linear-gradient(to right, #000 0, #000 calc(50% - 100px), transparent calc(50% - 70px), transparent calc(50% + 70px), #000 calc(50% + 100px), #000 100%);
-  mask-image: linear-gradient(to right, #000 0, #000 calc(50% - 100px), transparent calc(50% - 70px), transparent calc(50% + 70px), #000 calc(50% + 100px), #000 100%);
+  -webkit-mask-image: linear-gradient(to right, #000 0, #000 calc(50% - 95px), transparent calc(50% - 65px), transparent calc(50% + 65px), #000 calc(50% + 95px), #000 100%);
+  mask-image: linear-gradient(to right, #000 0, #000 calc(50% - 95px), transparent calc(50% - 65px), transparent calc(50% + 65px), #000 calc(50% + 95px), #000 100%);
 }
 /* Crossed marshmallow roasting sticks centered in the navbar border */
 #quarto-header .navbar::after {
-  height: 44px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='44' viewBox='0 0 120 44'%3E%3Cg stroke='%233C4E46' stroke-width='1.4' stroke-linecap='round' fill='none'%3E%3Cpath d='M14 44L98 6'/%3E%3Cpath d='M106 44L22 6'/%3E%3C/g%3E%3Cg transform='translate(94 7.8) rotate(-24.3)'%3E%3Crect x='-6' y='-4' width='12' height='8' rx='3' fill='%23E8E1D0' stroke='%233C4E46' stroke-width='1'/%3E%3Crect x='1' y='-3.5' width='5' height='7' rx='2.5' fill='%231F2D2B' fill-opacity='.35'/%3E%3C/g%3E%3Cg transform='translate(26 7.8) rotate(24.3)'%3E%3Crect x='-6' y='-4' width='12' height='8' rx='3' fill='%23E8E1D0' stroke='%233C4E46' stroke-width='1'/%3E%3Crect x='-6' y='-3.5' width='5' height='7' rx='2.5' fill='%231F2D2B' fill-opacity='.35'/%3E%3C/g%3E%3C/svg%3E");
+  height: 38px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='38' viewBox='0 0 110 38'%3E%3Cdefs%3E%3Cg id='s'%3E%3Cg transform='translate(22 38) rotate(-25.9)'%3E%3Cpath d='M0 -1.5 L12 -1.4 L14 -1.9 L30 -1.3 L48 -1.1 L73 -0.7 L73 0.7 L50 1.1 L32 1.4 L28 1.9 L10 1.5 L0 1.6Z' fill='%238A6A47' stroke='%235A4330' stroke-width='.4' stroke-linejoin='round'/%3E%3Cpath d='M14 -1.7 L17 -4 M44 1 L46 3.2' stroke='%235A4330' stroke-width='.9' stroke-linecap='round' fill='none'/%3E%3Cpath d='M2 -.4 L70 -.2' stroke='%23B08D62' stroke-width='.4' stroke-opacity='.7' fill='none'/%3E%3Ccircle cx='28' cy='0' r='.9' fill='%235A4330'/%3E%3C/g%3E%3Cg transform='translate(84.5 7.7) rotate(-25.9)'%3E%3Crect x='-6' y='-4' width='12' height='8' rx='3' fill='%23E8E1D0' stroke='%233C4E46' stroke-width='1'/%3E%3Crect x='1' y='-3.5' width='5' height='7' rx='2.5' fill='%231F2D2B' fill-opacity='.35'/%3E%3C/g%3E%3C/g%3E%3C/defs%3E%3Cuse href='%23s'/%3E%3Cuse href='%23s' transform='translate(110 0) scale(-1 1)'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: center bottom;
 }
