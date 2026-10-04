@@ -788,3 +788,12 @@ main.content .intro p {
 .countdown {
   margin-top: 2rem;
 }
+
+.welcome-text {
+  font-family: "Josefin Sans", "Century Gothic", Futura, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: #3C4E46;
+  text-align: center;
+}
