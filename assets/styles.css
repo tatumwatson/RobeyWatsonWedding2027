@@ -735,3 +735,22 @@ main.content:has(.banner) {
 main.content:has(.banner) .banner {
   margin-top: -2rem;
 }
+
+/*  Pine treeline to the navbar  */
+#quarto-header .navbar {
+  position: relative;
+}
+
+#quarto-header .navbar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 34px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='34' viewBox='0 0 160 34'><g fill='%233C4E46'><polygon points='30,6 38,16 22,16'/><polygon points='30,11 41,23 19,23'/><polygon points='30,17 44,31 16,31'/><rect x='28' y='31' width='4' height='3'/><polygon points='78,14 84,21 72,21'/><polygon points='78,18 87,28 69,28'/><rect x='76.5' y='28' width='3' height='6'/><polygon points='122,0 131,12 113,12'/><polygon points='122,6 134,20 110,20'/><polygon points='122,13 138,31 106,31'/><rect x='119.5' y='31' width='5' height='3'/><polygon points='150,18 155,24 145,24'/><polygon points='150,21 157,30 143,30'/><rect x='148.5' y='30' width='3' height='4'/></g></svg>");
+  background-repeat: repeat-x;
+  background-position: left bottom;
+  background-size: 160px 34px;
+  pointer-events: none;
+}
