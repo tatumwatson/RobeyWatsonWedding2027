@@ -701,6 +701,19 @@ main.content:has(.banner) {
   padding-top: 0;
 }
 
+/* Stack the title as Tatum / & / Tavian */
+#quarto-header .navbar .navbar-brand {
+  white-space: normal;
+}
+
+#quarto-header .navbar .navbar-title {
+  display: inline-block;
+  width: min-content;
+  white-space: normal;
+  text-align: center;
+  line-height: 1.15;
+  font-size: 1.4rem;
+}
 /* ---------- Winding road ---------- */
 .roadtrip.has-road::before {
   display: none;
