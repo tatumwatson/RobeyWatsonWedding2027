@@ -5,6 +5,7 @@ website:
   title: "Tatum & Tavian"
   site-url: ""
   description: "Join us at the Legacy Lodge"
+  search: false
   navbar:
     background: "#7F9186"
     foreground: "#1F2D2B"
