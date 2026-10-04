@@ -678,3 +678,27 @@ footer.footer,
 @media (prefers-reduced-motion: reduce) {
   .fall-layer { display: none; }
 }
+
+/* ---------- Taller navbar ---------- */
+.navbar,
+#quarto-header .navbar {
+  min-height: 5.5rem;
+  padding-top: 1.1rem;
+  padding-bottom: 1.1rem;
+}
+
+.navbar .navbar-title {
+  font-size: 1.5rem;
+}
+
+.navbar .nav-link {
+  font-size: 0.9rem;
+}
+
+main.content:has(.banner) {
+  margin-top: 0;
+}
+
+#quarto-content {
+  padding-top: 0;
+}
