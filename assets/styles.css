@@ -700,3 +700,33 @@ main.content:has(.banner) {
 #quarto-content {
   padding-top: 0;
 }
+
+/* ---------- Winding road ---------- */
+.roadtrip.has-road::before {
+  display: none;
+}
+
+.road-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.road-base {
+  fill: none;
+  stroke: #3C4E46;
+  stroke-width: 16;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.road-dash {
+  fill: none;
+  stroke: #E8E1D0;
+  stroke-width: 2;
+  stroke-dasharray: 12 12;
+}
