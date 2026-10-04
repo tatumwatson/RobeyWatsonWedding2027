@@ -205,11 +205,15 @@ ul.task-list li input[type="checkbox"] {
 <script>
   (function () {
     var layer = document.getElementById("fall-layer");
-    var total = 14;
+    var total = 12;
     for (var i = 0; i < total; i++) {
       var el = document.createElement("span");
-      el.className = "fall-piece " + (i % 4 === 0 ? "leaf" : "needle");
-      el.style.left = Math.random() * 100 + "vw";
+      el.className = "fall-piece leaf";
+      var size = 13 + Math.random() * 7;
+      el.style.width = size + "px";
+      el.style.height = size + "px";
+      var onLeft = i % 2 === 0;
+      el.style.left = (onLeft ? Math.random() * 24 : 75 + Math.random() * 24) + "vw";
       el.style.animationDuration = 14 + Math.random() * 12 + "s";
       el.style.animationDelay = -Math.random() * 20 + "s";
       layer.appendChild(el);
