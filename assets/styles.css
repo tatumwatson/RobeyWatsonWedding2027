@@ -625,7 +625,7 @@ footer.footer,
   }
 }
 
-/* ---------- Palette and wash colors ---------- */
+/* ---------- Palette colors ---------- */
 :root {
   --ink-green: #1F2D2B;
   --deep-pine: #3C4E46;
@@ -653,11 +653,9 @@ footer.footer,
   animation-iteration-count: infinite;
 }
 
-.fall-piece.needle {
-  width: 2px;
-  height: 16px;
-  border-radius: 2px;
-  background: var(--ink-green);
+.fall-piece.leaf {
+  background: var(--deep-pine);
+  border-radius: 0 100% 0 100%;
 }
 
 .fall-piece.leaf {
