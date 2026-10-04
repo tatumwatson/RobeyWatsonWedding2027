@@ -6,31 +6,25 @@ title: "Travel & Lodging"
 
 ## Getting here
 
-[Nearest airport, drive time, and any shuttle or rideshare notes. Northern
-Arizona mountain roads — mention elevation/weather if relevant for
-Month/timing.]
+**From Phoenix Sky Harbor, it's a 2 1/2 hour drive, about 140 miles.**
 
-- **Nearest airport:** [Airport name and code]
-- **Drive time to venue:** [X hours]
-- **Parking on-site:** [Yes/No, details]
+**The last stretch is a dirt access road.** Take it slow and enjoy the scenery. Parking is marked on the map below.
+
+[Add parking map]
+
+**Cell service can be spotty in the mountains and at the cabin.** The cabin has Wi-Fi, so you'll be able to stay connected once you arrive. Before you leave Phoenix, please download your directions so they work offline as you may lose service on your way in.
 
 ::: {.pine-divider}
 :::
 
-## If you're staying on-property
+## Looking for shomewhere to stay?
 
-[Details for on-property guests: check-in/out times, what's provided,
-what to bring, wifi, house rules, shared spaces.]
+We've put together a few recommendations nearby:
 
-A voluntary contribution toward your stay is welcome but never expected —
-see the [Gifts](funds.qmd) page for details.
-
-## If you're staying off-property
-
-We've held a room block / put together a few recommendations nearby:
-
-- **[Hotel/lodge name]** — [distance from venue], [booking link or code]
-- **[Hotel/lodge name]** — [distance from venue], [booking link or code]
+- **WorldMark Bison Ranch** — ~28 minutes from the lodge, [booking link or code]
+- **Rusty Buck Inn** — ~22 minutes, [booking link or code]
+- **Best Western Sawmill Inn** — ~22 minutes, [booking link or code]
+- AirBnB and VRBO also have a wide variety of nearby homes and cabins available for rent in the Heber-Overguard area.
 
 ::: {.pine-divider}
 :::
@@ -63,7 +57,7 @@ Heber sits in the middle of Arizona's high country, and plenty of fun is within 
 - **Show Low and Fool Hollow Lake.** About 35 to 40 miles southeast. Stroll the Deuce of Clubs main street, named for a legendary card game, browse the quirky Show Low Historical Museum, then paddle or fish at Fool Hollow Lake.
 - **Pinetop-Lakeside.** About 12 miles south of Show Low, with tall ponderosa pines, Woodland Lake Park, and Pinetop Brewing Company, a Belgian-style brewery.
 
-### Within about two hours
+### Within ~2 hours
 
 - **Payson and Tonto Natural Bridge State Park.** Payson is about 55 miles southwest, and the park is roughly 10 miles beyond on Highway 87. The bridge is believed to be the largest natural travertine bridge in the world, rising 183 feet over a 400-foot tunnel. The trails are short and steep, and swimming under the bridge is not allowed.
 - **Pine and Strawberry.** Two small towns north of Payson. Strawberry's log schoolhouse, built in 1885, is billed as the oldest standing schoolhouse in Arizona.
