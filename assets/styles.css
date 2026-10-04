@@ -787,3 +787,32 @@ main.content:has(.banner) .banner {
   transform: rotate(-4deg);
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='28' viewBox='0 0 30 28'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15.2 24.6 C11 20.6 3.8 15.8 4.2 9.8 C4.5 5.4 9.3 3.4 12.9 6.6 C14 7.6 14.8 8.7 15.3 9.9 C16.2 7.7 18.8 4.5 22.4 5.2 C26.6 6 27.4 11 24.6 15.2 C22.1 19 17.6 22 15.1 24.9 L14.3 25.6' stroke='%233C4E46' stroke-width='2.2'/%3E%3Cpath d='M14.6 24.1 C10.8 20.2 4.6 16 4.9 10.4' stroke='%233C4E46' stroke-width='.8' stroke-opacity='.45'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
 }
+
+/* Spacing between sections (each ## heading starts a section) */
+main.content section.level2 {
+  margin-top: 3.5rem;
+}
+
+/* Space around headings */
+main.content h2 {
+  margin-top: 3.5rem;
+  margin-bottom: 1.25rem;
+}
+
+/* Space between paragraphs and between lines inside them */
+main.content p {
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+/* Space between bullet items (the "short version" list) */
+main.content li {
+  line-height: 1.8;
+  margin-bottom: 0.6rem;
+}
+
+/* Space around the RSVP button */
+main.content .text-center {
+  margin-top: 2rem;
+  margin-bottom: 2.5rem;
+}
