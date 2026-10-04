@@ -26,7 +26,7 @@ website:
       - href: rsvp.qmd
         text: RSVP
   page-footer:
-    center: "Tatum & Tavian Robey-Watson <span class='footer-heart'></span> Married 07.10.2026."
+    center: "Tatum & Tavian Robey-Watson <span class='footer-heart'></span> Married 07.10.2026"
     background: "#7F9186"
     foreground: "#1F2D2B"
 
