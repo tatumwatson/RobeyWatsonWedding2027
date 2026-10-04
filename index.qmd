@@ -15,14 +15,18 @@ Kindly join us for the wedding celebration of
 
 # Tatum & Tavian
 
-::: {.hero-date}
-Friday–Saturday, May 7th & 8th, 2027
+::: {.hero-kicker}
+Friday & Saturday, 
+May 7th - 8th, 2027
 :::
 
-::: {.hero-date}
-The Legacy Lodge, Heber, Arizona
+::: {.hero-kicker}
+The Legacy Lodge Heber, Arizona
 :::
 
+::: {.hero-kicker}
+Heber, Arizona
+:::
 :::
 
 ```{=html}
