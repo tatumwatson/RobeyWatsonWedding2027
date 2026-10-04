@@ -736,13 +736,12 @@ main.content:has(.banner) .banner {
   margin-top: -2rem;
 }
 
-/* Navbar bottom border: trees in the middle, braided vine on each side */
 #quarto-header .navbar {
   position: relative;
 }
 
-#quarto-header .navbar::before,
-#quarto-header .navbar::after {
+/* Branches twisting outward from the center */
+#quarto-header .navbar::before {
   content: "";
   position: absolute;
   left: 0;
@@ -750,20 +749,23 @@ main.content:has(.banner) .banner {
   bottom: 0;
   height: 34px;
   pointer-events: none;
-}
-
-/* Vine lines, hidden behind a gap in the center */
-#quarto-header .navbar::before {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='34' viewBox='0 0 120 34'%3E%3Cg fill='none' stroke='%233C4E46' stroke-width='1.5' stroke-linecap='round'%3E%3Cpath d='M0 22 C20 14 40 14 60 22 S100 30 120 22'/%3E%3Cpath d='M0 22 C20 30 40 30 60 22 S100 14 120 22'/%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='34' viewBox='0 0 120 34'%3E%3Cg fill='none' stroke-linecap='round'%3E%3Cpath d='M0 22 C20 14 40 14 60 22 S100 30 120 22' stroke='%233C4E46' stroke-width='2.4'/%3E%3Cpath d='M0 22 C20 30 40 30 60 22 S100 14 120 22' stroke='%233C4E46' stroke-width='2.4'/%3E%3Cpath d='M0 22 C20 14 40 14 60 22 S100 30 120 22' stroke='%231F2D2B' stroke-width='.5' stroke-dasharray='6 4'/%3E%3Cpath d='M0 22 C20 30 40 30 60 22 S100 14 120 22' stroke='%231F2D2B' stroke-width='.5' stroke-dasharray='5 5'/%3E%3Cg stroke='%233C4E46' stroke-width='1.2'%3E%3Cpath d='M30 16 L34 10.5'/%3E%3Cpath d='M30 28 L33 32.5'/%3E%3Cpath d='M90 28 L94 32.5'/%3E%3Cpath d='M90 16 L86 10.5'/%3E%3C/g%3E%3C/g%3E%3Cg fill='%231F2D2B'%3E%3Ccircle cx='14' cy='18' r='.9'/%3E%3Ccircle cx='46' cy='26' r='.9'/%3E%3Ccircle cx='74' cy='18' r='.9'/%3E%3Ccircle cx='106' cy='26' r='.9'/%3E%3C/g%3E%3C/svg%3E");
   background-repeat: repeat-x;
   background-position: left bottom;
   -webkit-mask-image: linear-gradient(to right, #000 0, #000 calc(50% - 95px), transparent calc(50% - 65px), transparent calc(50% + 65px), #000 calc(50% + 95px), #000 100%);
   mask-image: linear-gradient(to right, #000 0, #000 calc(50% - 95px), transparent calc(50% - 65px), transparent calc(50% + 65px), #000 calc(50% + 95px), #000 100%);
 }
+
 /* Crossed marshmallow roasting sticks centered in the navbar border */
 #quarto-header .navbar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
   height: 32px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='38' viewBox='0 0 110 38'%3E%3Cdefs%3E%3Cg id='s'%3E%3Cg transform='translate(22 38) rotate(-25.9)'%3E%3Cpath d='M0 -1.5 L12 -1.4 L14 -1.9 L30 -1.3 L48 -1.1 L73 -0.7 L73 0.7 L50 1.1 L32 1.4 L28 1.9 L10 1.5 L0 1.6Z' fill='%233C4E46' stroke='%231F2D2B' stroke-width='.4' stroke-linejoin='round'/%3E%3Cpath d='M14 -1.7 L17 -4 M44 1 L46 3.2' stroke='%233C4E46' stroke-width='.9' stroke-linecap='round' fill='none'/%3E%3Cpath d='M2 -.4 L70 -.2' stroke='%237F9186' stroke-width='.4' stroke-opacity='.6' fill='none'/%3E%3Ccircle cx='28' cy='0' r='.9' fill='%231F2D2B'/%3E%3C/g%3E%3Cg transform='translate(84.5 7.7) rotate(-25.9)'%3E%3Crect x='-6' y='-4' width='12' height='8' rx='3' fill='%23E8E1D0' stroke='%233C4E46' stroke-width='1'/%3E%3Crect x='1' y='-3.5' width='5' height='7' rx='2.5' fill='%231F2D2B' fill-opacity='.35'/%3E%3C/g%3E%3C/g%3E%3C/defs%3E%3Cuse href='%23s'/%3E%3Cuse href='%23s' transform='translate(110 0) scale(-1 1)'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='32' viewBox='0 0 110 32'%3E%3Cdefs%3E%3Cg id='s'%3E%3Cg transform='translate(28 32) rotate(-24.9)'%3E%3Cpath d='M0 -1.5 L10 -1.4 L12 -1.9 L26 -1.3 L41 -1.1 L62 -0.7 L62 0.7 L43 1.1 L27 1.4 L24 1.9 L8.5 1.5 L0 1.6Z' fill='%233C4E46' stroke='%231F2D2B' stroke-width='.4' stroke-linejoin='round'/%3E%3Cpath d='M12 -1.7 L15 -4 M37 1 L39 3.2' stroke='%233C4E46' stroke-width='.9' stroke-linecap='round' fill='none'/%3E%3Cpath d='M2 -.4 L60 -.2' stroke='%237F9186' stroke-width='.4' stroke-opacity='.6' fill='none'/%3E%3Ccircle cx='24' cy='0' r='.9' fill='%231F2D2B'/%3E%3C/g%3E%3Cg transform='translate(80.8 7.5) rotate(-24.9)'%3E%3Crect x='-6' y='-4' width='12' height='8' rx='3' fill='%23E8E1D0' stroke='%233C4E46' stroke-width='1'/%3E%3Crect x='1' y='-3.5' width='5' height='7' rx='2.5' fill='%231F2D2B' fill-opacity='.35'/%3E%3C/g%3E%3C/g%3E%3C/defs%3E%3Cuse href='%23s'/%3E%3Cuse href='%23s' transform='translate(110 0) scale(-1 1)'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: center bottom;
 }
