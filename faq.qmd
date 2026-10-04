@@ -11,33 +11,53 @@ Everything you were about to text us.
 
 ```{=html}
 <details class="faq-item">
+<summary>Is there a ceremony?</summary>
+<div class="faq-answer"><p>No ceremony is planned. We were married in a private ceremony on 07.10.26, and we can't wait to celebrate our union with everyone at the lodge!</p></div>
+</details>
+
+<details class="faq-item">
 <summary>What should I wear?</summary>
-<div class="faq-answer"><p>[Dress code for each event goes here.]</p></div>
+<div class="faq-answer"><p>Friday is dressy casual (think sundresses, khakis or jeans, and short-sleeve summery knit polos). Saturday is a laid-back field day, so wear whatever feels comfortable and easy to move in.</p><p>We'll be outside on the grass both days, so shoes that won't sink into the ground work best. Flats, wedges, block heels, boots, and sneakers are all great choices.</p></div>
 </details>
 
 <details class="faq-item">
 <summary>Will it be cold?</summary>
-<div class="faq-answer"><p>[Your note about the weather and bringing layers goes here.]</p></div>
+<div class="faq-answer"><p>Days are sunny and warm, and evenings get chilly. Bring layers to stay cozy after the sun goes down.</p></div>
+</details>
+
+<details class="faq-item">
+<summary>What if the weather turns?</summary>
+<div class="faq-answer"><p>If there's any weather, we'll move the party inside, so the celebration goes on rain or shine.</p></div>
+</details>
+
+<details class="faq-item">
+<summary>Can we swim in the pond?</summary>
+<div class="faq-answer"><p>Yes! There's a rope swing, and you're welcome to hop in. Towels, pool noodles and water guns are provided, just pack a swimsuit. The pond is gated and fenced, and we ask that any kiddos in the water have a grown-up keeping watch.</p></div>
 </details>
 
 <details class="faq-item">
 <summary>Where do I park?</summary>
-<div class="faq-answer"><p>[Parking details go here.]</p></div>
+<div class="faq-answer"><p>Park along the sides of the drive. It's a short, flat walk to everything. You'll find the parking map in the <a href="travel.html#getting-here">Getting here</a> section of the Travel &amp; Lodging page.</p></div>
 </details>
 
 <details class="faq-item">
 <summary>Where should I stay?</summary>
-<div class="faq-answer"><p>[A line about on-property and nearby lodging goes here.] More details are on the <a href="travel.html">Travel &amp; Lodging</a> page.</p></div>
+<div class="faq-answer"><p>You'll find hotel and cabin rental recommendations nearby on the <a href="travel.html">Travel &amp; Lodging</a> page. Heber is a small town, so if you know you're coming, we suggest booking your lodging soon.</p></div>
 </details>
 
 <details class="faq-item">
 <summary>Can I bring a plus-one or my kiddos?</summary>
-<div class="faq-answer"><p>[Your answer goes here. Your invitation lists everyone invited.]</p></div>
+<div class="faq-answer"><p>All ages are welcome! We know it's Mother's Day weekend and you may want to celebrate with your family. Saturday has plenty of games and activities for every age. Your invitation lists everyone invited, and if you have any questions about your party, just reach out.</p></div>
 </details>
 
 <details class="faq-item">
 <summary>Is there a shuttle or a ride plan?</summary>
-<div class="faq-answer"><p>[Transportation details go here.]</p></div>
+<div class="faq-answer"><p>There's no shuttle, so we recommend renting a car. Rideshare from the venue to nearby hotels and cabins is very limited and may be unavailable, so please don't count on it. Rideshare is not available from either airport.</p><p>If you'd like to coordinate with other guests arriving or departing around the same time, send us a note at <a href="mailto:therobeywatsons@gmail.com">therobeywatsons@gmail.com</a> and we'll do our best to coordinate ahead of time.</p></div>
+</details>
+
+<details class="faq-item">
+<summary>What is there to do in the area?</summary>
+<div class="faq-answer"><p>Plenty! The <a href="travel.html#looking-for-things-to-do-while-youre-here">things to do</a> section of our Travel &amp; Lodging page is organized by drive time, from spots close to the lodge to full-day and overnight adventures.</p></div>
 </details>
 
 <details class="faq-item">
@@ -52,6 +72,6 @@ Everything you were about to text us.
 
 <details class="faq-item">
 <summary>Who do I ask if I have another question?</summary>
-<div class="faq-answer"><p>[Email or phone for the couple goes here.]</p></div>
+<div class="faq-answer"><p>Email us at <a href="mailto:therobeywatsons@gmail.com">therobeywatsons@gmail.com</a> or text either of us, and we'll get back to you as soon as we can.</p></div>
 </details>
 ```
