@@ -736,11 +736,12 @@ main.content:has(.banner) .banner {
   margin-top: -2rem;
 }
 
-/*  Pine treeline to the navbar  */
+/* Navbar bottom border: trees in the middle, braided vine on each side */
 #quarto-header .navbar {
   position: relative;
 }
 
+#quarto-header .navbar::before,
 #quarto-header .navbar::after {
   content: "";
   position: absolute;
@@ -748,9 +749,21 @@ main.content:has(.banner) .banner {
   right: 0;
   bottom: 0;
   height: 34px;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='34' viewBox='0 0 160 34'><g fill='%233C4E46'><polygon points='30,6 38,16 22,16'/><polygon points='30,11 41,23 19,23'/><polygon points='30,17 44,31 16,31'/><rect x='28' y='31' width='4' height='3'/><polygon points='78,14 84,21 72,21'/><polygon points='78,18 87,28 69,28'/><rect x='76.5' y='28' width='3' height='6'/><polygon points='122,0 131,12 113,12'/><polygon points='122,6 134,20 110,20'/><polygon points='122,13 138,31 106,31'/><rect x='119.5' y='31' width='5' height='3'/><polygon points='150,18 155,24 145,24'/><polygon points='150,21 157,30 143,30'/><rect x='148.5' y='30' width='3' height='4'/></g></svg>");
+  pointer-events: none;
+}
+
+/* Vine lines, hidden behind a gap in the center */
+#quarto-header .navbar::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='34' viewBox='0 0 120 34'%3E%3Cg fill='none' stroke='%233C4E46' stroke-width='1.5' stroke-linecap='round'%3E%3Cpath d='M0 22 C20 14 40 14 60 22 S100 30 120 22'/%3E%3Cpath d='M0 22 C20 30 40 30 60 22 S100 14 120 22'/%3E%3C/g%3E%3C/svg%3E");
   background-repeat: repeat-x;
   background-position: left bottom;
-  background-size: 160px 34px;
-  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to right, #000 0, #000 calc(50% - 170px), transparent calc(50% - 140px), transparent calc(50% + 140px), #000 calc(50% + 170px), #000 100%);
+  mask-image: linear-gradient(to right, #000 0, #000 calc(50% - 170px), transparent calc(50% - 140px), transparent calc(50% + 140px), #000 calc(50% + 170px), #000 100%);
+}
+
+/* Five pines centered */
+#quarto-header .navbar::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='34' viewBox='0 0 260 34'%3E%3Cg fill='%233C4E46'%3E%3Cpath transform='translate(40 34) scale(.7) translate(0 -34)' d='M0 2 L5 12 L3 12 L8 21 L5 21 L9 30 L1 30 L1 34 L-1 34 L-1 30 L-9 30 L-5 21 L-8 21 L-3 12 L-5 12Z'/%3E%3Cpath transform='translate(85 34) scale(.9) translate(0 -34)' d='M0 2 L5 12 L3 12 L8 21 L5 21 L9 30 L1 30 L1 34 L-1 34 L-1 30 L-9 30 L-5 21 L-8 21 L-3 12 L-5 12Z'/%3E%3Cpath transform='translate(130 34) scale(1) translate(0 -34)' d='M0 2 L5 12 L3 12 L8 21 L5 21 L9 30 L1 30 L1 34 L-1 34 L-1 30 L-9 30 L-5 21 L-8 21 L-3 12 L-5 12Z'/%3E%3Cpath transform='translate(175 34) scale(.85) translate(0 -34)' d='M0 2 L5 12 L3 12 L8 21 L5 21 L9 30 L1 30 L1 34 L-1 34 L-1 30 L-9 30 L-5 21 L-8 21 L-3 12 L-5 12Z'/%3E%3Cpath transform='translate(220 34) scale(.65) translate(0 -34)' d='M0 2 L5 12 L3 12 L8 21 L5 21 L9 30 L1 30 L1 34 L-1 34 L-1 30 L-9 30 L-5 21 L-8 21 L-3 12 L-5 12Z'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center bottom;
 }
