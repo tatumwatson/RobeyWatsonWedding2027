@@ -86,7 +86,7 @@
     var swing = cfg.high - cfg.low;
     if (swing > 0) {
       body.appendChild(
-        make("div", "script", "That is a swing of about " + swing + " degrees from afternoon to night.")
+        make("div", "script", "Swing of ~" + swing + " degrees from afternoon to night.")
       );
     }
     card.appendChild(ic);
