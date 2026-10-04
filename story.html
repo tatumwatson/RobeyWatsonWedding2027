@@ -202,6 +202,61 @@ ul.task-list li input[type="checkbox"] {
 </div>
 
 </div>
+<script>
+(function () {
+  var road = document.querySelector(".roadtrip");
+  if (!road) return;
+
+  var NS = "http://www.w3.org/2000/svg";
+  var svg = document.createElementNS(NS, "svg");
+  svg.setAttribute("class", "road-svg");
+  svg.setAttribute("aria-hidden", "true");
+  var base = document.createElementNS(NS, "path");
+  base.setAttribute("class", "road-base");
+  var dash = document.createElementNS(NS, "path");
+  dash.setAttribute("class", "road-dash");
+  svg.appendChild(base);
+  svg.appendChild(dash);
+  road.insertBefore(svg, road.firstChild);
+  road.classList.add("has-road");
+
+  function draw() {
+    var box = road.getBoundingClientRect();
+    var narrow = window.matchMedia("(max-width: 700px)").matches;
+    var k = narrow ? 0.16 : 0.45;
+    var pts = [];
+    road.querySelectorAll(".stop-pin").forEach(function (pin) {
+      var r = pin.getBoundingClientRect();
+      pts.push({
+        x: r.left + r.width / 2 - box.left,
+        y: r.top + r.height / 2 - box.top
+      });
+    });
+    if (pts.length === 0) return;
+    pts.unshift({ x: pts[0].x, y: 0 });
+
+    var d = "M" + pts[0].x + " " + pts[0].y;
+    for (var i = 1; i < pts.length; i++) {
+      var a = pts[i - 1];
+      var b = pts[i];
+      var dy = b.y - a.y;
+      var hx = k * dy;
+      d += " C" + (a.x + hx) + " " + (a.y + dy / 3) +
+           " " + (b.x - hx) + " " + (b.y - dy / 3) +
+           " " + b.x + " " + b.y;
+    }
+
+    svg.setAttribute("viewBox", "0 0 " + box.width + " " + box.height);
+    base.setAttribute("d", d);
+    dash.setAttribute("d", d);
+  }
+
+  draw();
+  window.addEventListener("resize", draw);
+  window.addEventListener("load", draw);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+})();
+</script>
 
 
 
