@@ -16,31 +16,22 @@ Kindly join us for the wedding celebration of
 # Tatum & Tavian
 
 ::: {.hero-date}
-May 7th, 2027 · Heber, Arizona
+Friday–Saturday, May 7th & 8th, 2027 · The Legacy Lodge, Heber, Arizona
 :::
 
 :::
 
 ```{=html}
-<div class="countdown" data-target="2027-05-07T00:00:00-07:00" data-label="until we celebrate with you!" data-done="Today is the day!"></div>
+<div class="countdown" data-target="2027-05-07T00:00:00-07:00" data-label="until we celebrate with you" data-done="Today is the day!"></div>
 ```
 
 ::: {.pine-divider}
 :::
-We can't wait to celebrate with our favorite people for a few days of good food and good company among the gorgeous Northern Arizona pines.
 
-Everything you need is here: schedule, lodging, and RSVPing.
-Need help with anything? Please reach out!
+Come celebrate our recent marriage with us in Arizona's high country. Join us Friday for dinner, toasts, cake, and dancing. Stick around the next day for a laid-back Saturday of games, movies, and good company.
 
 ::: {.text-center}
 [**RSVP now →**](rsvp.qmd){.btn .btn-primary .btn-lg}
 :::
-
-## The short version
-
-- **When:** Friday–Saturday, May 7th & 8th, 2027
-- **Where:** The Legacy Lodge, Heber, Arizona
-- **Dress code:** Something nice for the reception and something comfy for rehashing the next day! For our non-Arizona friends, bring layers as the mountains can get chilly in the evenings.
-- **Questions:** TheRobeyWatsons@gmail.com
 
 <script src="assets/countdown.js"></script>
