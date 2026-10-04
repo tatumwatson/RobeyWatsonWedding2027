@@ -816,3 +816,15 @@ main.content .text-center {
   margin-top: 2rem;
   margin-bottom: 2.5rem;
 }
+/* Tighter gap above the countdown */
+main.content .intro p {
+  margin-bottom: 0;
+}
+
+.intro {
+  padding-bottom: 0;
+}
+
+.countdown {
+  margin-top: 1rem;
+}
