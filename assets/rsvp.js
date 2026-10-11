@@ -211,6 +211,7 @@ function renderInvite(container, guest) {
   // ---- Top section: who is attending ----
   const memberBoxes = {}; // member id -> checkbox
   const nameInputs = {};  // member id -> name input (guests added by name)
+  const ageInputs = {};   // member id -> Adult / Teen / Child checkboxes
 
   const whoBlock = el("div", { class: "rsvp-event-block" });
   whoBlock.appendChild(el("h4", {}, "Who will be attending?"));
@@ -233,18 +234,42 @@ function renderInvite(container, guest) {
       const input = el("input", {
         type: "text",
         class: "form-control rsvp-guest-name",
-        placeholder: "Guest's full name (required)",
+        placeholder: "Guest's full name",
         "aria-label": `Full name for ${m.name}`,
         autocomplete: "off",
       });
-      input.hidden = true;
       nameInputs[m.id] = input;
       whoBlock.appendChild(input);
 
+      const ageRow = el("div", { class: "rsvp-guest-age" });
+      const ageBoxes = [];
+      ["Adult", "Teen", "Child"].forEach((age) => {
+        const wrap = el("div", { class: "form-check form-check-inline" });
+        const ageId = `age_${m.id}_${age}`;
+        const box = el("input", {
+          type: "checkbox",
+          class: "form-check-input",
+          id: ageId,
+          value: age,
+        });
+        const ageLabel = el("label", { class: "form-check-label", for: ageId }, age);
+        box.addEventListener("change", () => {
+          if (box.checked) {
+            ageBoxes.forEach((other) => {
+              if (other !== box) other.checked = false;
+            });
+          }
+        });
+        ageBoxes.push(box);
+        wrap.appendChild(box);
+        wrap.appendChild(ageLabel);
+        ageRow.appendChild(wrap);
+      });
+      ageInputs[m.id] = ageBoxes;
+      whoBlock.appendChild(ageRow);
+
       cb.addEventListener("change", () => {
-        input.hidden = !cb.checked;
         input.required = cb.checked;
-        if (cb.checked) input.focus();
       });
       input.addEventListener("input", () => {
         label.textContent = input.value.trim() || m.name;
@@ -314,10 +339,26 @@ function renderInvite(container, guest) {
 
     const attending = members
       .filter((m) => memberBoxes[m.id].checked)
-      .map((m) => ({
-        id: m.id,
-        name: nameInputs[m.id] ? nameInputs[m.id].value.trim() : "",
-      }));
+      .map((m) => {
+        const picked = (ageInputs[m.id] || []).find((b) => b.checked);
+        return {
+          id: m.id,
+          name: nameInputs[m.id] ? nameInputs[m.id].value.trim() : "",
+          ageGroup: picked ? picked.value : "",
+        };
+      });
+
+    const missingAge = members.find(
+      (m) =>
+        m.plusOne &&
+        memberBoxes[m.id].checked &&
+        !(ageInputs[m.id] || []).some((b) => b.checked)
+    );
+    if (missingAge) {
+      showStatus(container, "Please select Adult, Teen, or Child for each additional guest who is attending.", "error");
+      whoBlock.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
 
     // If anyone is attending, every event needs a yes or no.
     if (attending.length > 0) {
