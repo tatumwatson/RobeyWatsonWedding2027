@@ -103,25 +103,13 @@ a {
   letter-spacing: 0.06em;
 }
 
-.photo-feed {
-  max-width: 720px;
-  margin: 2rem auto;
-  padding: 1.5rem;
-  background: $kraft;
-  border: 1px solid $fog;
-  border-radius: 12px;
-  box-shadow: 0 4px 16px rgba($ink, 0.18);
-}
-
 .photo-feed-top {
   text-align: center;
-  margin: 0 0 1.25rem;
+  margin: 1.5rem 0;
 }
 
-.photo-feed iframe {
+.photo-feed {
   width: 100%;
   height: 700px;
   border: 0;
-  border-radius: 8px;
-  background: $sky;
 }
