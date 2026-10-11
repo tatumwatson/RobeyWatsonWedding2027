@@ -7,4 +7,4 @@ include-in-header:
 
 Thank you for celebrating with us! Help us remember this weekend by adding your favorite photos below.
 
-<p><a class="photo-btn" href="https://www.dropbox.com/request/c99d2dsybqjjzp5azkzx" target="_blank" rel="noopener">Add Your Photos</a></p>
+<iframe src="https://www.dropbox.com/request/c99d2dsybqjjzp5azkzx" width="100%" height="600" style="border:0;"></iframe>
