@@ -21,7 +21,7 @@ function showStatus(container, message, type) {
   let box = container.querySelector(".rsvp-status-msg");
   if (!box) {
     box = el("div", { class: "rsvp-status-msg" });
-    container.appendChild(box);
+    container.insertBefore(box, container.querySelector(".song-block"));
   }
   box.className = `rsvp-status-msg ${type}`;
   box.textContent = message;
@@ -90,6 +90,97 @@ async function submitRsvp(payload) {
   return res.json();
 }
 
+async function songSearch(q) {
+  const url = `${window.RSVP_CONFIG.scriptUrl}?action=songsearch&q=${encodeURIComponent(q)}`;
+  const res = await fetch(url, { method: "GET" });
+  if (!res.ok) throw new Error("Song search failed");
+  return res.json();
+}
+
+function songRow(guest, track) {
+  const row = el("div", { class: "song-row" });
+  if (track.image && track.image.startsWith("https://")) {
+    row.appendChild(el("img", { src: track.image, alt: "", width: "40", height: "40" }));
+  }
+  const text = el("div", { class: "song-text" });
+  const title = el("strong");
+  title.textContent = track.name;
+  const artist = el("span");
+  artist.textContent = track.artist;
+  text.appendChild(title);
+  text.appendChild(artist);
+  row.appendChild(text);
+
+  const btn = el("button", { type: "button", class: "btn btn-outline-primary btn-sm" }, "Add");
+  btn.addEventListener("click", async () => {
+    btn.disabled = true;
+    btn.textContent = "Adding...";
+    try {
+      const r = await submitRsvp({
+        action: "songadd",
+        name: guest.name,
+        uri: track.uri,
+        label: `${track.name} - ${track.artist}`,
+      });
+      if (r.ok) {
+        btn.textContent = r.duplicate ? "Already added" : "Added";
+      } else {
+        btn.textContent = "Try again";
+        btn.disabled = false;
+      }
+    } catch (err) {
+      btn.textContent = "Try again";
+      btn.disabled = false;
+    }
+  });
+  row.appendChild(btn);
+  return row;
+}
+
+function renderSongs(container, guest) {
+  const block = el("div", { class: "song-block" });
+  block.appendChild(el("h4", {}, "Song requests"));
+  block.appendChild(el("p", {}, "Search for a song and add it to our playlist."));
+  const input = el("input", {
+    type: "text",
+    class: "form-control",
+    placeholder: "Search by song or artist",
+    "aria-label": "Search for a song",
+  });
+  const results = el("div", { class: "song-results" });
+  block.appendChild(input);
+  block.appendChild(results);
+  container.appendChild(block);
+
+  let timer;
+  let latest = 0;
+  input.addEventListener("input", () => {
+    clearTimeout(timer);
+    const q = input.value.trim();
+    if (q.length < 2) {
+      results.innerHTML = "";
+      return;
+    }
+    timer = setTimeout(async () => {
+      const id = ++latest;
+      try {
+        const data = await songSearch(q);
+        if (id !== latest) return;
+        results.innerHTML = "";
+        const tracks = data.tracks || [];
+        if (!tracks.length) {
+          results.textContent = "No matches. Try another search.";
+          return;
+        }
+        tracks.forEach((t) => results.appendChild(songRow(guest, t)));
+      } catch (err) {
+        if (id !== latest) return;
+        results.textContent = "Search isn't available right now. Please try again in a moment.";
+      }
+    }, 500);
+  });
+}
+
 function renderInvite(container, guest) {
   container.innerHTML = "";
 
@@ -152,6 +243,7 @@ function renderInvite(container, guest) {
   const submitBtn = el("button", { type: "submit", class: "btn btn-primary mt-2" }, "Send my RSVP");
   form.appendChild(submitBtn);
   container.appendChild(form);
+  renderSongs(container, guest);
 
   form.addEventListener("submit", async (ev) => {
     ev.preventDefault();
@@ -181,7 +273,7 @@ function renderInvite(container, guest) {
           "Download your weekend schedule (PDF)"
         );
         pdfBtn.addEventListener("click", () => downloadSchedulePdf(guest, invitedEvents));
-        container.appendChild(pdfBtn);
+        container.insertBefore(pdfBtn, container.querySelector(".song-block"));
       } else {
         showStatus(container, result.error || "Something went wrong. Please try again.", "error");
         submitBtn.disabled = false;
