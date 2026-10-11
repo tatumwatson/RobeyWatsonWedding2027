@@ -7,9 +7,10 @@ include-in-header:
 
 Thank you for celebrating with us! Help us remember the weekend by adding your favorite photos below.
 
-<div class="photo-feed">
-  <p class="photo-feed-top">
-    <a class="btn btn-primary" href="https://drive.google.com/drive/folders/1ATHN-OacKg4TxdbKE6VN0KLL_SsFKSUt" target="_blank" rel="noopener">+ Add Your Photos</a>
+<p class="photo-feed-top">
+  <a class="btn btn-primary" href="https://drive.google.com/drive/folders/1ATHN-OacKg4TxdbKE6VN0KLL_SsFKSUt" target="_blank" rel="noopener">+ Add Your Photos</a>
   </p>
-  <iframe src="https://drive.google.com/embeddedfolderview?id=1ATHN-OacKg4TxdbKE6VN0KLL_SsFKSUt#grid" title="Guest photos" loading="lazy"></iframe>
+
+  <iframe class="photo-feed"
+src="https://drive.google.com/embeddedfolderview?id=1ATHN-OacKg4TxdbKE6VN0KLL_SsFKSUt#grid" title="Guest photos" loading="lazy"></iframe>
 </div>
