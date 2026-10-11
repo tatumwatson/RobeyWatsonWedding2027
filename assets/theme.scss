@@ -108,6 +108,19 @@ a {
   margin-top: 1.5rem;
 }
 
+.rsvp-event-block .form-check {
+  margin-bottom: 0.4rem;
+}
+
+.rsvp-guest-name {
+  max-width: 22rem;
+  margin: 0.25rem 0 0.75rem 1.5rem;
+}
+
+.rsvp-guest-age {
+  margin: 0 0 0.75rem 1.5rem;
+}
+
 .song-row {
   display: flex;
   align-items: center;
@@ -126,13 +139,4 @@ a {
 .song-text span {
   font-size: 0.85rem;
   color: $pine;
-}
-
-.rsvp-event-block .form-check {
-  margin-bottom: 0.4rem;
-}
-
-.rsvp-guest-name {
-  max-width: 22rem;
-  margin: 0.25rem 0 0.75rem 1.5rem;
 }
