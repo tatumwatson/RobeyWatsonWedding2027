@@ -9,7 +9,7 @@ Thank you for celebrating with us! Help us remember the weekend by adding your f
 
 <div class="photo-feed">
   <p class="photo-feed-top">
-    <a class="photo-btn" href="https://drive.google.com/drive/folders/1ATHN-OacKg4TxdbKE6VN0KLL_SsFKSUt" target="_blank" rel="noopener">+ Add Your Photos</a>
+    <a class="btn btn-primary" href="https://drive.google.com/drive/folders/1ATHN-OacKg4TxdbKE6VN0KLL_SsFKSUt" target="_blank" rel="noopener">+ Add Your Photos</a>
   </p>
   <iframe src="https://drive.google.com/embeddedfolderview?id=1ATHN-OacKg4TxdbKE6VN0KLL_SsFKSUt#grid" title="Guest photos" loading="lazy"></iframe>
 </div>
