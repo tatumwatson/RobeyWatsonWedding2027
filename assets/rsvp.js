@@ -1,14 +1,12 @@
 // ---------------------------------------------------------------
 // RSVP widget: looks a guest up by name, shows the people on their
-// invitation, asks who is attending, then asks one yes or no per
-// event for the whole party. Only events someone in the party was
-// invited to are shown.
+// invitation, asks yes or no for each person, then asks one yes or
+// no per event for the whole party. Only events someone in the party
+// was invited to are shown.
 // ---------------------------------------------------------------
 
 // Event details (label, day, time, location, description) come from
 // window.WEDDING_EVENTS, loaded via assets/events-data.js before this file.
-// That's also what the Schedule page renders from, so there's one place
-// to update your event details.
 const EVENT_DEFS = window.WEDDING_EVENTS || [];
 
 function el(tag, attrs = {}, html = "") {
@@ -140,8 +138,8 @@ function songRow(guest, track) {
 
 function renderSongs(guest) {
   const block = el("div", { class: "rsvp-event-block song-block" });
-  block.appendChild(el("h4", {}, "Song requests"));
-  block.appendChild(el("p", {}, "Search for a song and add it to our playlist."));
+  block.appendChild(el("h3", {}, "Song requests"));
+  block.appendChild(el("p", {}, "Search for a song to add it to our playlist."));
   const input = el("input", {
     type: "text",
     class: "form-control",
@@ -194,8 +192,8 @@ function renderInvite(container, guest) {
   container.appendChild(el("h3", {}, `Welcome, ${guest.name}!`));
   container.appendChild(
     el("p", {}, guest.onProperty
-      ? "You're staying with us on-property — thank you! Details on that below."
-      : "Here's what you're invited to. Let us know who can make it.")
+      ? "We're excited to have you staying with us on property!"
+      : "We're excited to celebrate with you! Please let us know what you can make it to.")
   );
 
   const form = el("form", { id: "rsvp-form" });
@@ -208,27 +206,42 @@ function renderInvite(container, guest) {
     form.appendChild(el("p", {}, "We couldn't find any events attached to your invitation. Please reach out to us directly."));
   }
 
-  // ---- Top section: who is attending ----
-  const memberBoxes = {}; // member id -> checkbox
-  const nameInputs = {};  // member id -> name input (guests added by name)
-  const ageInputs = {};   // member id -> Adult / Teen / Child checkboxes
+  const nameInputs = {}; // member id -> name input (guests added by name)
+  const ageInputs = {};  // member id -> Adult / Teen / Child checkboxes
 
+  const memberRadio = (m, val) => form.querySelector(`input[name="who_${m.id}"][value="${val}"]`);
+  const isYes = (m) => !!(memberRadio(m, "Yes") && memberRadio(m, "Yes").checked);
+  const isNo = (m) => !!(memberRadio(m, "No") && memberRadio(m, "No").checked);
+
+  // ---- Top section: yes or no for each person ----
   const whoBlock = el("div", { class: "rsvp-event-block" });
   whoBlock.appendChild(el("h4", {}, "Who will be attending?"));
   whoBlock.appendChild(
-    el("p", {}, "Check the box for everyone in your party who will be attending.")
+    el("p", {}, "Please select yes or no for everyone in your party.")
   );
 
   members.forEach((m) => {
-    const id = `who_${m.id}`;
-    const row = el("div", { class: "form-check" });
-    const cb = el("input", { type: "checkbox", class: "form-check-input", id });
-    const label = el("label", { class: "form-check-label", for: id });
-    label.textContent = m.name;
-    row.appendChild(cb);
-    row.appendChild(label);
-    whoBlock.appendChild(row);
-    memberBoxes[m.id] = cb;
+    const row = el("div", { class: "rsvp-member mb-3" });
+    const nameLabel = el("div", { class: "mb-1" });
+    nameLabel.textContent = m.name;
+    row.appendChild(nameLabel);
+
+    const group = el("div", { class: "btn-group", role: "group" });
+    ["Yes", "No"].forEach((val) => {
+      const id = `who_${m.id}_${val}`;
+      const radio = el("input", {
+        type: "radio",
+        name: `who_${m.id}`,
+        id,
+        value: val,
+        class: "btn-check",
+        autocomplete: "off",
+      });
+      const lab = el("label", { class: "btn btn-outline-primary btn-sm me-2", for: id }, val);
+      group.appendChild(radio);
+      group.appendChild(lab);
+    });
+    row.appendChild(group);
 
     if (m.plusOne) {
       const input = el("input", {
@@ -240,7 +253,7 @@ function renderInvite(container, guest) {
       });
       input.hidden = true;
       nameInputs[m.id] = input;
-      whoBlock.appendChild(input);
+      row.appendChild(input);
 
       const ageRow = el("div", { class: "rsvp-guest-age" });
       ageRow.hidden = true;
@@ -268,35 +281,40 @@ function renderInvite(container, guest) {
         ageRow.appendChild(wrap);
       });
       ageInputs[m.id] = ageBoxes;
-      whoBlock.appendChild(ageRow);
+      row.appendChild(ageRow);
 
-      cb.addEventListener("change", () => {
-        input.hidden = !cb.checked;
-        ageRow.hidden = !cb.checked;
-        input.required = cb.checked;
-        if (cb.checked) {
+      group.addEventListener("change", () => {
+        const yes = isYes(m);
+        input.hidden = !yes;
+        ageRow.hidden = !yes;
+        input.required = yes;
+        if (yes) {
           input.focus();
         } else {
           ageBoxes.forEach((b) => { b.checked = false; });
         }
       });
       input.addEventListener("input", () => {
-        label.textContent = input.value.trim() || m.name;
+        nameLabel.textContent = input.value.trim() || m.name;
       });
     }
+
+    whoBlock.appendChild(row);
   });
   form.appendChild(whoBlock);
 
-  // ---- Bottom section: one yes or no per event for the whole party ----
+  // ---- Days section: appears when anyone is a yes ----
+  const eventsWrap = el("div");
+  eventsWrap.hidden = true;
   const eventBlocks = {};
-  const eventQuestion = members.length > 1
-    ? "Will your party be joining us?"
-    : "Will you be joining us?";
+
+  const daysHead = el("div", { class: "rsvp-event-block" });
+  daysHead.appendChild(el("h4", {}, "Which days will you be able to attend?"));
+  eventsWrap.appendChild(daysHead);
 
   invitedEvents.forEach((evt) => {
     const block = el("div", { class: "rsvp-event-block" });
     block.appendChild(el("h4", {}, `${evt.label} · ${evt.day}`));
-    block.appendChild(el("label", {}, eventQuestion));
 
     const wrap = el("div", { class: "btn-group", role: "group" });
     ["Yes", "No"].forEach((val) => {
@@ -315,15 +333,19 @@ function renderInvite(container, guest) {
     });
     block.appendChild(wrap);
     eventBlocks[evt.key] = block;
-    form.appendChild(block);
+    eventsWrap.appendChild(block);
   });
+  form.appendChild(eventsWrap);
+
+  // ---- Notes, songs, on-property note, submit: appear once everyone has answered ----
+  const lateBlocks = [];
 
   const notesBlock = el("div", { class: "rsvp-event-block" });
   notesBlock.appendChild(el("label", { for: "rsvp-notes" }, "Dietary restrictions or notes for us"));
   notesBlock.appendChild(el("textarea", { id: "rsvp-notes", rows: "3", class: "form-control" }));
-  form.appendChild(notesBlock);
+  lateBlocks.push(notesBlock);
 
-  form.appendChild(renderSongs(guest));
+  lateBlocks.push(renderSongs(guest));
 
   if (guest.onProperty) {
     const note = el("div", { class: "rsvp-event-block" });
@@ -334,34 +356,42 @@ function renderInvite(container, guest) {
         `You're staying on-property. If you'd like to contribute toward your room and board, there's a voluntary link on the <a href="funds.html">Gifts</a> page — no pressure at all, we're just glad you're coming.`
       )
     );
-    form.appendChild(note);
+    lateBlocks.push(note);
   }
 
   const submitWrap = el("div", { class: "rsvp-submit" });
   const submitBtn = el("button", { type: "submit", class: "btn btn-primary" }, "Send my RSVP");
   submitWrap.appendChild(submitBtn);
-  form.appendChild(submitWrap);
+  lateBlocks.push(submitWrap);
+
+  lateBlocks.forEach((b) => {
+    b.hidden = true;
+    form.appendChild(b);
+  });
   container.appendChild(form);
+
+  function refresh() {
+    const anyYes = members.some(isYes);
+    const allAnswered = members.every((m) => isYes(m) || isNo(m));
+    eventsWrap.hidden = !(anyYes && invitedEvents.length > 0);
+    lateBlocks.forEach((b) => { b.hidden = !allAnswered; });
+  }
+  form.addEventListener("change", refresh);
 
   form.addEventListener("submit", async (ev) => {
     ev.preventDefault();
 
-    const attending = members
-      .filter((m) => memberBoxes[m.id].checked)
-      .map((m) => {
-        const picked = (ageInputs[m.id] || []).find((b) => b.checked);
-        return {
-          id: m.id,
-          name: nameInputs[m.id] ? nameInputs[m.id].value.trim() : "",
-          ageGroup: picked ? picked.value : "",
-        };
-      });
+    const attending = members.filter(isYes).map((m) => {
+      const picked = (ageInputs[m.id] || []).find((b) => b.checked);
+      return {
+        id: m.id,
+        name: nameInputs[m.id] ? nameInputs[m.id].value.trim() : "",
+        ageGroup: picked ? picked.value : "",
+      };
+    });
 
     const missingAge = members.find(
-      (m) =>
-        m.plusOne &&
-        memberBoxes[m.id].checked &&
-        !(ageInputs[m.id] || []).some((b) => b.checked)
+      (m) => m.plusOne && isYes(m) && !(ageInputs[m.id] || []).some((b) => b.checked)
     );
     if (missingAge) {
       showStatus(container, "Please select Adult, Teen, or Child for each additional guest who is attending.", "error");
@@ -379,13 +409,6 @@ function renderInvite(container, guest) {
         eventBlocks[missing.key].scrollIntoView({ behavior: "smooth", block: "center" });
         return;
       }
-    }
-
-    if (
-      attending.length === 0 &&
-      !window.confirm("No one is checked as attending. Send your RSVP as not attending?")
-    ) {
-      return;
     }
 
     const events = {};
@@ -410,14 +433,22 @@ function renderInvite(container, guest) {
         Array.from(form.children).forEach((child) => {
           if (!child.classList.contains("song-block")) child.remove();
         });
-        showStatus(container, "Thank you! Your RSVP has been received.", "success");
+        const oldMsg = container.querySelector(".rsvp-status-msg");
+        if (oldMsg) oldMsg.remove();
+
+        const done = el("div", { class: "rsvp-submit" });
+        const thanks = el("div", { class: "rsvp-status-msg success" });
+        thanks.textContent = "Thank you! Your RSVP has been received.";
         const pdfBtn = el(
           "button",
           { type: "button", class: "btn btn-outline-primary mt-3" },
           "Download your weekend schedule (PDF)"
         );
         pdfBtn.addEventListener("click", () => downloadSchedulePdf(guest, invitedEvents));
-        container.insertBefore(pdfBtn, form);
+        done.appendChild(thanks);
+        done.appendChild(pdfBtn);
+        form.appendChild(done);
+        done.scrollIntoView({ behavior: "smooth", block: "center" });
       } else {
         showStatus(container, result.error || "Something went wrong. Please try again.", "error");
         submitBtn.disabled = false;
@@ -442,8 +473,8 @@ function initRsvp() {
   }
 
   app.innerHTML = "";
-  const label = el("label", { for: "guest-name" }, "Full name (as it appears on your invitation)");
-  const input = el("input", { type: "text", id: "guest-name", placeholder: "e.g. Jordan Smith" });
+  const label = el("label", { for: "guest-name" }, "Full name");
+  const input = el("input", { type: "text", id: "guest-name", placeholder: "e.g. Macy Mouradian" });
   const button = el("button", { type: "button", class: "btn btn-primary" }, "Find my invitation");
 
   app.appendChild(label);
