@@ -1,0 +1,10 @@
+---
+title: "Share Your Photos"
+search: false
+include-in-header:
+  text: '<meta name="robots" content="noindex">'
+---
+
+Thank you for celebrating with us! Help us remember this weekend by adding your favorite photos below.
+
+<p><a class="photo-btn" href="https://www.dropbox.com/request/c99d2dsybqjjzp5azkzx" target="_blank" rel="noopener">Add Your Photos</a></p>
