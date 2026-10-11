@@ -21,7 +21,7 @@ function showStatus(container, message, type) {
   let box = container.querySelector(".rsvp-status-msg");
   if (!box) {
     box = el("div", { class: "rsvp-status-msg" });
-    container.insertBefore(box, container.querySelector(".song-block"));
+    container.insertBefore(box, container.querySelector("#rsvp-form"));
   }
   box.className = `rsvp-status-msg ${type}`;
   box.textContent = message;
@@ -137,8 +137,8 @@ function songRow(guest, track) {
   return row;
 }
 
-function renderSongs(container, guest) {
-  const block = el("div", { class: "song-block" });
+function renderSongs(guest) {
+  const block = el("div", { class: "rsvp-event-block song-block" });
   block.appendChild(el("h4", {}, "Song requests"));
   block.appendChild(el("p", {}, "Search for a song and add it to our playlist."));
   const input = el("input", {
@@ -150,7 +150,11 @@ function renderSongs(container, guest) {
   const results = el("div", { class: "song-results" });
   block.appendChild(input);
   block.appendChild(results);
-  container.appendChild(block);
+
+  // Pressing Enter here should not submit the RSVP form.
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") e.preventDefault();
+  });
 
   let timer;
   let latest = 0;
@@ -179,6 +183,8 @@ function renderSongs(container, guest) {
       }
     }, 500);
   });
+
+  return block;
 }
 
 function renderInvite(container, guest) {
@@ -228,6 +234,8 @@ function renderInvite(container, guest) {
   notesBlock.appendChild(el("textarea", { id: "rsvp-notes", rows: "3", class: "form-control" }));
   form.appendChild(notesBlock);
 
+  form.appendChild(renderSongs(guest));
+
   if (guest.onProperty) {
     const note = el("div", { class: "rsvp-event-block" });
     note.appendChild(
@@ -240,10 +248,11 @@ function renderInvite(container, guest) {
     form.appendChild(note);
   }
 
-  const submitBtn = el("button", { type: "submit", class: "btn btn-primary mt-2" }, "Send my RSVP");
-  form.appendChild(submitBtn);
+  const submitWrap = el("div", { class: "rsvp-submit" });
+  const submitBtn = el("button", { type: "submit", class: "btn btn-primary" }, "Send my RSVP");
+  submitWrap.appendChild(submitBtn);
+  form.appendChild(submitWrap);
   container.appendChild(form);
-  renderSongs(container, guest);
 
   form.addEventListener("submit", async (ev) => {
     ev.preventDefault();
@@ -265,7 +274,10 @@ function renderInvite(container, guest) {
         notes: document.getElementById("rsvp-notes").value,
       });
       if (result.ok) {
-        form.innerHTML = "";
+        // Clear the RSVP questions but keep the song search available.
+        Array.from(form.children).forEach((child) => {
+          if (!child.classList.contains("song-block")) child.remove();
+        });
         showStatus(container, "Thank you! Your RSVP has been received.", "success");
         const pdfBtn = el(
           "button",
@@ -273,7 +285,7 @@ function renderInvite(container, guest) {
           "Download your weekend schedule (PDF)"
         );
         pdfBtn.addEventListener("click", () => downloadSchedulePdf(guest, invitedEvents));
-        container.insertBefore(pdfBtn, container.querySelector(".song-block"));
+        container.insertBefore(pdfBtn, form);
       } else {
         showStatus(container, result.error || "Something went wrong. Please try again.", "error");
         submitBtn.disabled = false;
