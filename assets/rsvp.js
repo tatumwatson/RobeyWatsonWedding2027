@@ -1,7 +1,8 @@
 // ---------------------------------------------------------------
-// RSVP widget: looks a guest up by name, shows ONLY the events
-// they were assigned by the couple, and submits their response.
-// No guest ever sees an event they weren't invited to.
+// RSVP widget: looks a guest up by name, shows the people on their
+// invitation, asks who is attending, then asks one yes or no per
+// event for the whole party. Only events someone in the party was
+// invited to are shown.
 // ---------------------------------------------------------------
 
 // Event details (label, day, time, location, description) come from
@@ -190,25 +191,78 @@ function renderSongs(guest) {
 function renderInvite(container, guest) {
   container.innerHTML = "";
 
-  const heading = el("h3", {}, `Welcome, ${guest.name}!`);
-  container.appendChild(heading);
+  container.appendChild(el("h3", {}, `Welcome, ${guest.name}!`));
   container.appendChild(
     el("p", {}, guest.onProperty
       ? "You're staying with us on-property — thank you! Details on that below."
-      : "Here's what you're invited to. Let us know if you can make it.")
+      : "Here's what you're invited to. Let us know who can make it.")
   );
 
   const form = el("form", { id: "rsvp-form" });
-  const invitedEvents = EVENT_DEFS.filter((e) => guest.events && guest.events[e.key]);
+  const members = guest.members || [];
+  const invitedEvents = EVENT_DEFS.filter((e) =>
+    members.some((m) => m.events && m.events[e.key])
+  );
 
   if (invitedEvents.length === 0) {
     form.appendChild(el("p", {}, "We couldn't find any events attached to your invitation. Please reach out to us directly."));
   }
 
+  // ---- Top section: who is attending ----
+  const memberBoxes = {}; // member id -> checkbox
+  const nameInputs = {};  // member id -> name input (guests added by name)
+
+  const whoBlock = el("div", { class: "rsvp-event-block" });
+  whoBlock.appendChild(el("h4", {}, "Who will be attending?"));
+  whoBlock.appendChild(
+    el("p", {}, "Check the box for everyone in your party who will be attending.")
+  );
+
+  members.forEach((m) => {
+    const id = `who_${m.id}`;
+    const row = el("div", { class: "form-check" });
+    const cb = el("input", { type: "checkbox", class: "form-check-input", id });
+    const label = el("label", { class: "form-check-label", for: id });
+    label.textContent = m.name;
+    row.appendChild(cb);
+    row.appendChild(label);
+    whoBlock.appendChild(row);
+    memberBoxes[m.id] = cb;
+
+    if (m.plusOne) {
+      const input = el("input", {
+        type: "text",
+        class: "form-control rsvp-guest-name",
+        placeholder: "Guest's full name (required)",
+        "aria-label": `Full name for ${m.name}`,
+        autocomplete: "off",
+      });
+      input.hidden = true;
+      nameInputs[m.id] = input;
+      whoBlock.appendChild(input);
+
+      cb.addEventListener("change", () => {
+        input.hidden = !cb.checked;
+        input.required = cb.checked;
+        if (cb.checked) input.focus();
+      });
+      input.addEventListener("input", () => {
+        label.textContent = input.value.trim() || m.name;
+      });
+    }
+  });
+  form.appendChild(whoBlock);
+
+  // ---- Bottom section: one yes or no per event for the whole party ----
+  const eventBlocks = {};
+  const eventQuestion = members.length > 1
+    ? "Will your party be joining us?"
+    : "Will you be joining us?";
+
   invitedEvents.forEach((evt) => {
     const block = el("div", { class: "rsvp-event-block" });
     block.appendChild(el("h4", {}, `${evt.label} · ${evt.day}`));
-    block.appendChild(el("label", {}, "Will you be joining us?"));
+    block.appendChild(el("label", {}, eventQuestion));
 
     const wrap = el("div", { class: "btn-group", role: "group" });
     ["Yes", "No"].forEach((val) => {
@@ -226,6 +280,7 @@ function renderInvite(container, guest) {
       wrap.appendChild(label);
     });
     block.appendChild(wrap);
+    eventBlocks[evt.key] = block;
     form.appendChild(block);
   });
 
@@ -256,21 +311,48 @@ function renderInvite(container, guest) {
 
   form.addEventListener("submit", async (ev) => {
     ev.preventDefault();
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Sending...";
 
-    const responses = {};
+    const attending = members
+      .filter((m) => memberBoxes[m.id].checked)
+      .map((m) => ({
+        id: m.id,
+        name: nameInputs[m.id] ? nameInputs[m.id].value.trim() : "",
+      }));
+
+    // If anyone is attending, every event needs a yes or no.
+    if (attending.length > 0) {
+      const missing = invitedEvents.find(
+        (evt) => !form.querySelector(`input[name="${evt.key}"]:checked`)
+      );
+      if (missing) {
+        showStatus(container, `Please tell us whether you'll be joining ${missing.label}.`, "error");
+        eventBlocks[missing.key].scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+      }
+    }
+
+    if (
+      attending.length === 0 &&
+      !window.confirm("No one is checked as attending. Send your RSVP as not attending?")
+    ) {
+      return;
+    }
+
+    const events = {};
     invitedEvents.forEach((evt) => {
       const checked = form.querySelector(`input[name="${evt.key}"]:checked`);
-      responses[evt.key] = checked ? checked.value : "No response";
+      events[evt.key] = attending.length > 0 && !!checked && checked.value === "Yes";
     });
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending...";
 
     try {
       const result = await submitRsvp({
         action: "submit",
         name: guest.name,
-        onProperty: guest.onProperty,
-        responses,
+        attending,
+        events,
         notes: document.getElementById("rsvp-notes").value,
       });
       if (result.ok) {
@@ -329,6 +411,10 @@ function initRsvp() {
       const guest = await lookupGuest(name);
       if (guest.found) {
         renderInvite(app, guest);
+      } else if (guest.ambiguous) {
+        showStatus(app, "More than one guest has that name. Please reach out to us directly and we'll get you set up.", "error");
+        button.disabled = false;
+        button.textContent = "Find my invitation";
       } else {
         showStatus(app, "We couldn't find that name. Try the name exactly as it appears on your invite, or reach out to us.", "error");
         button.disabled = false;
