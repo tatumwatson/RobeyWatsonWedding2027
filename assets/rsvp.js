@@ -316,7 +316,9 @@ function initRsvp() {
 
   app.appendChild(label);
   app.appendChild(input);
-  app.appendChild(button);
+  const buttonWrap = el("div", { class: "rsvp-submit" });
+  buttonWrap.appendChild(button);
+  app.appendChild(buttonWrap);
 
   const doLookup = async () => {
     const name = input.value.trim();
