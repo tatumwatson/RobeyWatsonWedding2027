@@ -234,14 +234,16 @@ function renderInvite(container, guest) {
       const input = el("input", {
         type: "text",
         class: "form-control rsvp-guest-name",
-        placeholder: "Guest's full name",
+        placeholder: "Guest's full name (required)",
         "aria-label": `Full name for ${m.name}`,
         autocomplete: "off",
       });
+      input.hidden = true;
       nameInputs[m.id] = input;
       whoBlock.appendChild(input);
 
       const ageRow = el("div", { class: "rsvp-guest-age" });
+      ageRow.hidden = true;
       const ageBoxes = [];
       ["Adult", "Teen", "Child"].forEach((age) => {
         const wrap = el("div", { class: "form-check form-check-inline" });
@@ -269,7 +271,14 @@ function renderInvite(container, guest) {
       whoBlock.appendChild(ageRow);
 
       cb.addEventListener("change", () => {
+        input.hidden = !cb.checked;
+        ageRow.hidden = !cb.checked;
         input.required = cb.checked;
+        if (cb.checked) {
+          input.focus();
+        } else {
+          ageBoxes.forEach((b) => { b.checked = false; });
+        }
       });
       input.addEventListener("input", () => {
         label.textContent = input.value.trim() || m.name;
