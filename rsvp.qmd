@@ -2,8 +2,6 @@
 title: "RSVP"
 ---
 
-Type your name exactly as it appears on your invitation, and we'll show you
-what you're invited to.
 ```{=html}
 <div class="countdown" data-target="2027-02-14T23:59:59-07:00" data-label="left to RSVP (due February 14)" data-done="RSVPs are now closed. Please reach out to us directly."></div>
 ```
@@ -11,8 +9,7 @@ what you're invited to.
 Loading...
 :::
 
-Can't find your name, or does something look wrong? Reach out to us
-directly at [couple email/phone] and we'll sort it out.
+Can’t find your name, or does something look wrong? Send us a message at therobeywatsons@gmail.com.
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="assets/events-data.js"></script>
