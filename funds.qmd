@@ -1,30 +1,57 @@
 ---
-title: "Gifts"
+title: "Honeymoon Fund"
 ---
 
-Your presence is the gift. If you'd still like to give something, here are
-the two ways to do that. They support different things, so we've kept them
-separate.
+Your presence at our celebration weekend is the greatest gift. If you would like to contribute to our honeymoon, we are grateful for anything you choose to give. Pick whichever method is easiest for you.
 
-::: {.card-grid}
+::: {.fund-grid}
 
-::: {.fund-card .honeymoon}
-### Honeymoon Fund
-We're skipping a traditional registry. If you'd like to contribute toward
-our honeymoon, this goes directly toward the trip.
-
-[**Give to the honeymoon fund →**](PASTE_HONEYFUND_LINK_HERE){.btn .btn-outline-primary}
+::: {.fund-card}
+::: {.fund-title}
+Venmo
 :::
 
-::: {.fund-card .roomboard}
-### Room & Board
-If you're staying with us on-property, this is a voluntary way to help
-cover the cost of your stay. Entirely optional, no pressure either way.
+![](assets/venmo-qr.png){.fund-qr fig-alt="Venmo QR code for the honeymoon fund"}
 
-[**Contribute to room & board →**](PASTE_ROOMBOARD_LINK_HERE){.btn .btn-outline-primary}
+[Give via Venmo](https://venmo.com/u/YOUR-VENMO-USERNAME){.fund-button target="_blank" rel="noopener"}
+
+::: {.fund-handle}
+@YOUR-VENMO-USERNAME
+:::
+:::
+
+::: {.fund-card}
+::: {.fund-title}
+Zelle
+:::
+
+![](assets/zelle-qr.png){.fund-qr fig-alt="Zelle QR code for the honeymoon fund"}
+
+::: {.fund-pill}
+Scan in your banking app
+:::
+
+::: {.fund-handle}
+Or send to YOUR-ZELLE-EMAIL-OR-PHONE
+:::
+:::
+
+::: {.fund-card}
+::: {.fund-title}
+PayPal
+:::
+
+![](assets/paypal-qr.png){.fund-qr fig-alt="PayPal QR code for the honeymoon fund"}
+
+[Give via PayPal](https://paypal.me/YOUR-PAYPAL-NAME){.fund-button target="_blank" rel="noopener"}
+
+::: {.fund-handle}
+paypal.me/YOUR-PAYPAL-NAME
+:::
 :::
 
 :::
 
-If a link above isn't working yet, it just means we haven't finished
-setting it up, check back soon.
+::: {.fund-footnote}
+Please add a short note with your gift so we can thank you properly.
+:::
