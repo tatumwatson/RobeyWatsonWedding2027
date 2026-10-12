@@ -140,3 +140,87 @@ a {
   font-size: 0.85rem;
   color: $pine;
 }
+
+.fund-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  margin: 2.5rem 0;
+}
+
+.fund-card {
+  flex: 1 1 260px;
+  max-width: 320px;
+  box-sizing: border-box;
+  padding: 2.25rem 1.75rem;
+  text-align: center;
+  background: #C4CDC8;
+  border: 1px solid #7F9186;
+  outline: 1px solid #C4CDC8;
+  outline-offset: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.fund-card p {
+  margin: 0;
+}
+
+.fund-title {
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 1.25rem;
+  color: #1F2D2B;
+}
+
+.fund-qr {
+  display: block;
+  width: 148px;
+  height: auto;
+  margin: 0 auto;
+}
+
+.fund-button {
+  display: inline-block;
+  padding: 0.8rem 1.9rem;
+  background: #1F2D2B;
+  color: #E8E1D0 !important;
+  font-family: "Josefin Sans", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.8rem;
+  text-decoration: none !important;
+}
+
+.fund-button:hover {
+  background: #3C4E46;
+}
+
+.fund-pill {
+  display: inline-block;
+  padding: 0.8rem 1.9rem;
+  border: 1px solid #1F2D2B;
+  color: #1F2D2B;
+  font-family: "Josefin Sans", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.8rem;
+}
+
+.fund-handle {
+  font-size: 0.95rem;
+  color: #3C4E46;
+  overflow-wrap: anywhere;
+}
+
+.fund-footnote {
+  text-align: center;
+  font-style: italic;
+  color: #3C4E46;
+  margin-bottom: 3rem;
+}
