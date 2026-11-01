@@ -309,7 +309,7 @@ function renderInvite(container, guest) {
   const eventBlocks = {};
 
   const daysHead = el("div", { class: "rsvp-event-block" });
-  daysHead.appendChild(el("h4", {}, "Which days will you be able to attend?"));
+  daysHead.appendChild(el("h4", {}, "Which days will your party be able to attend?"));
   eventsWrap.appendChild(daysHead);
 
   invitedEvents.forEach((evt) => {
