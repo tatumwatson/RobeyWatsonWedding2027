@@ -15,17 +15,17 @@ Kindly join us for the wedding celebration of
 
 # Tatum & Tavian
 
-::: {.hero-date style="font-size: clamp(1.65rem, 4.5vw, 3rem);"}
+::: {.hero-date style="font-size: clamp(0.95rem, 2.25vw, 1.5rem);"}
 Friday & Saturday 
 :::
-::: {.hero-date style="font-size: clamp(1.65rem, 4.5vw, 3rem);"}
+::: {.hero-date style="font-size: clamp(0.95rem, 2.25vw, 1.5rem);"}
 May 7th - 8th, 2027
 :::
-::: {.hero-date style="font-size: clamp(1.65rem, 4.5vw, 3rem); margin-top: 1em;"}
+::: {.hero-date style="font-size: clamp(0.95rem, 2.25vw, 1.5rem); margin-top: 1em;"}
 The Legacy Lodge
 :::
 
-::: {.hero-date style="font-size: clamp(1.65rem, 4.5vw, 3rem);"}
+::: {.hero-date style="font-size: clamp(0.95rem, 2.25vw, 1.5rem);"}
 Heber, Arizona
 :::
 :::
@@ -38,7 +38,7 @@ Heber, Arizona
 :::
 
 ::: {.welcome-text}
-Come celebrate our recent marriage with us in Arizona's high country. Join us Friday for dinner, toasts, s'mores, and dancing. Stick around the next day for a laid-back Saturday of games, movies, and good company.
+It's not a party without you! Come celebrate our recent marriage with dinner, toasts, s'mores, and dancing at our [reception](schedule.qmd) on Friday. Stick around the next day for a laid-back Saturday of games, movies, and good company.
 :::
 
 ::: {.text-center}
