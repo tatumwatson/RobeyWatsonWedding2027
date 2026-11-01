@@ -15,8 +15,6 @@ title: "Travel & Lodging"
 
 ## Where to park
 
-![Parking map of the Legacy Lodge property](assets/imgs/parking-map.png){fig-alt="Aerial map of the Legacy Lodge property with designated guest parking areas highlighted in blue" width=100%}
-
 **Park here**
 
 - Outside the gate, without blocking the road or entrance
@@ -32,6 +30,8 @@ title: "Travel & Lodging"
 - Connect RVs to the lodge. This is strictly prohibited.
 
 Parking and no parking signs are posted throughout the property.
+
+![Parking map of the Legacy Lodge property](assets/imgs/parking-map.png){fig-alt="Aerial map of the Legacy Lodge property with designated guest parking areas highlighted in blue" width=100%}
 
 ::: {.pine-divider}
 :::
