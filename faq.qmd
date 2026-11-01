@@ -12,7 +12,7 @@ What to know before you go
 ```{=html}
 <details class="faq-item">
 <summary>Is there a ceremony?</summary>
-<div class="faq-answer"><p>No ceremony is planned. We were married in a private ceremony on 07.10.26, and we can't wait to celebrate our union with everyone at the lodge!</p></div>
+<div class="faq-answer"><p>No. We were married in a private ceremony on 07.10.26, and we can't wait to celebrate our union with everyone!</p></div>
 </details>
 
 <details class="faq-item">
@@ -46,8 +46,8 @@ What to know before you go
 </details>
 
 <details class="faq-item">
-<summary>Should I worry about aliens or Bigfoot?</summary>
-<div class="faq-answer"><p>Maybe, if you believe local legends. In 1975, a logger working in the nearby forest vanished for five days and resurfaced in Heber claiming a UFO abduction, a story that inspired the 1993 film <em>Fire in the Sky</em>. The Mogollon Rim is also said to be home to the Mogollon Monster, Arizona's answer to Bigfoot. If anything does carry you off, we'll save you a plate.</p></div>
+<summary>Should I worry about UFOs or Bigfoot?</summary>
+<div class="faq-answer"><p>Maybe, if you believe local legends. In 1975, a logger working in the nearby forest vanished for five days and resurfaced in Heber claiming a UFO abduction, a story that inspired the 1993 film <em>Fire in the Sky</em>. The Mogollon Rim is also said to be home to the Mogollon Monster, Arizona's answer to Bigfoot.</p></div>
 </details>
 
 <details class="faq-item">
