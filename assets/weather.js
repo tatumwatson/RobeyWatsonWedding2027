@@ -182,10 +182,6 @@
     var endMs = Date.parse(cfg.end + "T23:59:59" + OFFSET);
     if (cfg.lat && cfg.lon && inForecastWindow(Date.now(), startMs, endMs)) {
       loadForecast(root, cfg, typicalEl);
-    } else {
-      root.appendChild(
-        make("div", "weather-note", "The live forecast appears here one week before our wedding weekend.")
-      );
     }
   }
 
