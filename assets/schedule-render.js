@@ -22,11 +22,31 @@ function renderSchedule() {
       if (evt.intro) {
         container.appendChild(scheduleEl("div", { class: "schedule-intro" }, evt.intro));
       }
+
       const card = scheduleEl("div", { class: "event-card" });
-      card.appendChild(scheduleEl("div", { class: "event-day" }, evt.day));
+
+      // Splits "7th" into a big number and a small raised suffix
+      const m = evt.date && String(evt.date).match(/^(\d+)(st|nd|rd|th)$/);
+      const dateHtml = m
+        ? `<span class="event-date"><span class="event-date-num">${m[1]}</span><span class="event-date-suffix">${m[2]}</span></span>`
+        : "";
+
+      card.appendChild(scheduleEl("div", { class: "event-day" }, `${evt.day}${dateHtml}`));
       card.appendChild(scheduleEl("h3", {}, evt.label));
       card.appendChild(scheduleEl("div", { class: "event-meta" }, evt.time));
       card.appendChild(scheduleEl("p", {}, evt.description));
+
+      if (evt.details && evt.details.length) {
+        const list = scheduleEl("div", { class: "event-details" });
+        evt.details.forEach((d) => {
+          const row = scheduleEl("div", { class: "event-detail" });
+          row.appendChild(scheduleEl("span", { class: "event-detail-label" }, d.label));
+          row.appendChild(scheduleEl("span", { class: "event-detail-value" }, d.value));
+          list.appendChild(row);
+        });
+        card.appendChild(list);
+      }
+
       container.appendChild(card);
     });
 }
