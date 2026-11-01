@@ -2,7 +2,7 @@
 title: "Schedule"
 ---
 
-After you RSVP, you can download your schedule as a PDF.
+All events take place at the Legacy Lodge in Heber, Arizona. Directions and parking are on the [Travel & Lodging](travel.qmd) page.
 
 ::: {#schedule-cards .card-grid}
 Loading...
