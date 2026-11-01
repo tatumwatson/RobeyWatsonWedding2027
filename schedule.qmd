@@ -2,10 +2,7 @@
 title: "Schedule"
 ---
 
-Not every event is for every guest. Your RSVP page will only show you the
-events you're invited to, so don't worry if your weekend looks different
-from someone else's. After you RSVP, you can also download a PDF of just
-your own schedule.
+After you RSVP, you can download your schedule as a PDF.
 
 ::: {#schedule-cards .card-grid}
 Loading...
