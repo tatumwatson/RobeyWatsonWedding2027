@@ -65,7 +65,7 @@ function downloadSchedulePdf(guest, invitedEvents) {
 
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
-    doc.text(`${evt.time} · ${evt.location}`, 15, y);
+    doc.text(evt.time, 15, y);
     y += 6;
 
     const lines = doc.splitTextToSize(evt.description || "", pageWidth);
