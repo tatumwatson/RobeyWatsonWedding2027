@@ -21,7 +21,7 @@ Friday & Saturday
 ::: {.hero-date}
 May 7th - 8th, 2027
 :::
-::: {.hero-date}
+::: {.hero-date style="margin-top: 1.25rem;"}
 The Legacy Lodge
 :::
 
