@@ -1,5 +1,6 @@
 // Countdown timers. Any element with class "countdown" and a data-target
 // attribute (an ISO date with time zone) becomes a live countdown.
+// Optional: data-label shows under the tiles, data-sublabel shows on its own line below that.
 (function () {
   function breakdown(diff) {
     return {
@@ -28,6 +29,7 @@
     var target = new Date(el.getAttribute("data-target"));
     if (isNaN(target.getTime())) return;
     var label = el.getAttribute("data-label") || "";
+    var sublabel = el.getAttribute("data-sublabel") || "";
     var doneText = el.getAttribute("data-done") || "";
     var timer = null;
 
@@ -55,6 +57,12 @@
         cap.className = "countdown-label";
         cap.textContent = label;
         el.appendChild(cap);
+      }
+      if (sublabel) {
+        var sub = document.createElement("div");
+        sub.className = "countdown-sublabel";
+        sub.textContent = sublabel;
+        el.appendChild(sub);
       }
     }
 
