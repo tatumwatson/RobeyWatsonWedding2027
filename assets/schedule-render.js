@@ -25,7 +25,7 @@ function renderSchedule() {
       const card = scheduleEl("div", { class: "event-card" });
       card.appendChild(scheduleEl("div", { class: "event-day" }, evt.day));
       card.appendChild(scheduleEl("h3", {}, evt.label));
-      card.appendChild(scheduleEl("div", { class: "event-meta" }, `${evt.time} · ${evt.location}`));
+      card.appendChild(scheduleEl("div", { class: "event-meta" }, evt.time));
       card.appendChild(scheduleEl("p", {}, evt.description));
       container.appendChild(card);
     });
