@@ -71,6 +71,7 @@
   }
 
   function renderTypical(root, cfg) {
+    var wrap = make("div", "weather-typical-wrap");
     var card = make("div", "weather-typical");
     var ic = make("div", "weather-typical-icon");
     ic.appendChild(icon("bi-cloud-sun-fill"));
@@ -83,20 +84,17 @@
     temps.appendChild(make("span", "weather-big", cfg.low + "°F"));
     temps.appendChild(make("span", "weather-small", " low"));
     body.appendChild(temps);
-    var swing = cfg.high - cfg.low;
-    if (swing > 0) {
-      body.appendChild(
-        make("div", "script", "Swing of ~" + swing + " degrees from afternoon to night.")
-      );
-    }
     card.appendChild(ic);
     card.appendChild(body);
-    root.appendChild(card);
-    if (cfg.source) root.appendChild(make("div", "weather-credit", cfg.source));
+    wrap.appendChild(card);
+    if (cfg.source) wrap.appendChild(make("div", "weather-credit", cfg.source));
+    root.appendChild(wrap);
+    return wrap;
   }
 
-  function renderForecast(root, days, cfg) {
+  function renderForecast(root, days, cfg, alone) {
     var wrap = make("div", "weather-forecast");
+    if (alone) wrap.style.marginTop = "0";
     wrap.appendChild(make("div", "weather-title", "Forecast for our weekend"));
     if (!days.length) {
       wrap.appendChild(make("div", "weather-note", "The forecast does not reach our weekend yet. Check back soon."));
@@ -139,7 +137,7 @@
     root.appendChild(wrap);
   }
 
-  function loadForecast(root, cfg) {
+  function loadForecast(root, cfg, typicalEl) {
     var holder = make("div", "weather-loading", "Loading the forecast...");
     root.appendChild(holder);
     fetch("https://api.weather.gov/points/" + cfg.lat + "," + cfg.lon)
@@ -154,7 +152,11 @@
       })
       .then(function (f) {
         root.removeChild(holder);
-        renderForecast(root, buildDays(f.properties.periods, cfg.start, cfg.end), cfg);
+        var days = buildDays(f.properties.periods, cfg.start, cfg.end);
+        // Once real forecast days exist, the typical card is no longer needed.
+        var alone = days.length > 0 && !!typicalEl;
+        if (alone) root.removeChild(typicalEl);
+        renderForecast(root, days, cfg, alone);
       })
       .catch(function () {
         root.removeChild(holder);
@@ -174,11 +176,12 @@
       source: root.getAttribute("data-source") || "",
     };
     root.textContent = "";
-    if (!isNaN(cfg.high) && !isNaN(cfg.low)) renderTypical(root, cfg);
+    var typicalEl = null;
+    if (!isNaN(cfg.high) && !isNaN(cfg.low)) typicalEl = renderTypical(root, cfg);
     var startMs = Date.parse(cfg.start + "T00:00:00" + OFFSET);
     var endMs = Date.parse(cfg.end + "T23:59:59" + OFFSET);
     if (cfg.lat && cfg.lon && inForecastWindow(Date.now(), startMs, endMs)) {
-      loadForecast(root, cfg);
+      loadForecast(root, cfg, typicalEl);
     } else {
       root.appendChild(
         make("div", "weather-note", "The live forecast appears here one week before our wedding weekend.")
