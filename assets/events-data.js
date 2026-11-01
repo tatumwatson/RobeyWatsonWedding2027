@@ -2,6 +2,7 @@
 // Single source of truth for your event details. Both the Schedule
 // page and the personalized RSVP-download PDF pull from this file,
 // so you only ever need to update times/locations/descriptions here.
+// "intro" is an optional line shown above an event on the Schedule page.
 // ---------------------------------------------------------------
 window.WEDDING_EVENTS = [
   {
@@ -27,6 +28,7 @@ window.WEDDING_EVENTS = [
     time: "[Time]",
     location: "[Location]",
     description: "[Brief description of the Friday evening event.]",
+    intro: "Come celebrate with us!",
   },
   {
     key: "sat_day_after",
@@ -35,6 +37,7 @@ window.WEDDING_EVENTS = [
     time: "[Time]",
     location: "[Location]",
     description: "[Brief description — ceremony, celebration, or recovery day, whichever this is.]",
+    intro: "Not ready for the party to end? Neither are we!",
   },
   {
     key: "sun_brunch",
