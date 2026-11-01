@@ -797,3 +797,13 @@ main.content .intro p {
   color: #3C4E46;
   text-align: center;
 }
+
+#schedule-cards .schedule-intro {
+  font-family: "Josefin Sans", "Century Gothic", Futura, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: #3C4E46;
+  text-align: center;
+  margin: 0.75rem 0 -0.5rem 0;
+}
