@@ -831,16 +831,43 @@ main.content .intro p {
 
 #schedule-cards .event-card .event-day {
   grid-column: 1;
-  grid-row: 1 / span 3;
+  grid-row: 1 / span 4;
   align-self: center;
   font-size: 1rem;
+  text-align: center;
   padding-right: 1.5rem;
   border-right: 1px solid #C4CDC8;
 }
 
+#schedule-cards .event-card .event-date {
+  display: block;
+  margin-top: 0.6rem;
+  font-family: "Josefin Sans", "Century Gothic", Futura, sans-serif;
+  text-transform: none;
+  color: #3C4E46;
+  line-height: 1;
+}
+
+#schedule-cards .event-card .event-date-num {
+  font-size: 5rem;
+  font-weight: 300;
+  letter-spacing: 0;
+}
+
+#schedule-cards .event-card .event-date-suffix {
+  margin-left: 0.15rem;
+  font-size: 1.3rem;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  vertical-align: top;
+  position: relative;
+  top: 0.55rem;
+}
+
 #schedule-cards .event-card h3,
 #schedule-cards .event-card .event-meta,
-#schedule-cards .event-card p {
+#schedule-cards .event-card p,
+#schedule-cards .event-card .event-details {
   grid-column: 2;
 }
 
@@ -856,6 +883,34 @@ main.content .intro p {
   margin: 0;
 }
 
+#schedule-cards .event-details {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #C4CDC8;
+}
+
+#schedule-cards .event-detail {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 0.6rem;
+  line-height: 1.5;
+}
+
+#schedule-cards .event-detail:last-child {
+  margin-bottom: 0;
+}
+
+#schedule-cards .event-detail-label {
+  flex: 0 0 5.5rem;
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #3C4E46;
+  padding-top: 0.2rem;
+}
+
 @media (max-width: 600px) {
   #schedule-cards .event-card {
     grid-template-columns: 1fr;
@@ -865,14 +920,38 @@ main.content .intro p {
   #schedule-cards .event-card .event-day {
     grid-column: 1;
     grid-row: auto;
+    text-align: left;
     padding: 0 0 0.75rem 0;
     margin-bottom: 0.75rem;
     border-right: none;
     border-bottom: 1px solid #C4CDC8;
   }
+  #schedule-cards .event-card .event-date {
+    display: inline;
+    margin: 0 0 0 0.75rem;
+  }
+  #schedule-cards .event-card .event-date-num {
+    font-size: 1.5rem;
+    font-weight: 400;
+  }
+  #schedule-cards .event-card .event-date-suffix {
+    font-size: 0.8rem;
+    font-weight: 400;
+    top: 0;
+    vertical-align: baseline;
+  }
   #schedule-cards .event-card h3,
   #schedule-cards .event-card .event-meta,
-  #schedule-cards .event-card p {
+  #schedule-cards .event-card p,
+  #schedule-cards .event-card .event-details {
     grid-column: 1;
+  }
+  #schedule-cards .event-detail {
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+  #schedule-cards .event-detail-label {
+    flex: 0 0 auto;
+    padding-top: 0;
   }
 }
