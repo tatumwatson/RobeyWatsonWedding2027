@@ -4,7 +4,10 @@
 // so you only ever need to update times and descriptions here.
 // "intro" is an optional line shown above an event on the Schedule page.
 // "details" is an optional list of label and value rows shown inside the box.
+// "end" is only used for the Add to Calendar file. It is not shown on the site.
 // ---------------------------------------------------------------
+window.WEDDING_YEAR = 2027;
+window.WEDDING_MONTH = 5; // 5 = May
 window.WEDDING_EVENTS = [
   {
     key: "thu_night_before",
@@ -12,6 +15,7 @@ window.WEDDING_EVENTS = [
     day: "Thursday",
     date: "6th",
     time: "4:00 PM",
+    end: "9:00 PM",
     description: "Thank you for staying with us at the Lodge! Check in is at 4pm, and we will be getting set up, eating some dinner, and hanging out before the big day.",
   },
   {
@@ -20,6 +24,7 @@ window.WEDDING_EVENTS = [
     day: "Friday",
     date: "7th",
     time: "5:00 PM",
+    end: "11:59 PM",
     description: "Come hungry for dinner, s'mores, and dancing.",
     intro: "Let the party begin!",
     details: [
@@ -34,6 +39,7 @@ window.WEDDING_EVENTS = [
     day: "Saturday",
     date: "8th",
     time: "12:00 PM",
+    end: "8:00 PM",
     description: "A laid-back field day with games, movies, and good company. Come and go as you like.",
     intro: "Not ready for the party to end? Neither are we!",
     details: [
@@ -48,6 +54,7 @@ window.WEDDING_EVENTS = [
     day: "Sunday",
     date: "9th",
     time: "11:30 AM",
+    end: "1:30 PM",
     description: "Please joining us in celebrating all the mothers in our lives. After checkout, we will head in town to [make reservation] to enjoy a Mother's Day brunch before everyone heads home.",
   },
 ];
