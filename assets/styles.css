@@ -343,15 +343,28 @@ footer.footer,
 }
 
 .countdown-label {
-  margin-top: 0.4rem;
-  font-family: "Caveat", "Segoe Script", cursive;
-  font-size: 1.8rem;
+  margin-top: 0.75rem;
+  font-family: "Josefin Sans", "Century Gothic", Futura, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  color: #3C4E46;
+}
+
+.countdown-sublabel {
+  margin-top: 0.2rem;
+  font-family: "Josefin Sans", "Century Gothic", Futura, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
   color: #3C4E46;
 }
 
 .countdown-done {
-  font-family: "Caveat", "Segoe Script", cursive;
-  font-size: 2rem;
+  font-family: "Josefin Sans", "Century Gothic", Futura, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
   color: #3C4E46;
 }
 
@@ -954,4 +967,18 @@ main.content .intro p {
     flex: 0 0 auto;
     padding-top: 0;
   }
+}
+
+/* ---------- RSVP: returning guest screen ---------- */
+.rsvp-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2.5rem;
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.rsvp-action p {
+  margin: 0 0 0.5rem 0;
 }
