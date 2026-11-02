@@ -16,7 +16,7 @@ window.WEDDING_EVENTS = [
   },
   {
     key: "fri_reception_party",
-    label: "Reception Party",
+    label: "Reception",
     day: "Friday",
     date: "7th",
     time: "5:00 PM",
