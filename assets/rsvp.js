@@ -422,12 +422,12 @@ function renderInvite(container, guest) {
   const submitWrap = el("div", { class: "rsvp-submit" });
   const submitBtn = el("button", { type: "submit", class: "btn btn-primary" }, "Send my RSVP");
   submitWrap.appendChild(submitBtn);
-  lateBlocks.push(submitWrap);
 
   lateBlocks.forEach((b) => {
     b.hidden = true;
     form.appendChild(b);
   });
+  form.appendChild(submitWrap); // always visible fix 
   container.appendChild(form);
 
   function refresh() {
@@ -440,6 +440,12 @@ function renderInvite(container, guest) {
 
   form.addEventListener("submit", async (ev) => {
     ev.preventDefault();
+
+    if (!members.every((m) => isYes(m) || isNo(m))) {
+      showStatus(container, "Please select yes or no for everyone in your party.", "error");
+      whoBlock.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
 
     const attending = members.filter(isYes).map((m) => {
       const picked = (ageInputs[m.id] || []).find((b) => b.checked);
