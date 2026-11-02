@@ -343,18 +343,18 @@ footer.footer,
 }
 
 .countdown-label {
-  margin-top: 0.75rem;
+  margin-top: 1rem;
   font-family: "Josefin Sans", "Century Gothic", Futura, sans-serif;
-  font-size: 1.15rem;
+  font-size: 1.75rem;
   font-weight: 400;
   letter-spacing: 0.05em;
   color: #3C4E46;
 }
 
 .countdown-sublabel {
-  margin-top: 0.2rem;
+  margin-top: 0.25rem;
   font-family: "Josefin Sans", "Century Gothic", Futura, sans-serif;
-  font-size: 0.95rem;
+  font-size: 1.15rem;
   font-weight: 400;
   letter-spacing: 0.05em;
   color: #3C4E46;
