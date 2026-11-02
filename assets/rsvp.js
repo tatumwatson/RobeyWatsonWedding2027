@@ -204,12 +204,18 @@ function renderThanks(container, guest) {
 
   const actions = el("div", { class: "rsvp-actions" });
 
-  const editBox = el("div", { class: "rsvp-action" });
-  editBox.appendChild(el("p", {}, "To edit your RSVP"));
-  const editBtn = el("button", { type: "button", class: "btn btn-outline-primary" }, "Click here");
-  editBtn.addEventListener("click", () => renderInvite(container, guest));
-  editBox.appendChild(editBtn);
-  actions.appendChild(editBox);
+  if (rsvpClosed()) {
+    container.appendChild(
+      el("p", { class: "rsvp-closed-note" }, "RSVPs are now closed. To make a change, please reach out to us directly.")
+    );
+  } else {
+    const editBox = el("div", { class: "rsvp-action" });
+    editBox.appendChild(el("p", {}, "To edit your RSVP"));
+    const editBtn = el("button", { type: "button", class: "btn btn-outline-primary" }, "Click here");
+    editBtn.addEventListener("click", () => renderInvite(container, guest));
+    editBox.appendChild(editBtn);
+    actions.appendChild(editBox);
+  }
 
   if (guest.attending) {
     const pdfBox = el("div", { class: "rsvp-action" });
@@ -221,6 +227,23 @@ function renderThanks(container, guest) {
   }
 
   container.appendChild(actions);
+}
+
+// RSVPs close at the countdown's target date (set in rsvp.qmd).
+function rsvpClosed() {
+  const c = document.querySelector(".countdown[data-target]");
+  if (!c) return false;
+  const t = new Date(c.getAttribute("data-target")).getTime();
+  return !isNaN(t) && Date.now() > t;
+}
+
+// Shown after the deadline to someone who has not responded.
+function renderClosed(container, guest) {
+  container.innerHTML = "";
+  container.appendChild(el("h3", {}, `Welcome, ${guest.name}!`));
+  container.appendChild(
+    el("p", {}, "RSVPs are now closed. If you still need to respond, please reach out to us directly.")
+  );
 }
 
 function renderInvite(container, guest) {
@@ -510,9 +533,15 @@ function initRsvp() {
   }
 
   app.innerHTML = "";
+  const closed = rsvpClosed();
+  const findText = closed ? "Find my schedule" : "Find my invitation";
+  const help = document.getElementById("rsvp-help");
+  if (closed && help) {
+    help.innerHTML = `Need to make a change or RSVP late? Send us a message at <a href="mailto:therobeywatsons@gmail.com">therobeywatsons@gmail.com</a>.`;
+  }
   const label = el("label", { for: "guest-name" }, "Full name");
   const input = el("input", { type: "text", id: "guest-name", placeholder: "e.g. Macy Mouradian" });
-  const button = el("button", { type: "button", class: "btn btn-primary" }, "Find my invitation");
+  const button = el("button", { type: "button", class: "btn btn-primary" }, findText);
 
   app.appendChild(label);
   app.appendChild(input);
@@ -529,21 +558,23 @@ function initRsvp() {
       const guest = await lookupGuest(name);
       if (guest.found && guest.responded) {
         renderThanks(app, guest);
+      } else if (guest.found && rsvpClosed()) {
+        renderClosed(app, guest);
       } else if (guest.found) {
         renderInvite(app, guest);
       } else if (guest.ambiguous) {
         showStatus(app, "More than one guest has that name. Please reach out to us directly and we'll get you set up.", "error");
         button.disabled = false;
-        button.textContent = "Find my invitation";
+        button.textContent = findText;
       } else {
         showStatus(app, "We couldn't find that name. Try the name exactly as it appears on your invite, or reach out to us.", "error");
         button.disabled = false;
-        button.textContent = "Find my invitation";
+        button.textContent = findText;
       }
     } catch (err) {
       showStatus(app, "We couldn't reach the RSVP service. Please try again in a moment.", "error");
       button.disabled = false;
-      button.textContent = "Find my invitation";
+      button.textContent = findText;
     }
   };
 
