@@ -4,6 +4,8 @@
 // "intro" is line shown above an event on the Schedule page.
 // "details" is list of label and value rows shown inside the box.
 // "end" is only used for the Add to Calendar file. It is not shown on the site.
+// "cardDesc" is the short line printed on each schedule card in the RSVP PDF. The cards
+// are drawn from this file when the site is published (see _build/card.html).
 // ---------------------------------------------------------------
 window.WEDDING_YEAR = 2027;
 window.WEDDING_MONTH = 5; // 5 = May
@@ -16,6 +18,7 @@ window.WEDDING_EVENTS = [
     time: "4:00 PM",
     end: "9:00 PM",
     description: "Thank you for staying with us at the Lodge! Check in is at 4pm, and we will be getting set up, eating some dinner, and hanging out before the big day.",
+    cardDesc: "Check in at the Lodge, get settled, eat dinner, and hang out before the big day.",
   },
   {
     key: "fri_reception_party",
@@ -25,6 +28,7 @@ window.WEDDING_EVENTS = [
     time: "5:00 PM",
     end: "11:59 PM",
     description: "Come hungry for dinner, s'mores, and dancing.",
+    cardDesc: "Come hungry for dinner, s'mores, and dancing. The party winds down when we do.",
     intro: "Let the party begin!",
     details: [
       { label: "Attire", value: "Sundresses, khakis or jeans, and short-sleeve summery polos" },
@@ -40,6 +44,7 @@ window.WEDDING_EVENTS = [
     time: "12:00 PM",
     end: "8:00 PM",
     description: "A laid-back field day with games, movies, and good company. Come and go as you like.",
+    cardDesc: "A laid-back field day with games, movies, and good company. Come and go as you like.",
     intro: "Not ready for the party to end? Neither are we!",
     details: [
       { label: "Attire", value: "Whatever's comfortable and easy to move in" },
@@ -55,5 +60,6 @@ window.WEDDING_EVENTS = [
     time: "11:30 AM",
     end: "1:30 PM",
     description: "Please joining us in celebrating all the mothers in our lives. After checkout, we will head in town to [make reservation] to enjoy a Mother's Day brunch before everyone heads home.",
+    cardDesc: "Celebrate all the mothers in our lives over brunch in town before everyone heads home.",
   },
 ];
