@@ -69,6 +69,50 @@ function parseClock(str) {
   return { h: h, min: parseInt(m[2], 10) };
 }
 
+// Title badge: a kraft pill with a double sage frame and a green dot on each side, drawn on a
+// canvas with Josefin Sans so any guest name works. Returns null if the font can't load,
+// and the PDF then falls back to plain text.
+let josefinReady = null;
+async function makeTitleBadge(text) {
+  try {
+    if (!josefinReady) {
+      josefinReady = new FontFace("Josefin Sans", "url(assets/fonts/josefin-sans.ttf)", { weight: "100 900" })
+        .load()
+        .then((f) => { document.fonts.add(f); return true; });
+    }
+    await josefinReady;
+    const KRAFT = "#E8E1D0", SAGE = "#7F9186", GREEN = "#244F33", INKC = "#1F2D2B";
+    const F = 84, H = 220, RING = 14, PADX = 112, GAP = 60, DOT = 24, SPACE = 0.16 * F;
+    const chars = Array.from(String(text).toUpperCase());
+    const meas = document.createElement("canvas").getContext("2d");
+    meas.font = `700 ${F}px "Josefin Sans", sans-serif`;
+    const widths = chars.map((c) => meas.measureText(c).width);
+    const textW = widths.reduce((a, b) => a + b, 0) + SPACE * (chars.length - 1);
+    const pw = PADX * 2 + (DOT + GAP) * 2 + textW;
+    const cv = document.createElement("canvas");
+    cv.width = Math.ceil(pw + RING * 2);
+    cv.height = H + RING * 2;
+    const g = cv.getContext("2d");
+    const pill = (x, y, w, h, r) => { g.beginPath(); g.roundRect(x, y, w, h, r); };
+    g.fillStyle = KRAFT;
+    pill(0, 0, cv.width, cv.height, (H + RING * 2) / 2); g.fill();
+    g.strokeStyle = SAGE; g.lineWidth = 6;
+    pill(RING + 3, RING + 3, pw - 6, H - 6, (H - 6) / 2); g.stroke();
+    pill(RING + 11, RING + 11, pw - 22, H - 22, (H - 22) / 2); g.stroke();
+    g.fillStyle = GREEN;
+    const cy = RING + H / 2;
+    [RING + PADX + DOT / 2, RING + pw - PADX - DOT / 2].forEach((x) => { g.beginPath(); g.arc(x, cy, DOT / 2, 0, Math.PI * 2); g.fill(); });
+    g.font = `700 ${F}px "Josefin Sans", sans-serif`;
+    g.fillStyle = INKC; g.textBaseline = "alphabetic";
+    const capH = F * 0.7; // Josefin cap height is about 0.7 em
+    let x = RING + (pw - textW) / 2;
+    chars.forEach((c, i) => { g.fillText(c, x, cy + capH / 2); x += widths[i] + SPACE; });
+    return { url: cv.toDataURL("image/png"), w: cv.width, h: cv.height };
+  } catch (err) {
+    return null;
+  }
+}
+
 function safeFileName(name) {
   return String(name || "guest").trim().replace(/\s+/g, "-").toLowerCase();
 }
@@ -132,15 +176,21 @@ async function downloadSchedulePdf(guest, events) {
     loadImage(PDF_BG_GTK_PATH),
     ...events.map((evt) => loadImage(cardPath(evt.key))),
     ...GTK_KEYS.map((key) => loadImage(cardPath(key))),
-    loadImage(cardPath("gtk_title")),
   ]);
   const bg = loaded[0];
   const gtkBg = loaded[1];
   const cardImgs = loaded.slice(2, 2 + events.length);
   const gtkImgs = loaded.slice(2 + events.length, 2 + events.length + GTK_KEYS.length);
-  const gtkTitle = loaded[2 + events.length + GTK_KEYS.length];
   const useCards = USE_CARDS && (!!bg || cardImgs.some(Boolean));
   const useGtk = useCards && gtkImgs.every(Boolean);
+  const nameBadge = useCards ? await makeTitleBadge(`${guest.name}'s Weekend Schedule`) : null;
+  const gtkBadge = useGtk ? await makeTitleBadge("Good to know") : null;
+  // Centers a title badge at the top of the page, 14 mm tall (shrunk if a long name needs it)
+  const putBadge = (b, alias) => {
+    let h = 14, w = (h * b.w) / b.h;
+    if (w > 158) { w = 158; h = (w * b.h) / b.w; }
+    doc.addImage(b.url, "PNG", (pageW - w) / 2, 27 + (14 - h) / 2, w, h, alias, "FAST");
+  };
   const drawBg = (alt) => {
     if (alt) doc.addImage(alt, "PNG", 0, 0, pageW, pageH, "pdf-bg-gtk", "FAST");
     else if (bg) doc.addImage(bg, "PNG", 0, 0, pageW, pageH, "pdf-bg", "FAST");
@@ -217,8 +267,12 @@ async function downloadSchedulePdf(guest, events) {
 
   if (useCards) {
     // ---- Card pages ----
-    setText("bold", 18, INK);
-    doc.text(`${guest.name}'s Weekend Schedule`, pageW / 2, L.titleY, { align: "center" });
+    if (nameBadge) {
+      putBadge(nameBadge, "name-badge");
+    } else {
+      setText("bold", 18, INK);
+      doc.text(`${guest.name}'s Weekend Schedule`, pageW / 2, L.titleY, { align: "center" });
+    }
     const cx = (pageW - L.w) / 2;
     let cy = L.firstTop;
     events.forEach((evt, i) => {
@@ -304,10 +358,8 @@ async function downloadSchedulePdf(guest, events) {
   // ---- Good to know ----
   if (useGtk) {
     // Styled cards, drawn when the site is published
-    if (gtkTitle) {
-      // Kraft badge with a wavy outline, 14 mm tall
-      const th = 14, tw = (th * gtkTitle.width) / gtkTitle.height;
-      doc.addImage(gtkTitle, "PNG", (pageW - tw) / 2, 27, tw, th, "gtk-title", "FAST");
+    if (gtkBadge) {
+      putBadge(gtkBadge, "gtk-badge");
     } else {
       setText("bold", 18, INK);
       doc.text("Good to know", pageW / 2, L.titleY, { align: "center" });
