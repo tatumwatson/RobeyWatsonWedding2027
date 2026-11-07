@@ -1,11 +1,11 @@
-// Weather widget. Shows typical weather for the place and, starting a week
+// Weather widget. Shows typical weather and, starting a week
 // before the event, the live National Weather Service forecast for the
-// event days. Before that window opens, the page makes no outside requests.
+// event days.
 (function () {
   var DAY_MS = 86400000;
   var FORECAST_WINDOW_DAYS = 7;
   var TZ = "America/Phoenix";
-  var OFFSET = "-07:00"; // Arizona stays on this offset all year
+  var OFFSET = "-07:00"; // Arizona time 
 
   function make(tag, cls, text) {
     var e = document.createElement(tag);
