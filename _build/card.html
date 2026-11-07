@@ -1,0 +1,161 @@
+<!doctype html>
+<!--
+  Schedule card template. _build/render_assets.py opens this page once per event and
+  saves each card as assets/imgs/cards/<event key>.png (1905 x 555 px).
+  Text comes from assets/events-data.js. Edit the look here, then push to rebuild.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Schedule card</title>
+<style>
+@font-face {
+  font-family: "Josefin Sans";
+  src: url("../assets/fonts/josefin-sans.ttf") format("truetype");
+  font-weight: 100 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Lora";
+  src: url("../assets/fonts/lora.ttf") format("truetype");
+  font-weight: 400 700;
+  font-style: normal;
+}
+
+html, body { margin: 0; background: transparent; }
+
+/* Palette, matches assets/theme.scss */
+#card {
+  --ink: #1F2D2B;
+  --pine: #3C4E46;
+  --sage: #7F9186;
+  --kraft: #E8E1D0;
+
+  position: relative;
+  width: 1905px;
+  height: 555px;
+  overflow: hidden;
+  border-radius: 34px;
+  background: var(--kraft);
+  font-family: "Lora", Georgia, serif;
+
+  /* Ticket notches: two half circles cut out of the top and bottom edges, so the
+     card works on any background color. */
+  -webkit-mask-image:
+    radial-gradient(circle 35px at 574px 0, transparent 34px, #000 35px),
+    radial-gradient(circle 35px at 574px 555px, transparent 34px, #000 35px);
+  mask-image:
+    radial-gradient(circle 35px at 574px 0, transparent 34px, #000 35px),
+    radial-gradient(circle 35px at 574px 555px, transparent 34px, #000 35px);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+
+/* Left stub: watercolor pines with a soft white veil behind the date */
+#stub-clip {
+  position: absolute; left: 22px; top: 22px; width: 538px; height: 511px;
+  overflow: hidden; border-radius: 20px 0 0 20px;
+}
+#stub-art {
+  position: absolute; left: 0; top: 0; width: 538px; height: 552px; /* taller than the clip to trim the ragged bottom edge of the image */
+  object-fit: cover; object-position: 30% 0%;
+}
+#stub-veil {
+  position: absolute; left: 22px; top: 22px; width: 538px; height: 511px;
+  border-radius: 20px 0 0 20px;
+  background: radial-gradient(ellipse 72% 60% at 50% 44%,
+    rgba(251, 252, 252, 0.92) 0%, rgba(251, 252, 252, 0.8) 55%, rgba(251, 252, 252, 0) 100%);
+}
+#frame {
+  position: absolute; left: 22px; top: 22px; right: 22px; bottom: 22px;
+  box-sizing: border-box; border: 3px solid var(--sage); border-radius: 20px;
+}
+#stub {
+  position: absolute; left: 22px; top: 22px; width: 538px; bottom: 22px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  font-family: "Josefin Sans", sans-serif; text-transform: uppercase; color: var(--pine);
+}
+#weekday { padding-left: 0.34em; font-weight: 600; font-size: 34px; letter-spacing: 0.34em; }
+#daynum  { font-weight: 700; font-size: 250px; line-height: 0.95; color: var(--ink); }
+#month   { padding-left: 0.42em; font-weight: 600; font-size: 44px; letter-spacing: 0.42em; }
+
+#tear {
+  position: absolute; left: 572px; top: 70px; bottom: 70px; width: 0;
+  border-left: 4px dashed var(--sage);
+}
+
+/* Main area */
+#main {
+  position: absolute; left: 670px; right: 96px; top: 0; bottom: 0;
+  display: flex; flex-direction: column; justify-content: center;
+}
+#title {
+  font-family: "Josefin Sans", sans-serif; font-weight: 700; font-size: 92px;
+  line-height: 1.05; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ink); white-space: nowrap;
+}
+#rule { width: 140px; height: 4px; margin: 20px 0 14px; background: var(--sage); }
+#time { font-weight: 500; font-size: 58px; line-height: 1.1; color: var(--pine); }
+#desc { margin-top: 14px; max-width: 1000px; font-size: 35px; line-height: 1.45; color: var(--ink); }
+</style>
+</head>
+<body>
+<div id="card">
+  <div id="stub-clip"><img id="stub-art" src="../assets/imgs/trees.webp" alt=""></div>
+  <div id="stub-veil"></div>
+  <div id="frame"></div>
+  <div id="stub">
+    <div id="weekday"></div>
+    <div id="daynum"></div>
+    <div id="month"></div>
+  </div>
+  <div id="tear"></div>
+  <div id="main">
+    <div id="title"></div>
+    <div id="rule"></div>
+    <div id="time"></div>
+    <div id="desc"></div>
+  </div>
+</div>
+
+<script src="../assets/events-data.js"></script>
+<script>
+const MONTHS = ["January", "February", "March", "April", "May", "June", "July",
+                "August", "September", "October", "November", "December"];
+
+// Fills the card for one event. Returns a list of layout warnings (empty when all fits).
+async function renderCard(key) {
+  const evt = window.WEDDING_EVENTS.find((e) => e.key === key);
+  if (!evt) throw new Error("No event with key " + key);
+  const $ = (id) => document.getElementById(id);
+
+  $("weekday").textContent = evt.day;
+  $("daynum").textContent = parseInt(evt.date, 10);
+  $("month").textContent = MONTHS[(window.WEDDING_MONTH || 5) - 1];
+  $("title").textContent = evt.label;
+  $("time").textContent = evt.time;
+  $("desc").textContent = evt.cardDesc || evt.description || "";
+
+  await document.fonts.ready;
+  await Promise.all(Array.from(document.images).map((img) => img.decode().catch(() => {})));
+
+  // Shrink the title until it fits on one line
+  const title = $("title");
+  const main = $("main");
+  let size = 92;
+  title.style.fontSize = size + "px";
+  while (title.scrollWidth > main.clientWidth && size > 40) {
+    size -= 2;
+    title.style.fontSize = size + "px";
+  }
+
+  const warnings = [];
+  if (size < 60) warnings.push(key + ": title shrank to " + size + "px");
+  const mainBox = main.getBoundingClientRect();
+  const contentH = Array.from(main.children).reduce((h, c) => h + c.getBoundingClientRect().height, 0);
+  if (contentH > 480) warnings.push(key + ": text is tall (" + Math.round(contentH) + "px of 555px). Shorten cardDesc.");
+  return warnings;
+}
+</script>
+</body>
+</html>
