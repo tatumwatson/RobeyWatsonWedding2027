@@ -63,6 +63,15 @@ def main():
 
         page.close()
 
+        # ---- "Good to know" title badge ----
+        page = browser.new_page(viewport={"width": 1000, "height": 212}, device_scale_factor=1)
+        page.on("pageerror", lambda err: warnings.append("Page error: " + str(err)))
+        page.goto((BUILD / "title.html").as_uri())
+        page.evaluate("window.TITLE_READY")
+        page.locator("#badge").screenshot(path=str(CARDS / "gtk_title.png"), omit_background=True)
+        page.close()
+        print("Rendered", CARDS / "gtk_title.png")
+
         # ---- "Good to know" cards ----
         page = browser.new_page(viewport={"width": 1905, "height": 1600}, device_scale_factor=1)
         page.on("pageerror", lambda err: warnings.append("Page error: " + str(err)))
