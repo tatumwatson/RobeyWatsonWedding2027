@@ -1,6 +1,6 @@
 // ---------------------------------------------------------------
 // RSVP CONFIG
-// (see rsvp-backend/README.md for setup steps)
+// (start w/ rsvp-backend/README.md for setup steps)
 // ---------------------------------------------------------------
 window.RSVP_CONFIG = {
   // Paste the Web App URL after deploying the Apps Script.
