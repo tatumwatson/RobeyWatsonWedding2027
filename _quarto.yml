@@ -2,6 +2,7 @@ project:
   type: website
   resources:
     - assets/imgs/pdf-background.png
+    - assets/imgs/pdf-background-gtk.png
     - assets/imgs/cards/*.png
 
 website:
