@@ -100,8 +100,12 @@ function safeFileName(name) {
 // background nor any card image exists, the PDF falls back to the plain text schedule.
 // ---------------------------------------------------------------
 const PDF_BG_PATH = "assets/imgs/pdf-background.png";
-const USE_CARDS = false; // step 1 is background only. Set to true to turn on the Canva cards.
-const CARD_LAYOUT = { border: 12.7, headerH: 20, gap: 4, perPage: 4, w: 190.5, h: 55.5 }; // mm
+const USE_CARDS = true; // false = background only with the text schedule
+// Measurements in mm, set to fit inside the wavy border of the Canva background
+// (the border's inner edge runs about 25 mm from the left and 191 mm from the right,
+// 24 mm from the top and 255 mm from the bottom). Cards keep the 1905 x 555 px shape.
+const CARD_LAYOUT = { w: 160, h: (160 * 555) / 1905, gap: 5, perPage: 4, titleY: 36, firstTop: 44, nextTop: 32 };
+const TEXT_LAYOUT = { margin: 29, top: 36, bottom: 249 }; // used for text pages when the background is present
 
 function cardPath(key) {
   return `assets/imgs/cards/${key}.png`;
@@ -144,28 +148,20 @@ async function downloadSchedulePdf(guest, events) {
     ...events.map((evt) => loadImage(cardPath(evt.key))),
   ]);
   const useCards = USE_CARDS && (!!bg || cardImgs.some(Boolean));
-  if (!bg) {
-    // Temporary check. Remove once the background shows up in the PDF.
-    alert(
-      "The PDF background did not load from " +
-        new URL(PDF_BG_PATH, window.location.href).href +
-        "\nReason: " +
-        (imageLoadErrors[PDF_BG_PATH] || "unknown")
-    );
-  }
   const drawBg = () => {
     if (bg) doc.addImage(bg, "PNG", 0, 0, pageW, pageH, "pdf-bg", "FAST");
   };
   drawBg();
 
-  const M = 18;                                  // page margin
+  const M = bg ? TEXT_LAYOUT.margin : 18;       // page margin
   const W = doc.internal.pageSize.getWidth() - M * 2;
-  const BOTTOM = doc.internal.pageSize.getHeight() - 22;
+  const BOTTOM = bg ? TEXT_LAYOUT.bottom : doc.internal.pageSize.getHeight() - 22;
+  const TOP = bg ? TEXT_LAYOUT.top : M + 6;
   const INK = [31, 45, 43];
   const PINE = [60, 78, 70];
   const SAGE = [127, 145, 134];
   const FOG = [196, 205, 200];
-  let y = M + 6;
+  let y = TOP;
 
   const setText = (style, size, color) => {
     doc.setFont("helvetica", style);
@@ -177,7 +173,7 @@ async function downloadSchedulePdf(guest, events) {
     if (y + h > BOTTOM) {
       doc.addPage();
       drawBg();
-      y = M + 6;
+      y = TOP;
     }
   };
   const rule = (gapAfter) => {
@@ -228,21 +224,22 @@ async function downloadSchedulePdf(guest, events) {
   if (useCards) {
     // ---- Card pages ----
     setText("bold", 18, INK);
-    doc.text(`${guest.name}'s Weekend Schedule`, pageW / 2, L.border + 12, { align: "center" });
-    let cy = L.border + L.headerH;
+    doc.text(`${guest.name}'s Weekend Schedule`, pageW / 2, L.titleY, { align: "center" });
+    const cx = (pageW - L.w) / 2;
+    let cy = L.firstTop;
     events.forEach((evt, i) => {
       if (i > 0 && i % L.perPage === 0) {
         doc.addPage();
         drawBg();
-        cy = L.border;
+        cy = L.nextTop;
       }
       if (cardImgs[i]) {
-        doc.addImage(cardImgs[i], "PNG", L.border, cy, L.w, L.h, `card-${evt.key}`, "FAST");
+        doc.addImage(cardImgs[i], "PNG", cx, cy, L.w, L.h, `card-${evt.key}`, "FAST");
       } else {
         // Placeholder until this event's card image is uploaded
         doc.setDrawColor(SAGE[0], SAGE[1], SAGE[2]);
         doc.setLineWidth(0.4);
-        doc.roundedRect(L.border, cy, L.w, L.h, 3, 3, "S");
+        doc.roundedRect(cx, cy, L.w, L.h, 3, 3, "S");
         setText("bold", 15, INK);
         doc.text(evt.label, pageW / 2, cy + L.h / 2 - 2, { align: "center" });
         setText("normal", 11, PINE);
@@ -252,7 +249,7 @@ async function downloadSchedulePdf(guest, events) {
     });
     doc.addPage();
     drawBg();
-    y = M + 6;
+    y = TOP;
   } else {
   // ---- Header ----
   setText("bold", 22, PINE);
@@ -348,9 +345,11 @@ async function downloadSchedulePdf(guest, events) {
     setText("normal", 9, PINE);
     const ph = pageH;
     const pw = pageW;
-    doc.setDrawColor(FOG[0], FOG[1], FOG[2]);
-    doc.setLineWidth(0.3);
-    doc.line(M, ph - 16, pw - M, ph - 16);
+    if (!bg) {
+      doc.setDrawColor(FOG[0], FOG[1], FOG[2]);
+      doc.setLineWidth(0.3);
+      doc.line(M, ph - 16, pw - M, ph - 16);
+    }
     doc.text(`Questions? Email us at ${CONTACT_EMAIL}`, pw / 2, ph - 10, { align: "center" });
   }
 
