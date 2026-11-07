@@ -132,11 +132,13 @@ async function downloadSchedulePdf(guest, events) {
     loadImage(PDF_BG_GTK_PATH),
     ...events.map((evt) => loadImage(cardPath(evt.key))),
     ...GTK_KEYS.map((key) => loadImage(cardPath(key))),
+    loadImage(cardPath("gtk_title")),
   ]);
   const bg = loaded[0];
   const gtkBg = loaded[1];
   const cardImgs = loaded.slice(2, 2 + events.length);
-  const gtkImgs = loaded.slice(2 + events.length);
+  const gtkImgs = loaded.slice(2 + events.length, 2 + events.length + GTK_KEYS.length);
+  const gtkTitle = loaded[2 + events.length + GTK_KEYS.length];
   const useCards = USE_CARDS && (!!bg || cardImgs.some(Boolean));
   const useGtk = useCards && gtkImgs.every(Boolean);
   const drawBg = (alt) => {
@@ -302,8 +304,14 @@ async function downloadSchedulePdf(guest, events) {
   // ---- Good to know ----
   if (useGtk) {
     // Styled cards, drawn when the site is published
-    setText("bold", 18, INK);
-    doc.text("Good to know", pageW / 2, L.titleY, { align: "center" });
+    if (gtkTitle) {
+      // Kraft badge with a wavy outline, 14 mm tall
+      const th = 14, tw = (th * gtkTitle.width) / gtkTitle.height;
+      doc.addImage(gtkTitle, "PNG", (pageW - tw) / 2, 27, tw, th, "gtk-title", "FAST");
+    } else {
+      setText("bold", 18, INK);
+      doc.text("Good to know", pageW / 2, L.titleY, { align: "center" });
+    }
     const gx = (pageW - L.w) / 2;
     let gy = L.firstTop;
     gtkImgs.forEach((img, i) => {
