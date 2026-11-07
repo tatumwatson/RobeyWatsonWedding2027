@@ -94,14 +94,46 @@ function safeFileName(name) {
 
 // ---------------------------------------------------------------
 // PDF
+// Card pages: the Canva background (assets/imgs/pdf-background.png) with one
+// Canva card per attended event (assets/imgs/cards/<event key>.png), four per
+// page. The "Good to know" pages follow on the same background. If no card
+// images exist yet, the PDF falls back to the plain text schedule.
 // ---------------------------------------------------------------
-function downloadSchedulePdf(guest, events) {
+const PDF_BG_PATH = "assets/imgs/pdf-background.png";
+const CARD_LAYOUT = { border: 12.7, headerH: 20, gap: 4, perPage: 4, w: 190.5, h: 55.5 }; // mm
+
+function cardPath(key) {
+  return `assets/imgs/cards/${key}.png`;
+}
+
+function loadImage(src) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = () => resolve(null);
+    img.src = src;
+  });
+}
+
+async function downloadSchedulePdf(guest, events) {
   if (!window.jspdf) {
     alert("The PDF library didn't load. Check your connection and try again.");
     return;
   }
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ unit: "mm", format: "letter" });
+  const pageW = doc.internal.pageSize.getWidth();
+  const pageH = doc.internal.pageSize.getHeight();
+
+  const [bg, ...cardImgs] = await Promise.all([
+    loadImage(PDF_BG_PATH),
+    ...events.map((evt) => loadImage(cardPath(evt.key))),
+  ]);
+  const useCards = cardImgs.some(Boolean);
+  const drawBg = () => {
+    if (bg) doc.addImage(bg, "PNG", 0, 0, pageW, pageH, "pdf-bg", "FAST");
+  };
+  drawBg();
 
   const M = 18;                                  // page margin
   const W = doc.internal.pageSize.getWidth() - M * 2;
@@ -121,6 +153,7 @@ function downloadSchedulePdf(guest, events) {
   const ensure = (h) => {
     if (y + h > BOTTOM) {
       doc.addPage();
+      drawBg();
       y = M + 6;
     }
   };
@@ -166,6 +199,38 @@ function downloadSchedulePdf(guest, events) {
     y += 6;
   };
 
+  const L = CARD_LAYOUT;
+  const cardPages = useCards ? Math.ceil(events.length / L.perPage) : 0;
+
+  if (useCards) {
+    // ---- Card pages ----
+    setText("bold", 18, INK);
+    doc.text(`${guest.name}'s Weekend Schedule`, pageW / 2, L.border + 12, { align: "center" });
+    let cy = L.border + L.headerH;
+    events.forEach((evt, i) => {
+      if (i > 0 && i % L.perPage === 0) {
+        doc.addPage();
+        drawBg();
+        cy = L.border;
+      }
+      if (cardImgs[i]) {
+        doc.addImage(cardImgs[i], "PNG", L.border, cy, L.w, L.h, `card-${evt.key}`, "FAST");
+      } else {
+        // Placeholder until this event's card image is uploaded
+        doc.setDrawColor(SAGE[0], SAGE[1], SAGE[2]);
+        doc.setLineWidth(0.4);
+        doc.roundedRect(L.border, cy, L.w, L.h, 3, 3, "S");
+        setText("bold", 15, INK);
+        doc.text(evt.label, pageW / 2, cy + L.h / 2 - 2, { align: "center" });
+        setText("normal", 11, PINE);
+        doc.text(`${evt.day} · ${evt.time}`, pageW / 2, cy + L.h / 2 + 6, { align: "center" });
+      }
+      cy += L.h + L.gap;
+    });
+    doc.addPage();
+    drawBg();
+    y = M + 6;
+  } else {
   // ---- Header ----
   setText("bold", 22, PINE);
   doc.text(COUPLE_NAMES, M, y);
@@ -220,10 +285,14 @@ function downloadSchedulePdf(guest, events) {
     }
   });
 
+  }
+
   // ---- Good to know ----
   ensure(30);
-  y += 2;
-  rule(9);
+  if (!useCards) {
+    y += 2;
+    rule(9);
+  }
   sectionHeading("Good to know");
   y += 1;
 
@@ -251,11 +320,11 @@ function downloadSchedulePdf(guest, events) {
 
   // ---- Footer on every page ----
   const pages = doc.getNumberOfPages();
-  for (let p = 1; p <= pages; p++) {
+  for (let p = cardPages + 1; p <= pages; p++) {
     doc.setPage(p);
     setText("normal", 9, PINE);
-    const ph = doc.internal.pageSize.getHeight();
-    const pw = doc.internal.pageSize.getWidth();
+    const ph = pageH;
+    const pw = pageW;
     doc.setDrawColor(FOG[0], FOG[1], FOG[2]);
     doc.setLineWidth(0.3);
     doc.line(M, ph - 16, pw - M, ph - 16);
