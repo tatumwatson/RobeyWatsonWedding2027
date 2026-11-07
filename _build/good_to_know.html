@@ -1,0 +1,112 @@
+<!doctype html>
+<!--
+  "Good to know" cards for the RSVP PDF: kraft cards that sit on the trees page background.
+  _build/render_assets.py opens this page once per section and saves
+  assets/imgs/cards/gtk_getting.png, gtk_parking.png and gtk_weather.png (1905 px wide,
+  as tall as the words need). The words come from window.WEDDING_GOOD_TO_KNOW in
+  assets/events-data.js. Change the look here, then push to rebuild.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Good to know cards</title>
+<style>
+@font-face {
+  font-family: "Josefin Sans";
+  src: url("../assets/fonts/josefin-sans.ttf") format("truetype");
+  font-weight: 100 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Lora";
+  src: url("../assets/fonts/lora.ttf") format("truetype");
+  font-weight: 400 700;
+  font-style: normal;
+}
+
+html, body { margin: 0; background: transparent; }
+
+#card {
+  --ink: #1F2D2B;
+  --pine: #3C4E46;
+  --sage: #7F9186;
+  --green: #244F33;
+  --kraft: #E8E1D0;
+
+  position: relative;
+  width: 1905px;
+  box-sizing: border-box;
+  padding: 24px;
+  border-radius: 34px;
+  background: var(--kraft);
+  font-family: "Lora", Georgia, serif;
+}
+#inner {
+  box-sizing: border-box;
+  border: 4px solid var(--sage);
+  border-radius: 24px;
+  padding: 44px 80px 48px;
+}
+#inner h3 {
+  margin: 0 0 26px; font-family: "Josefin Sans", sans-serif; font-weight: 700; font-size: 42px;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--green);
+}
+#inner h4 {
+  margin: 0 0 18px; font-family: "Josefin Sans", sans-serif; font-weight: 600; font-size: 29px;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--pine);
+}
+#inner ul { list-style: none; margin: 0; padding: 0; }
+#inner li { position: relative; margin: 0 0 16px; padding-left: 42px; font-size: 37px; line-height: 1.4; color: var(--ink); }
+#inner li:last-child { margin-bottom: 0; }
+#inner li::before {
+  content: ""; position: absolute; left: 0; top: 0.5em; width: 16px; height: 16px;
+  box-sizing: border-box; border-radius: 50%; background: var(--sage);
+}
+#inner .no li::before { background: transparent; border: 4px solid var(--sage); }
+#inner .cols { display: grid; grid-template-columns: 1fr 1fr; column-gap: 70px; }
+#inner .note { margin: 34px 0 0; font-size: 32px; line-height: 1.4; color: var(--pine); }
+#inner p { margin: 0; font-size: 38px; line-height: 1.45; color: var(--ink); }
+</style>
+</head>
+<body>
+<div id="card"><div id="inner"></div></div>
+
+<script src="../assets/events-data.js"></script>
+<script>
+const GTK = window.WEDDING_GOOD_TO_KNOW || {};
+const esc = (t) => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const list = (items, cls) => '<ul class="' + (cls || "") + '">' + (items || []).map((t) => "<li>" + esc(t) + "</li>").join("") + "</ul>";
+
+// One entry per card.
+const SECTIONS = [
+  { key: "gtk_getting", title: "Getting here",
+    html: () => list(GTK.getting) },
+  { key: "gtk_parking", title: "Parking",
+    html: () =>
+      '<div class="cols">' +
+        "<div><h4>Park here</h4>" + list(GTK.parkHere) + "</div>" +
+        '<div><h4>Please do not</h4>' + list(GTK.parkNot, "no") + "</div>" +
+      "</div>" +
+      (GTK.parkNote ? '<p class="note">' + esc(GTK.parkNote) + "</p>" : "") },
+  { key: "gtk_weather", title: "Weather",
+    html: () => "<p>" + esc(GTK.weather || "") + "</p>" },
+];
+window.GTK_SECTION_KEYS = SECTIONS.map((s) => s.key);
+
+// Fills the card for one section. Returns its height in px and any warnings.
+async function renderSection(key) {
+  const sec = SECTIONS.find((s) => s.key === key);
+  if (!sec) throw new Error("No section with key " + key);
+  document.getElementById("inner").innerHTML = "<h3>" + esc(sec.title) + "</h3>" + sec.html();
+
+  await document.fonts.ready;
+
+  const warnings = [];
+  const card = document.getElementById("card");
+  const h = Math.round(card.getBoundingClientRect().height);
+  if (!(GTK.getting || []).length) warnings.push("assets/events-data.js has no WEDDING_GOOD_TO_KNOW text");
+  return { height: h, warnings: warnings };
+}
+</script>
+</body>
+</html>
