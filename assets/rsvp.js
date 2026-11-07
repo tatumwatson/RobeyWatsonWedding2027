@@ -47,27 +47,8 @@ const WEDDING_YEAR = window.WEDDING_YEAR || 2027;
 const WEDDING_MONTH = window.WEDDING_MONTH || 5; // 5 = May
 const UTC_OFFSET_HOURS = 7; // Arizona stays on UTC-7 all year
 
-const GOOD_TO_KNOW = {
-  getting: [
-    "The Legacy Lodge is about a 2 1/2 hour drive from both Phoenix Sky Harbor and Flagstaff Pulliam Airport. The last stretch is a dirt access road, so take it slow.",
-    "Cell service can be spotty in the mountains. Please download your directions for offline use before you leave.",
-    "There is no shuttle, and rideshare is largely unavailable, so we recommend renting a car.",
-  ],
-  parkHere: [
-    "Outside the gate, without blocking the road or entrance",
-    "Inside the gate, along the outer fence",
-    "Along the right driveway loop",
-    "Under the front porte-cochere",
-    "Under the covered solar patio",
-  ],
-  parkNot: [
-    "Park on the grass",
-    "Park on or block the caretaker's drive",
-    "Connect RVs to the lodge. This is strictly prohibited.",
-  ],
-  weather:
-    "Typical May weather in Heber is a high of 72°F and a low of 43°F (WeatherSpark). Evenings get chilly even when the day is warm, so bring layers and a warm jacket.",
-};
+// The words for the Good to know section live in assets/events-data.js.
+const GOOD_TO_KNOW = window.WEDDING_GOOD_TO_KNOW || { getting: [], parkHere: [], parkNot: [], parkNote: "", weather: "" };
 
 function weddingMonthName() {
   return new Date(Date.UTC(WEDDING_YEAR, WEDDING_MONTH - 1, 1)).toLocaleString("en-US", {
@@ -100,11 +81,14 @@ function safeFileName(name) {
 // background nor any card image exists, the PDF falls back to the plain text schedule.
 // ---------------------------------------------------------------
 const PDF_BG_PATH = "assets/imgs/pdf-background.png";
+const PDF_BG_GTK_PATH = "assets/imgs/pdf-background-gtk.png"; // trees version, used for the Good to know page
 const USE_CARDS = true; // false = background only with the text schedule
 // Measurements in mm, set to fit inside the wavy border of the Canva background
 // (the border's inner edge runs about 25 mm from the left and 191 mm from the right,
 // 24 mm from the top and 255 mm from the bottom). Cards keep the 1905 x 555 px shape.
 const CARD_LAYOUT = { w: 160, h: (160 * 555) / 1905, gap: 5, perPage: 4, titleY: 36, firstTop: 44, nextTop: 32 };
+const GTK_KEYS = ["gtk_getting", "gtk_parking", "gtk_weather"]; // Good to know card images
+const GTK_BOTTOM = 250; // mm, lowest point a Good to know card may reach
 const TEXT_LAYOUT = { margin: 29, top: 36, bottom: 249 }; // used for text pages when the background is present
 
 function cardPath(key) {
@@ -143,13 +127,21 @@ async function downloadSchedulePdf(guest, events) {
   const pageW = doc.internal.pageSize.getWidth();
   const pageH = doc.internal.pageSize.getHeight();
 
-  const [bg, ...cardImgs] = await Promise.all([
+  const loaded = await Promise.all([
     loadImage(PDF_BG_PATH),
+    loadImage(PDF_BG_GTK_PATH),
     ...events.map((evt) => loadImage(cardPath(evt.key))),
+    ...GTK_KEYS.map((key) => loadImage(cardPath(key))),
   ]);
+  const bg = loaded[0];
+  const gtkBg = loaded[1];
+  const cardImgs = loaded.slice(2, 2 + events.length);
+  const gtkImgs = loaded.slice(2 + events.length);
   const useCards = USE_CARDS && (!!bg || cardImgs.some(Boolean));
-  const drawBg = () => {
-    if (bg) doc.addImage(bg, "PNG", 0, 0, pageW, pageH, "pdf-bg", "FAST");
+  const useGtk = useCards && gtkImgs.every(Boolean);
+  const drawBg = (alt) => {
+    if (alt) doc.addImage(alt, "PNG", 0, 0, pageW, pageH, "pdf-bg-gtk", "FAST");
+    else if (bg) doc.addImage(bg, "PNG", 0, 0, pageW, pageH, "pdf-bg", "FAST");
   };
   drawBg();
 
@@ -248,7 +240,7 @@ async function downloadSchedulePdf(guest, events) {
       cy += L.h + L.gap;
     });
     doc.addPage();
-    drawBg();
+    drawBg(useGtk && gtkBg ? gtkBg : null);
     y = TOP;
   } else {
   // ---- Header ----
@@ -308,6 +300,23 @@ async function downloadSchedulePdf(guest, events) {
   }
 
   // ---- Good to know ----
+  if (useGtk) {
+    // Styled cards, drawn when the site is published
+    setText("bold", 18, INK);
+    doc.text("Good to know", pageW / 2, L.titleY, { align: "center" });
+    const gx = (pageW - L.w) / 2;
+    let gy = L.firstTop;
+    gtkImgs.forEach((img, i) => {
+      const h = (L.w * img.height) / img.width;
+      if (i > 0 && gy + h > GTK_BOTTOM) {
+        doc.addPage();
+        drawBg(gtkBg);
+        gy = L.nextTop;
+      }
+      doc.addImage(img, "PNG", gx, gy, L.w, h, `gtk-${i}`, "FAST");
+      gy += h + L.gap;
+    });
+  } else {
   ensure(30);
   if (!useCards) {
     y += 2;
@@ -330,13 +339,15 @@ async function downloadSchedulePdf(guest, events) {
   bullets(GOOD_TO_KNOW.parkHere);
   paragraph("Please do not", { style: "bold", after: 1 });
   bullets(GOOD_TO_KNOW.parkNot);
-  paragraph("Parking and no parking signs are posted throughout the property.", { after: 4 });
+  paragraph(GOOD_TO_KNOW.parkNote || "Parking and no parking signs are posted throughout the property.", { after: 4 });
 
   setText("bold", 10, PINE);
   ensure(10);
   doc.text("WEATHER", M, y);
   y += 5.5;
   paragraph(GOOD_TO_KNOW.weather, { after: 4 });
+
+  }
 
   // ---- Footer on every page ----
   const pages = doc.getNumberOfPages();
