@@ -107,13 +107,26 @@ function cardPath(key) {
   return `assets/imgs/cards/${key}.png`;
 }
 
-function loadImage(src) {
-  return new Promise((resolve) => {
-    const img = new Image();
-    img.onload = () => resolve(img);
-    img.onerror = () => resolve(null);
-    img.src = src;
-  });
+const imageLoadErrors = {};
+
+// Fetches the file first so a failure reports a reason (HTTP status or decode problem).
+async function loadImage(src) {
+  try {
+    const res = await fetch(src, { cache: "no-store" });
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const blob = await res.blob();
+    const objectUrl = URL.createObjectURL(blob);
+    return await new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(img);
+      img.onerror = () =>
+        reject(new Error("the browser could not decode it (type " + blob.type + ", " + blob.size + " bytes)"));
+      img.src = objectUrl;
+    });
+  } catch (err) {
+    imageLoadErrors[src] = String((err && err.message) || err);
+    return null;
+  }
 }
 
 async function downloadSchedulePdf(guest, events) {
@@ -133,7 +146,12 @@ async function downloadSchedulePdf(guest, events) {
   const useCards = USE_CARDS && (!!bg || cardImgs.some(Boolean));
   if (!bg) {
     // Temporary check. Remove once the background shows up in the PDF.
-    alert("The PDF background did not load from " + new URL(PDF_BG_PATH, window.location.href).href);
+    alert(
+      "The PDF background did not load from " +
+        new URL(PDF_BG_PATH, window.location.href).href +
+        "\nReason: " +
+        (imageLoadErrors[PDF_BG_PATH] || "unknown")
+    );
   }
   const drawBg = () => {
     if (bg) doc.addImage(bg, "PNG", 0, 0, pageW, pageH, "pdf-bg", "FAST");
