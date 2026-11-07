@@ -100,6 +100,7 @@ function safeFileName(name) {
 // background nor any card image exists, the PDF falls back to the plain text schedule.
 // ---------------------------------------------------------------
 const PDF_BG_PATH = "assets/imgs/pdf-background.png";
+const USE_CARDS = false; // step 1 is background only. Set to true to turn on the Canva cards.
 const CARD_LAYOUT = { border: 12.7, headerH: 20, gap: 4, perPage: 4, w: 190.5, h: 55.5 }; // mm
 
 function cardPath(key) {
@@ -129,7 +130,11 @@ async function downloadSchedulePdf(guest, events) {
     loadImage(PDF_BG_PATH),
     ...events.map((evt) => loadImage(cardPath(evt.key))),
   ]);
-  const useCards = !!bg || cardImgs.some(Boolean);
+  const useCards = USE_CARDS && (!!bg || cardImgs.some(Boolean));
+  if (!bg) {
+    // Temporary check. Remove once the background shows up in the PDF.
+    alert("The PDF background did not load from " + new URL(PDF_BG_PATH, window.location.href).href);
+  }
   const drawBg = () => {
     if (bg) doc.addImage(bg, "PNG", 0, 0, pageW, pageH, "pdf-bg", "FAST");
   };
