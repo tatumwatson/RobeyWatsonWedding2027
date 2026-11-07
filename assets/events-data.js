@@ -1,9 +1,8 @@
 // ---------------------------------------------------------------
-// Single source of truth for your event details. Both the Schedule
-// page and the personalized RSVP-download PDF pull from this file,
-// so you only ever need to update times and descriptions here.
-// "intro" is an optional line shown above an event on the Schedule page.
-// "details" is an optional list of label and value rows shown inside the box.
+// Both the Schedule page and the personalized RSVP-download PDF pull from this file,
+// only ever need to update times and descriptions here.
+// "intro" is line shown above an event on the Schedule page.
+// "details" is list of label and value rows shown inside the box.
 // "end" is only used for the Add to Calendar file. It is not shown on the site.
 // ---------------------------------------------------------------
 window.WEDDING_YEAR = 2027;
