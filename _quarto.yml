@@ -1,5 +1,8 @@
 project:
   type: website
+  resources:
+    - assets/imgs/pdf-background.png
+    - assets/imgs/cards/*.png
 
 website:
   title: "Tatum & Tavian"
@@ -36,7 +39,6 @@ format:
       - litera
       - assets/theme.scss
     css: assets/styles.css
-    include-after-body: falling.html
     toc: false
     page-layout: full
     fontsize: 1.05rem
