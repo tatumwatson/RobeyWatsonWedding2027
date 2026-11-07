@@ -1,8 +1,9 @@
 // ---------------------------------------------------------------
-// RSVP widget: looks a guest up by name, shows the people on their
-// invitation, asks yes or no for each person, then asks one yes or
-// no per event for the whole party. Only events someone in the party
-// was invited to are shown.
+// RSVP widget: looks a guest up by name, shows the people in their
+// party, asks yes or no for each person, then asks one yes or
+// no per (invited) event for the whole party. Comments for diet
+// & other, spotify playlist reqs below. Dwnld for cal, pdf and updating opts
+// Feb 15th becomes dwnld, cal, or contact, no update opt. 
 // ---------------------------------------------------------------
 
 // Event details (label, day, time, location, description) come from
