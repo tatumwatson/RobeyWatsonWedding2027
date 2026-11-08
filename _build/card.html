@@ -26,6 +26,7 @@ html, body { margin: 0; background: transparent; }
 
 /* Palette, matches assets/theme.scss */
 #card {
+  --line: #7F9186;
   --ink: #1F2D2B;
   --pine: #3C4E46;
   --sage: #7F9186;
@@ -51,25 +52,8 @@ html, body { margin: 0; background: transparent; }
   mask-composite: intersect;
 }
 
-/* Left stub: watercolor pines with a soft white veil behind the date */
-#stub-clip {
-  position: absolute; left: 22px; top: 22px; width: 538px; height: 511px;
-  overflow: hidden; border-radius: 20px 0 0 20px;
-}
-#stub-art {
-  position: absolute; left: 0; top: 0; width: 538px; height: 552px; /* taller than the clip to trim the ragged bottom edge of the image */
-  object-fit: cover; object-position: 30% 0%;
-}
-#stub-veil {
-  position: absolute; left: 22px; top: 22px; width: 538px; height: 511px;
-  border-radius: 20px 0 0 20px;
-  background: radial-gradient(ellipse 72% 60% at 50% 44%,
-    rgba(251, 252, 252, 0.92) 0%, rgba(251, 252, 252, 0.8) 55%, rgba(251, 252, 252, 0) 100%);
-}
-#frame {
-  position: absolute; left: 22px; top: 22px; right: 22px; bottom: 22px;
-  box-sizing: border-box; border: 3px solid var(--sage); border-radius: 20px;
-}
+/* Ticket outline: two thin lines that curve around the notches (drawn by the script below) */
+#outline { position: absolute; left: 0; top: 0; width: 1905px; height: 555px; pointer-events: none; }
 #stub {
   position: absolute; left: 22px; top: 22px; width: 538px; bottom: 22px;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -79,10 +63,6 @@ html, body { margin: 0; background: transparent; }
 #daynum  { font-weight: 300; font-size: 250px; line-height: 0.95; color: var(--pine); }
 #month   { padding-left: 0.42em; font-weight: 600; font-size: 44px; letter-spacing: 0.42em; }
 
-#tear {
-  position: absolute; left: 572px; top: 70px; bottom: 70px; width: 0;
-  border-left: 4px dashed var(--sage);
-}
 
 /* Main area */
 #main {
@@ -95,21 +75,18 @@ html, body { margin: 0; background: transparent; }
   color: var(--ink); white-space: nowrap;
 }
 #rule { width: 140px; height: 4px; margin: 20px 0 14px; background: var(--sage); }
-#time { font-weight: 500; font-size: 58px; line-height: 1.1; color: var(--pine); }
-#desc { margin-top: 14px; max-width: 1000px; font-size: 35px; line-height: 1.45; color: var(--ink); }
+#time { font-weight: 500; font-size: 60px; line-height: 1.1; color: var(--pine); }
+#desc { margin-top: 14px; max-width: 1100px; font-size: 40px; line-height: 1.45; color: var(--ink); }
 </style>
 </head>
 <body>
 <div id="card">
-  <div id="stub-clip"><img id="stub-art" src="../assets/imgs/trees.webp" alt=""></div>
-  <div id="stub-veil"></div>
-  <div id="frame"></div>
+  <svg id="outline" viewBox="0 0 1905 555" xmlns="http://www.w3.org/2000/svg"></svg>
   <div id="stub">
     <div id="weekday"></div>
     <div id="daynum"></div>
     <div id="month"></div>
   </div>
-  <div id="tear"></div>
   <div id="main">
     <div id="title"></div>
     <div id="rule"></div>
@@ -120,6 +97,31 @@ html, body { margin: 0; background: transparent; }
 
 <script src="../assets/events-data.js"></script>
 <script>
+
+// Draws the double outline and the dashed tear line (all in the sage color).
+(function drawOutline() {
+  const W = 1905, H = 555, CX = 574, NOTCH = 35, LINE_W = 4;
+  const NS = "http://www.w3.org/2000/svg";
+  const svg = document.getElementById("outline");
+  const path = (inset, r) => {
+    const R = NOTCH + inset, dx = Math.sqrt(R * R - inset * inset);
+    const x0 = inset, y0 = inset, x1 = W - inset, y1 = H - inset, f = (n) => n.toFixed(1);
+    return `M${f(x0 + r)} ${f(y0)} L${f(CX - dx)} ${f(y0)} A${R} ${R} 0 0 0 ${f(CX + dx)} ${f(y0)} L${f(x1 - r)} ${f(y0)} ` +
+      `A${r} ${r} 0 0 1 ${f(x1)} ${f(y0 + r)} L${f(x1)} ${f(y1 - r)} A${r} ${r} 0 0 1 ${f(x1 - r)} ${f(y1)} ` +
+      `L${f(CX + dx)} ${f(y1)} A${R} ${R} 0 0 0 ${f(CX - dx)} ${f(y1)} L${f(x0 + r)} ${f(y1)} ` +
+      `A${r} ${r} 0 0 1 ${f(x0)} ${f(y1 - r)} L${f(x0)} ${f(y0 + r)} A${r} ${r} 0 0 1 ${f(x0 + r)} ${f(y0)} Z`;
+  };
+  const add = (tag, attrs) => {
+    const e = document.createElementNS(NS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    svg.appendChild(e);
+  };
+  [[22, 20], [34, 12]].forEach(([inset, r]) =>
+    add("path", { d: path(inset, r), fill: "none", stroke: "#7F9186", "stroke-width": LINE_W, "stroke-linejoin": "round" }));
+  // Tear line: bold dashes between the two notches
+  const top = 82, bottom = H - 82, n = 9, dash = 32, gap = (bottom - top - n * dash) / (n - 1);
+  add("line", { x1: 572, x2: 572, y1: top, y2: bottom, stroke: "#7F9186", "stroke-width": 7, "stroke-dasharray": dash + " " + gap.toFixed(2) });
+})();
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July",
                 "August", "September", "October", "November", "December"];
 
