@@ -59,7 +59,7 @@ window.WEDDING_EVENTS = [
     date: "9th",
     time: "11:30 AM",
     end: "1:30 PM",
-    description: "Please joining us in celebrating all the mothers in our lives. After checkout, we will head into town to enjoy a Mother's Day brunch before everyone heads home.",
+    description: "Please join us in celebrating all the mothers in our lives. After checkout, we will head into town to enjoy a Mother's Day brunch before everyone heads home.",
     cardDesc: "Celebrate all the mothers in our lives over brunch in town before everyone heads home.",
   },
 ];
