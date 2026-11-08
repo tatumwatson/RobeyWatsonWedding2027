@@ -2,7 +2,7 @@
 title: "Honeymoon Fund"
 ---
 
-Having you with us this weekend is the best gift we could ask for. If you would like to give something as well, we are saving for our honeymoon and would be grateful for any contribution. There is no obligation at all. Choose whichever option is easiest for you.
+Your presence at our celebration is the best gift we could ask for. If you would still like to give something, please consider contributing to our honeymoon fund. You can find a few easy ways to do so below. Prefer to give in person? A card box will be at the lodge for cards and checks.
 
 ::: {.fund-grid}
 
@@ -14,10 +14,6 @@ Venmo
 ::: {.fund-qr-box .qr-venmo}
 ![](assets/venmo-qr.jpg){fig-alt="Venmo QR code for the honeymoon fund"}
 :::
-
-::: {.fund-pill}
-Scan to give
-:::
 :::
 
 ::: {.fund-card}
@@ -27,10 +23,6 @@ Zelle
 
 ::: {.fund-qr-box .qr-zelle}
 ![](assets/zelle-qr.jpg){fig-alt="Zelle QR code for the honeymoon fund"}
-:::
-
-::: {.fund-pill}
-Scan in your banking app
 :::
 :::
 
@@ -42,16 +34,10 @@ PayPal
 ::: {.fund-qr-box .qr-paypal}
 ![](assets/paypal-qr.jpg){fig-alt="PayPal QR code for the honeymoon fund"}
 :::
-
-::: {.fund-pill}
-Scan to give
-:::
 :::
 
 :::
 
 ::: {.fund-footnote}
-Prefer to give in person? A card box will be at the Legacy Lodge for cards and checks.
-
-Please add a short note with your gift so we can thank you properly. Thank you for thinking of us.
+Please add a short note along with your gift so we can thank you properly. ♡
 :::
