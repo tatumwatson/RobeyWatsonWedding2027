@@ -982,3 +982,68 @@ main.content .intro p {
 .rsvp-action p {
   margin: 0 0 0.5rem 0;
 }
+/* ---------- Funds page, equal-size cards ---------- */
+.fund-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin: 2.5rem 0;
+}
+
+.fund-grid .fund-card {
+  max-width: none;
+  padding: 1.75rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  text-align: center;
+}
+
+/* Fixed square window. Each image is scaled and shifted so its code fills the same area. */
+.fund-grid .fund-qr-box {
+  position: relative;
+  overflow: hidden;
+  width: 170px;
+  max-width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #fff;
+  margin: 0 auto;
+}
+
+.fund-qr-box p {
+  margin: 0;
+}
+
+.fund-qr-box img {
+  position: absolute;
+  max-width: none;
+  height: auto;
+  display: block;
+}
+
+.fund-qr-box.qr-venmo img  { width: 103.14%; left: -2.99%;  top: 0.89%; }
+.fund-qr-box.qr-zelle img  { width: 101.53%; left: -0.76%;  top: -1.96%; }
+.fund-qr-box.qr-paypal img { width: 132.31%; left: -16.15%; top: -16.15%; filter: brightness(1.04); }
+
+.fund-grid .fund-pill {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 3.2rem;
+  padding: 0.6rem 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-align: center;
+}
+
+@media (max-width: 760px) {
+  .fund-grid {
+    grid-template-columns: 1fr;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
