@@ -71,16 +71,13 @@ window.WEDDING_EVENTS = [
 // ---------------------------------------------------------------
 window.WEDDING_GOOD_TO_KNOW = {
   getting: [
-    "The Legacy Lodge is about a 2 1/2 hour drive from both Phoenix Sky Harbor and Flagstaff Pulliam Airport. The last stretch is a dirt access road, so take it slow.",
+    "The Legacy Lodge is about a 2 1/2 hour drive from both Phoenix Sky Harbor and Flagstaff Pulliam Airport.",
     "Cell service can be spotty in the mountains. Please download your directions for offline use before you leave.",
-    "There is no shuttle, and rideshare is largely unavailable, so we recommend renting a car.",
+    "There is no shuttle, and rideshare is largely unavailable. We recommend renting a car.",
   ],
   parkHere: [
     "Outside the gate, without blocking the road or entrance",
     "Inside the gate, along the outer fence",
-    "Along the right driveway loop",
-    "Under the front porte-cochere",
-    "Under the covered solar patio",
   ],
   parkNot: [
     "Park on the grass",
@@ -89,5 +86,5 @@ window.WEDDING_GOOD_TO_KNOW = {
   ],
   parkNote: "Parking and no parking signs are posted throughout the property.",
   weather:
-    "Typical May weather in Heber is a high of 72°F and a low of 43°F (WeatherSpark). Evenings get chilly even when the day is warm, so bring layers and a warm jacket.",
+    "Typical May weather in Heber is a high of 72°F and a low of 43°F.",
 };
