@@ -574,7 +574,7 @@ function showImageViewer(files) {
 
   panel.appendChild(el("p", { style: "margin:0 0 12px;font-weight:600;" }, "Your schedule photos"));
   panel.appendChild(
-    el("p", { style: "margin:0 0 14px;font-size:.95em;" }, "Tap Save to add them to your photos. You can also press and hold an image to save it.")
+    el("p", { style: "margin:0 0 14px;font-size:.95em;" }, "Tap save or hold down on the image to add to your photos.")
   );
 
   const row = el("div", { style: "display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;" });
