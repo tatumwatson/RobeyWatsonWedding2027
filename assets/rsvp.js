@@ -812,6 +812,94 @@ function eventsForGuest(guest) {
   return guest.yesEvents ? invited.filter((e) => guest.yesEvents[e.key]) : invited;
 }
 
+// ---------------------------------------------------------------
+// Action list shown after an RSVP: Update RSVP, Download your schedule (PDF or Photo),
+// and Add to calendar. Used on the returning-guest screen and right after submitting.
+// The styles are added here so this file is all that needs to change.
+// ---------------------------------------------------------------
+const ACTION_ICONS = {
+  edit: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9a2.1 2.1 0 0 0-3-3L5 17z"/><path d="M14.5 7.5l3 3"/></svg>',
+  download: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>',
+  calendar: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5.5" width="16" height="14.5" rx="2"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/></svg>',
+};
+
+function addActionListStyles() {
+  if (document.getElementById("rsvp-action-list-styles")) return;
+  const style = document.createElement("style");
+  style.id = "rsvp-action-list-styles";
+  style.textContent = `
+.rsvp-list { margin-top: 1.5rem; border-top: 1px solid #C4CDC8; }
+.rsvp-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;
+  width: 100%; box-sizing: border-box; padding: 0.95rem 0.25rem;
+  border: 0; border-bottom: 1px solid #C4CDC8; background: none; text-align: left;
+  font-family: "Josefin Sans", sans-serif; font-weight: 600; font-size: 0.9rem;
+  letter-spacing: 0.14em; text-transform: uppercase; color: #3C4E46;
+}
+button.rsvp-row { cursor: pointer; }
+button.rsvp-row:hover { background: rgba(60, 78, 70, 0.07); }
+.rsvp-row-label { display: flex; align-items: center; gap: 0.9rem; }
+.rsvp-row svg {
+  width: 22px; height: 22px; flex: none; fill: none; stroke: #3C4E46;
+  stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+}
+.rsvp-row-arrow { color: #7F9186; font-size: 1.3rem; line-height: 1; }
+.rsvp-chips { display: flex; gap: 0.4rem; flex: none; }
+.rsvp-chip {
+  padding: 0.3rem 0.95rem; border: 1px solid #3C4E46; border-radius: 999px; background: none;
+  font: inherit; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: #3C4E46; cursor: pointer;
+}
+.rsvp-chip:hover { background: #3C4E46; color: #E8E1D0; }
+@media (max-width: 480px) {
+  .rsvp-row { font-size: 0.8rem; letter-spacing: 0.1em; }
+  .rsvp-row-label { gap: 0.65rem; }
+  .rsvp-row-sched { flex-wrap: wrap; }
+  .rsvp-row-sched .rsvp-chips { margin-left: calc(22px + 0.65rem); }
+}
+`;
+  document.head.appendChild(style);
+}
+
+// options: { events, onUpdate } (leave onUpdate out to hide the Update RSVP row)
+function buildActionList(guest, options) {
+  addActionListStyles();
+  const list = el("div", { class: "rsvp-list" });
+  const events = options.events || [];
+
+  const rowButton = (icon, label, onClick) => {
+    const row = el("button", { type: "button", class: "rsvp-row" });
+    const left = el("span", { class: "rsvp-row-label" });
+    left.innerHTML = ACTION_ICONS[icon];
+    left.appendChild(document.createTextNode(label));
+    row.appendChild(left);
+    row.appendChild(el("span", { class: "rsvp-row-arrow", "aria-hidden": "true" }, "&rsaquo;"));
+    row.addEventListener("click", onClick);
+    return row;
+  };
+
+  if (options.onUpdate) list.appendChild(rowButton("edit", "Update RSVP", options.onUpdate));
+
+  if (events.length) {
+    const row = el("div", { class: "rsvp-row rsvp-row-sched" });
+    const left = el("span", { class: "rsvp-row-label" });
+    left.innerHTML = ACTION_ICONS.download;
+    left.appendChild(document.createTextNode("Download your schedule"));
+    const chips = el("span", { class: "rsvp-chips" });
+    const pdf = el("button", { type: "button", class: "rsvp-chip" }, "PDF");
+    pdf.addEventListener("click", () => downloadSchedulePdf(guest, events));
+    const photo = el("button", { type: "button", class: "rsvp-chip" }, "Photo");
+    photo.addEventListener("click", () => downloadScheduleImages(guest, events));
+    chips.appendChild(pdf);
+    chips.appendChild(photo);
+    row.appendChild(left);
+    row.appendChild(chips);
+    list.appendChild(row);
+
+    list.appendChild(rowButton("calendar", "Add to calendar", () => downloadCalendar(guest, events)));
+  }
+  return list;
+}
+
 // Shown when someone looks up their name after they already responded.
 function renderThanks(container, guest) {
   container.innerHTML = "";
@@ -823,46 +911,19 @@ function renderThanks(container, guest) {
     : "Thank you for your RSVP! We're sorry to miss you.";
   container.appendChild(msg);
 
-  const actions = el("div", { class: "rsvp-actions" });
-
   if (rsvpClosed()) {
     container.appendChild(
       el("p", { class: "rsvp-closed-note" }, "RSVPs are now closed. To make a change, please reach out to us directly.")
     );
-  } else {
-    const editBox = el("div", { class: "rsvp-action" });
-    editBox.appendChild(el("p", {}, "To edit your RSVP"));
-    const editBtn = el("button", { type: "button", class: "btn btn-outline-primary" }, "Click here");
-    editBtn.addEventListener("click", () => renderInvite(container, guest));
-    editBox.appendChild(editBtn);
-    actions.appendChild(editBox);
   }
 
   const myEvents = eventsForGuest(guest);
-  if (guest.attending && myEvents.length) {
-    const pdfBox = el("div", { class: "rsvp-action" });
-    pdfBox.appendChild(el("p", {}, "To download your schedule"));
-    const pdfBtn = el("button", { type: "button", class: "btn btn-outline-primary" }, "Click here");
-    pdfBtn.addEventListener("click", () => downloadSchedulePdf(guest, myEvents));
-    pdfBox.appendChild(pdfBtn);
-    actions.appendChild(pdfBox);
-
-    const imgBox = el("div", { class: "rsvp-action" });
-    imgBox.appendChild(el("p", {}, "To save your schedule as photos"));
-    const imgBtn = el("button", { type: "button", class: "btn btn-outline-primary" }, "Click here");
-    imgBtn.addEventListener("click", () => downloadScheduleImages(guest, myEvents));
-    imgBox.appendChild(imgBtn);
-    actions.appendChild(imgBox);
-
-    const calBox = el("div", { class: "rsvp-action" });
-    calBox.appendChild(el("p", {}, "To add the events to your calendar"));
-    const calBtn = el("button", { type: "button", class: "btn btn-outline-primary" }, "Click here");
-    calBtn.addEventListener("click", () => downloadCalendar(guest, myEvents));
-    calBox.appendChild(calBtn);
-    actions.appendChild(calBox);
-  }
-
-  container.appendChild(actions);
+  container.appendChild(
+    buildActionList(guest, {
+      events: guest.attending ? myEvents : [],
+      onUpdate: rsvpClosed() ? null : () => renderInvite(container, guest),
+    })
+  );
 }
 
 // RSVPs close at the countdown's target date (set in rsvp.qmd).
@@ -1145,29 +1206,7 @@ function renderInvite(container, guest) {
 
         const picks = invitedEvents.filter((evt) => events[evt.key]);
         if (attending.length > 0 && picks.length) {
-          const btnRow = el("div", { class: "rsvp-actions" });
-          const pdfBtn = el(
-            "button",
-            { type: "button", class: "btn btn-outline-primary" },
-            "Download your schedule (PDF)"
-          );
-          pdfBtn.addEventListener("click", () => downloadSchedulePdf(guest, picks));
-          const imgBtn = el(
-            "button",
-            { type: "button", class: "btn btn-outline-primary" },
-            "Save your schedule as photos"
-          );
-          imgBtn.addEventListener("click", () => downloadScheduleImages(guest, picks));
-          const calBtn = el(
-            "button",
-            { type: "button", class: "btn btn-outline-primary" },
-            "Add to my calendar"
-          );
-          calBtn.addEventListener("click", () => downloadCalendar(guest, picks));
-          btnRow.appendChild(pdfBtn);
-          btnRow.appendChild(imgBtn);
-          btnRow.appendChild(calBtn);
-          done.appendChild(btnRow);
+          done.appendChild(buildActionList(guest, { events: picks }));
         }
         form.appendChild(done);
         done.scrollIntoView({ behavior: "smooth", block: "center" });
