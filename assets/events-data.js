@@ -31,7 +31,7 @@ window.WEDDING_EVENTS = [
     cardDesc: "Come hungry for dinner, s'mores, and dancing. Leave whenever you are ready, and stay as long as you are having fun.",
     intro: "Let the party begin!",
     details: [
-      { label: "Attire", value: "Dressy casual (Think sundresses, khakis or jeans, and summery polos" },
+      { label: "Attire", value: "Dressy casual (Think sundresses, khakis or jeans, and summery polos)" },
       { label: "Bring", value: "Shoes that are comfortable on grass" },
       { label: "Weather", value: "If the weather turns, we'll move the party inside" },
     ],
