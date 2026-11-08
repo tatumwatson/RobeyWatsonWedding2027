@@ -2,44 +2,9 @@
   {
     "objectID": "travel.html",
     "href": "travel.html",
-    "title": "Travel & Lodging",
+    "title": "Tatum & Tavian",
     "section": "",
-    "text": "The Legacy Lodge is a 2 1/2 hour drive from both Phoenix Sky Harbor and Flagstaff Pulliam Airport.\nThe last stretch is a dirt access road. Take it slow and enjoy the scenery. Cell service can be spotty in the mountains. Before you leave Phoenix, please download your directions as you may lose service on your way in."
-  },
-  {
-    "objectID": "travel.html#getting-here",
-    "href": "travel.html#getting-here",
-    "title": "Travel & Lodging",
-    "section": "",
-    "text": "The Legacy Lodge is a 2 1/2 hour drive from both Phoenix Sky Harbor and Flagstaff Pulliam Airport.\nThe last stretch is a dirt access road. Take it slow and enjoy the scenery. Cell service can be spotty in the mountains. Before you leave Phoenix, please download your directions as you may lose service on your way in."
-  },
-  {
-    "objectID": "travel.html#where-to-park",
-    "href": "travel.html#where-to-park",
-    "title": "Travel & Lodging",
-    "section": "Where to park",
-    "text": "Where to park\nPark here\n\nOutside the gate, without blocking the road or entrance\nInside the gate, along the outer fence\nAlong the right driveway loop\nUnder the front porte-cochère\nUnder the covered solar patio\n\nPlease do not\n\nPark on the grass\nPark on or block the caretaker’s drive, marked in red on the map\nConnect RVs to the lodge. This is strictly prohibited.\n\nParking and no parking signs are posted throughout the property.\n\n\n\nParking map of the Legacy Lodge property"
-  },
-  {
-    "objectID": "travel.html#looking-for-somewhere-to-stay",
-    "href": "travel.html#looking-for-somewhere-to-stay",
-    "title": "Travel & Lodging",
-    "section": "Looking for somewhere to stay?",
-    "text": "Looking for somewhere to stay?\nWe’ve put together a few recommendations nearby:\n\nWorldMark Bison Ranch — ~28 minutes from the lodge.\nRusty Buck Inn — ~22 minutes.\nBest Western Sawmill Inn — ~22 minutes.\nAirBnB and VRBO also have a wide variety of nearby homes and cabins available for rent in the Heber-Overgaard area."
-  },
-  {
-    "objectID": "travel.html#the-weather",
-    "href": "travel.html#the-weather",
-    "title": "Travel & Lodging",
-    "section": "The weather",
-    "text": "The weather"
-  },
-  {
-    "objectID": "travel.html#looking-for-things-to-do-while-youre-here",
-    "href": "travel.html#looking-for-things-to-do-while-youre-here",
-    "title": "Travel & Lodging",
-    "section": "Looking for things to do while you’re here?",
-    "text": "Looking for things to do while you’re here?\n\nBlack Canyon Lake. A quiet trout lake in the national forest, about 15 miles southwest of Heber. Fish for rainbow trout and keep an eye out for wild horses that come to the lake to drink. Anglers need an Arizona fishing license.\nThe Rim Lakes and Rim Road. About 25 miles west on Highway 260 along the Mogollon Rim. Willow Springs Lake and Woods Canyon Lake are the most popular for trout fishing and kayaking, and Woods Canyon rents boats on site. The Rim Lakes Vista Trail is a short hike with wide views, and Forest Road 300 is a 45-mile scenic drive along the top of the Rim.\nPetrified Forest National Park and Holbrook. Roughly an hour and a half away, you’ll find petrified wood and Painted Desert views.\nPayson and Tonto Natural Bridge State Park. Payson is about 55 miles southwest. The bridge is believed to be the largest natural travertine bridge in the world, rising 183 feet over a 400-foot tunnel."
+    "text": "// ————————————————————— // Both the Schedule page and the personalized RSVP-download PDF pull from this file, // only ever need to update times and descriptions here. // “intro” is line shown above an event on the Schedule page. // “details” is list of label and value rows shown inside the box. // “end” is only used for the Add to Calendar file. It is not shown on the site. // “cardDesc” is the short line printed on each schedule card in the RSVP PDF. The cards // are drawn from this file when the site is published (see _build/card.html). // ————————————————————— window.WEDDING_YEAR = 2027; window.WEDDING_MONTH = 5; // 5 = May window.WEDDING_EVENTS = [ { key: “thu_night_before”, label: “The Night Before”, day: “Thursday”, date: “6th”, time: “4:00 PM”, end: “9:00 PM”, description: “Thank you for staying with us at the Lodge! Check in is at 4pm, and we will be getting set up, eating some dinner, and hanging out before the big day.”, cardDesc: “Check in at the Lodge, get settled, eat dinner, and hang out before the big day.”, }, { key: “fri_reception_party”, label: “Reception”, day: “Friday”, date: “7th”, time: “5:00 PM”, end: “11:59 PM”, description: “Come hungry for dinner, s’mores, and dancing.”, cardDesc: “Come hungry for dinner, s’mores, and dancing. The party winds down when we do.”, intro: “Let the party begin!”, details: [ { label: “Attire”, value: “Sundresses, khakis or jeans, and short-sleeve summery polos” }, { label: “Bring”, value: “Layers, evenings in the mountains can get chilly” }, { label: “Weather”, value: “If the weather turns, we’ll move the party inside” }, ], }, { key: “sat_day_after”, label: “The Day After”, day: “Saturday”, date: “8th”, time: “12:00 PM”, end: “8:00 PM”, description: “A laid-back field day with games, movies, and good company. Come and go as you like.”, cardDesc: “A laid-back field day with games, movies, and good company. Come and go as you like.”, intro: “Not ready for the party to end? Neither are we!”, details: [ { label: “Attire”, value: “Whatever’s comfortable and easy to move in” }, { label: “Bring”, value: “A swimsuit if you plan on jumping in the pond” }, { label: “Weather”, value: “If the weather turns, we’ll have movies, card games, billiards, and more fun inside” }, ], }, { key: “sun_brunch”, label: “Mother’s Day Brunch”, day: “Sunday”, date: “9th”, time: “11:30 AM”, end: “1:30 PM”, description: “Please joining us in celebrating all the mothers in our lives. After checkout, we will head in town to [make reservation] to enjoy a Mother’s Day brunch before everyone heads home.”, cardDesc: “Celebrate all the mothers in our lives over brunch in town before everyone heads home.”, },];\n// ————————————————————— // “Good to know” section of the RSVP PDF. The PDF shows it as styled cards drawn // when the site is published (see _build/good_to_know.html). If those cards are // missing, the PDF falls back to plain text built from the same words. // ————————————————————— window.WEDDING_GOOD_TO_KNOW = { getting: [ “The Legacy Lodge is about a 2 1/2 hour drive from both Phoenix Sky Harbor and Flagstaff Pulliam Airport.”, “Cell service can be spotty in the mountains. Please download your directions for offline use before you leave.”, “There is no shuttle, and rideshare is largely unavailable. We recommend renting a car.”, ], parkHere: [ “Outside the gate, without blocking the road or entrance”, “Inside the gate, along the outer fence”, ], parkNot: [ “Park on the grass”, “Park on or block the caretaker’s drive”, “Connect RVs to the lodge. This is strictly prohibited.”, ], parkNote: “Parking and no parking signs are posted throughout the property.”, weather: “Typical May weather in Heber is a high of 72°F and a low of 43°F.”, };"
   },
   {
     "objectID": "schedule.html",
