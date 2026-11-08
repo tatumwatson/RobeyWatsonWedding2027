@@ -17,8 +17,8 @@ window.WEDDING_EVENTS = [
     date: "6th",
     time: "4:00 PM",
     end: "9:00 PM",
-    description: "Thank you for staying with us at the Lodge! Check in is at 4pm, and we will be getting set up, eating some dinner, and hanging out before the big day.",
-    cardDesc: "Check in at the Lodge, get settled, eat dinner, and hang out before the big day.",
+    description: "Check in is at 4pm. We'll be getting set up, eating some dinner, and hanging out before the big day.",
+    cardDesc: "Check in at the lodge, get settled, eat dinner, and hang out before the big day.",
   },
   {
     key: "fri_reception_party",
@@ -28,11 +28,11 @@ window.WEDDING_EVENTS = [
     time: "5:00 PM",
     end: "11:59 PM",
     description: "Come hungry for dinner, s'mores, and dancing.",
-    cardDesc: "Come hungry for dinner, s'mores, and dancing. The party winds down when we do.",
+    cardDesc: "Come hungry for dinner, s'mores, and dancing. Leave whenever you are ready, and stay as long as you are having fun.",
     intro: "Let the party begin!",
     details: [
-      { label: "Attire", value: "Sundresses, khakis or jeans, and short-sleeve summery polos" },
-      { label: "Bring", value: "Layers, evenings in the mountains can get chilly" },
+      { label: "Attire", value: "Dressy casual (Think sundresses, khakis or jeans, and summery polos" },
+      { label: "Bring", value: "Shoes that are comfortable on grass" },
       { label: "Weather", value: "If the weather turns, we'll move the party inside" },
     ],
   },
@@ -47,9 +47,9 @@ window.WEDDING_EVENTS = [
     cardDesc: "A laid-back field day with games, movies, and good company. Come and go as you like.",
     intro: "Not ready for the party to end? Neither are we!",
     details: [
-      { label: "Attire", value: "Whatever's comfortable and easy to move in" },
+      { label: "Attire", value: "Wear whatever lets you move, play, and enjoy the day." },
       { label: "Bring", value: "A swimsuit if you plan on jumping in the pond" },
-      { label: "Weather", value: "If the weather turns, we'll have movies, card games, billiards, and more fun inside" },
+      { label: "Weather", value: "Rain or shine, we'll have plenty to do inside with movies, games, and billiards" },
     ],
   },
   {
@@ -59,7 +59,7 @@ window.WEDDING_EVENTS = [
     date: "9th",
     time: "11:30 AM",
     end: "1:30 PM",
-    description: "Please joining us in celebrating all the mothers in our lives. After checkout, we will head in town to [make reservation] to enjoy a Mother's Day brunch before everyone heads home.",
+    description: "Please joining us in celebrating all the mothers in our lives. After checkout, we will head into town to enjoy a Mother's Day brunch before everyone heads home.",
     cardDesc: "Celebrate all the mothers in our lives over brunch in town before everyone heads home.",
   },
 ];
