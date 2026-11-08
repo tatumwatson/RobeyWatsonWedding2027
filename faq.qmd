@@ -2,10 +2,6 @@
 title: "FAQ"
 ---
 
-::: {.script}
-What to know before you go
-:::
-
 ::: {.pine-divider}
 :::
 
