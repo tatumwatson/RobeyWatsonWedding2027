@@ -113,6 +113,9 @@ async function makeTitleBadge(text) {
   }
 }
 
+// Title at the top of the schedule PDF and photos. The same for every guest.
+const SCHEDULE_TITLE = "Robey-Watson Wedding Weekend";
+
 function safeFileName(name) {
   return String(name || "guest").trim().replace(/\s+/g, "-").toLowerCase();
 }
@@ -183,7 +186,7 @@ async function downloadSchedulePdf(guest, events) {
   const gtkImgs = loaded.slice(2 + events.length, 2 + events.length + GTK_KEYS.length);
   const useCards = USE_CARDS && (!!bg || cardImgs.some(Boolean));
   const useGtk = useCards && gtkImgs.every(Boolean);
-  const nameBadge = useCards ? await makeTitleBadge(`${guest.name}'s Weekend Schedule`) : null;
+  const nameBadge = useCards ? await makeTitleBadge(SCHEDULE_TITLE) : null;
   const gtkBadge = useGtk ? await makeTitleBadge("Good to know") : null;
   // Centers a title badge at the top of the page, 14 mm tall (shrunk if a long name needs it)
   const putBadge = (b, alias) => {
@@ -271,7 +274,7 @@ async function downloadSchedulePdf(guest, events) {
       putBadge(nameBadge, "name-badge");
     } else {
       setText("bold", 18, INK);
-      doc.text(`${guest.name}'s Weekend Schedule`, pageW / 2, L.titleY, { align: "center" });
+      doc.text(SCHEDULE_TITLE, pageW / 2, L.titleY, { align: "center" });
     }
     const cx = (pageW - L.w) / 2;
     let cy = L.firstTop;
@@ -309,7 +312,7 @@ async function downloadSchedulePdf(guest, events) {
   rule(9);
 
   // ---- Schedule ----
-  sectionHeading(`${guest.name}'s Weekend Schedule`);
+  sectionHeading(SCHEDULE_TITLE);
   y += 3;
 
   events.forEach((evt, i) => {
@@ -451,7 +454,7 @@ async function downloadScheduleImages(guest, events) {
   const pageW = 215.9;
   const k = bg.width / pageW; // pixels per mm
   const [nameBadge, gtkBadge] = await Promise.all([
-    makeTitleBadge(`${guest.name}'s Weekend Schedule`),
+    makeTitleBadge(SCHEDULE_TITLE),
     useGtk ? makeTitleBadge("Good to know") : null,
   ]);
   let loraOk = false;
@@ -504,7 +507,7 @@ async function downloadScheduleImages(guest, events) {
     let y = L.firstTop;
     if (i === 0) {
       if (nameBadge) await drawBadge(g, nameBadge);
-      else plainTitle(g, `${guest.name}'s Weekend Schedule`);
+      else plainTitle(g, SCHEDULE_TITLE);
     } else {
       y = L.nextTop;
     }
