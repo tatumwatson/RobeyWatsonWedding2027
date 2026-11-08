@@ -428,6 +428,175 @@ async function downloadSchedulePdf(guest, events) {
 }
 
 // ---------------------------------------------------------------
+// Photos: the same pages as the PDF, saved as PNG images (handy on phones).
+// The pages are drawn on a canvas, then shown in a window where guests can save them
+// to their photos (share sheet on phones, download on computers).
+// ---------------------------------------------------------------
+async function downloadScheduleImages(guest, events) {
+  const L = CARD_LAYOUT;
+  const [bg, gtkBg, ...rest] = await Promise.all([
+    loadImage(PDF_BG_PATH),
+    loadImage(PDF_BG_GTK_PATH),
+    ...events.map((evt) => loadImage(cardPath(evt.key))),
+    ...GTK_KEYS.map((key) => loadImage(cardPath(key))),
+  ]);
+  const cardImgs = rest.slice(0, events.length);
+  const gtkImgs = rest.slice(events.length);
+  if (!bg || !cardImgs.some(Boolean)) {
+    alert("The schedule photos aren't available right now. Please use the PDF instead.");
+    return;
+  }
+  const useGtk = !!gtkBg && gtkImgs.every(Boolean);
+
+  const pageW = 215.9;
+  const k = bg.width / pageW; // pixels per mm
+  const [nameBadge, gtkBadge] = await Promise.all([
+    makeTitleBadge(`${guest.name}'s Weekend Schedule`),
+    useGtk ? makeTitleBadge("Good to know") : null,
+  ]);
+  let loraOk = false;
+  try {
+    const f = await new FontFace("Lora", "url(assets/fonts/lora.ttf)", { weight: "400 700" }).load();
+    document.fonts.add(f);
+    loraOk = true;
+  } catch (err) {}
+
+  const pages = [];
+  const newPage = (background) => {
+    const cv = document.createElement("canvas");
+    cv.width = bg.width;
+    cv.height = bg.height;
+    const g = cv.getContext("2d");
+    g.imageSmoothingEnabled = true;
+    g.imageSmoothingQuality = "high";
+    g.drawImage(background, 0, 0, cv.width, cv.height);
+    pages.push(cv);
+    return g;
+  };
+  const drawBadge = (g, b) => {
+    if (!b) return;
+    let h = 14, w = (h * b.w) / b.h;
+    if (w > 158) { w = 158; h = (w * b.h) / b.w; }
+    return new Promise((resolve) => {
+      const im = new Image();
+      im.onload = () => { g.drawImage(im, ((pageW - w) / 2) * k, (27 + (14 - h) / 2) * k, w * k, h * k); resolve(); };
+      im.onerror = resolve;
+      im.src = b.url;
+    });
+  };
+  const drawCard = (g, img, y) => {
+    const h = (L.w * img.height) / img.width;
+    g.drawImage(img, ((pageW - L.w) / 2) * k, y * k, L.w * k, h * k);
+    return h;
+  };
+  const plainTitle = (g, text) => {
+    g.fillStyle = "#1F2D2B";
+    g.font = `700 ${18 * 0.3528 * k}px ${loraOk ? "Lora" : "serif"}`;
+    g.textAlign = "center";
+    g.fillText(text, (pageW / 2) * k, L.titleY * k);
+    g.textAlign = "start";
+  };
+
+  // Schedule pages
+  const shown = cardImgs.filter(Boolean);
+  for (let i = 0; i < shown.length; i += L.perPage) {
+    const g = newPage(bg);
+    let y = L.firstTop;
+    if (i === 0) {
+      if (nameBadge) await drawBadge(g, nameBadge);
+      else plainTitle(g, `${guest.name}'s Weekend Schedule`);
+    } else {
+      y = L.nextTop;
+    }
+    shown.slice(i, i + L.perPage).forEach((img) => { y += drawCard(g, img, y) + L.gap; });
+  }
+
+  // Good to know pages
+  const footerPages = [];
+  if (useGtk) {
+    let g = newPage(gtkBg);
+    footerPages.push(g);
+    if (gtkBadge) await drawBadge(g, gtkBadge);
+    else plainTitle(g, "Good to know");
+    let y = L.firstTop;
+    gtkImgs.forEach((img, i) => {
+      const h = (L.w * img.height) / img.width;
+      if (i > 0 && y + h > GTK_BOTTOM) {
+        g = newPage(gtkBg);
+        footerPages.push(g);
+        y = L.nextTop;
+      }
+      drawCard(g, img, y);
+      y += h + L.gap;
+    });
+    footerPages.forEach((fg) => {
+      fg.fillStyle = "#3C4E46";
+      fg.font = `400 ${9 * 0.3528 * k}px ${loraOk ? "Lora" : "serif"}`;
+      fg.textAlign = "center";
+      fg.fillText(`Questions? Email us at ${CONTACT_EMAIL}`, (pageW / 2) * k, (279.4 - 10) * k);
+    });
+  }
+
+  const blobs = await Promise.all(pages.map((cv) => new Promise((res) => cv.toBlob(res, "image/png"))));
+  const base = `${safeFileName(guest.name)}-schedule`;
+  showImageViewer(blobs.filter(Boolean).map((blob, i) => new File([blob], `${base}-${i + 1}.png`, { type: "image/png" })));
+}
+
+// Window with the finished page images and a save button
+function showImageViewer(files) {
+  const urls = files.map((f) => URL.createObjectURL(f));
+  const backdrop = el("div", {
+    style:
+      "position:fixed;inset:0;z-index:9999;background:rgba(31,45,43,.72);display:flex;align-items:flex-start;justify-content:center;overflow:auto;padding:16px;",
+  });
+  const panel = el("div", {
+    style: "background:#fff;border-radius:14px;max-width:520px;width:100%;padding:18px;box-sizing:border-box;",
+  });
+  const close = () => { backdrop.remove(); urls.forEach((u) => URL.revokeObjectURL(u)); };
+
+  panel.appendChild(el("p", { style: "margin:0 0 12px;font-weight:600;" }, "Your schedule photos"));
+  panel.appendChild(
+    el("p", { style: "margin:0 0 14px;font-size:.95em;" }, "Tap Save to add them to your photos. You can also press and hold an image to save it.")
+  );
+
+  const row = el("div", { style: "display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;" });
+  const saveBtn = el("button", { type: "button", class: "btn btn-primary" }, "Save to photos");
+  saveBtn.addEventListener("click", async () => {
+    try {
+      if (navigator.canShare && navigator.canShare({ files })) {
+        await navigator.share({ files, title: "Weekend schedule" });
+        return;
+      }
+    } catch (err) {
+      if (err && err.name === "AbortError") return; // they closed the share sheet
+    }
+    files.forEach((f, i) => {
+      setTimeout(() => {
+        const a = document.createElement("a");
+        a.href = urls[i];
+        a.download = f.name;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      }, i * 400);
+    });
+  });
+  const closeBtn = el("button", { type: "button", class: "btn btn-outline-primary" }, "Close");
+  closeBtn.addEventListener("click", close);
+  row.appendChild(saveBtn);
+  row.appendChild(closeBtn);
+  panel.appendChild(row);
+
+  urls.forEach((u, i) => {
+    const img = el("img", { src: u, alt: `Schedule page ${i + 1}`, style: "width:100%;display:block;margin:0 0 12px;border-radius:6px;" });
+    panel.appendChild(img);
+  });
+  backdrop.appendChild(panel);
+  backdrop.addEventListener("click", (e) => { if (e.target === backdrop) close(); });
+  document.body.appendChild(backdrop);
+}
+
+// ---------------------------------------------------------------
 // Calendar file (.ics). Opens in Apple Calendar, Google Calendar, and Outlook.
 // ---------------------------------------------------------------
 function icsStamp(day, clock) {
@@ -674,6 +843,13 @@ function renderThanks(container, guest) {
     pdfBtn.addEventListener("click", () => downloadSchedulePdf(guest, myEvents));
     pdfBox.appendChild(pdfBtn);
     actions.appendChild(pdfBox);
+
+    const imgBox = el("div", { class: "rsvp-action" });
+    imgBox.appendChild(el("p", {}, "To save your schedule as photos"));
+    const imgBtn = el("button", { type: "button", class: "btn btn-outline-primary" }, "Click here");
+    imgBtn.addEventListener("click", () => downloadScheduleImages(guest, myEvents));
+    imgBox.appendChild(imgBtn);
+    actions.appendChild(imgBox);
 
     const calBox = el("div", { class: "rsvp-action" });
     calBox.appendChild(el("p", {}, "To add the events to your calendar"));
@@ -973,6 +1149,12 @@ function renderInvite(container, guest) {
             "Download your schedule (PDF)"
           );
           pdfBtn.addEventListener("click", () => downloadSchedulePdf(guest, picks));
+          const imgBtn = el(
+            "button",
+            { type: "button", class: "btn btn-outline-primary" },
+            "Save your schedule as photos"
+          );
+          imgBtn.addEventListener("click", () => downloadScheduleImages(guest, picks));
           const calBtn = el(
             "button",
             { type: "button", class: "btn btn-outline-primary" },
@@ -980,6 +1162,7 @@ function renderInvite(container, guest) {
           );
           calBtn.addEventListener("click", () => downloadCalendar(guest, picks));
           btnRow.appendChild(pdfBtn);
+          btnRow.appendChild(imgBtn);
           btnRow.appendChild(calBtn);
           done.appendChild(btnRow);
         }
