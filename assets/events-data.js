@@ -22,7 +22,7 @@ window.WEDDING_EVENTS = [
   },
   {
     key: "fri_reception_party",
-    label: "Reception",
+    label: "The Reception",
     day: "Friday",
     date: "7th",
     time: "5:00 PM",
@@ -54,7 +54,7 @@ window.WEDDING_EVENTS = [
   },
   {
     key: "sun_brunch",
-    label: "Mother's Day Brunch",
+    label: "The Mother's Day Brunch",
     day: "Sunday",
     date: "9th",
     time: "11:30 AM",
