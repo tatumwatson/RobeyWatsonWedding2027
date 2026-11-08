@@ -1138,8 +1138,7 @@ function renderInvite(container, guest) {
       el(
         "p",
         {},
-        `You're staying on-property. If you'd like to contribute toward your room and board, there's a voluntary <a href="room-board.html">link here</a>. No pressure at all, we're just glad you're coming.`
-      )
+        `If you’d like to contribute toward your room and board, please do so <a href="room-board.html">here</a>. No pressure at all, we’re just glad you’re coming.`      )
     );
     lateBlocks.push(note);
   }
