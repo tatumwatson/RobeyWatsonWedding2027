@@ -1,0 +1,48 @@
+---
+title: "Room & Board"
+search: false
+include-in-header:
+  text: '<meta name="robots" content="noindex">'
+---
+
+Thank you for staying with us at the lodge. If you would like to contribute toward your room and board, there are a few easy ways to do so below. This is completely voluntary, and we are just glad you are coming.
+
+Prefer to give in person? A card box will be at the lodge for cards and checks.
+
+::: {.fund-grid}
+
+::: {.fund-card}
+::: {.fund-title}
+Venmo
+:::
+
+::: {.fund-qr-box .qr-venmo}
+![](assets/venmo-qr.jpg){fig-alt="Venmo QR code for room and board"}
+:::
+:::
+
+::: {.fund-card}
+::: {.fund-title}
+Zelle
+:::
+
+::: {.fund-qr-box .qr-zelle}
+![](assets/zelle-qr.jpg){fig-alt="Zelle QR code for room and board"}
+:::
+:::
+
+::: {.fund-card}
+::: {.fund-title}
+PayPal
+:::
+
+::: {.fund-qr-box .qr-paypal}
+![](assets/paypal-qr.jpg){fig-alt="PayPal QR code for room and board"}
+:::
+:::
+
+:::
+
+::: {.fund-footnote}
+Please add a short note along with your contribution so we can thank you properly. ♡
+:::
