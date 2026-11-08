@@ -1306,7 +1306,7 @@ function initRsvp() {
         button.disabled = false;
         button.textContent = findText;
       } else {
-        showStatus(app, "We couldn't find that name. Try the name exactly as it appears on your invite, or reach out to us.", "error");
+        showStatus(app, "We couldn't find that name. Please try again or reach out to us.", "error");
         button.disabled = false;
         button.textContent = findText;
       }
