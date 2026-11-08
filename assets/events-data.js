@@ -73,7 +73,7 @@ window.WEDDING_GOOD_TO_KNOW = {
   getting: [
     "The Legacy Lodge is about a 2 1/2 hour drive from both Phoenix Sky Harbor and Flagstaff Pulliam Airport.",
     "Cell service can be spotty in the mountains. Please download your directions for offline use before you leave.",
-    "There is no shuttle, and rideshare is largely unavailable. We recommend renting a car.",
+    "There is no shuttle and rideshare is largely unavailable, we recommend renting a car.",
   ],
   parkHere: [
     "Outside the gate, without blocking the road or entrance",
