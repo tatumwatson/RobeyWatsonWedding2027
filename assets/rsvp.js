@@ -916,8 +916,7 @@ function buildActionList(guest, options) {
 
     // On-property guests also get a link to the hidden room and board page.
     if (guest.onProperty) {
-      const stay = el("a", { class: "rsvp-row", href: "room-board.html" });
-      const left = el("span", { class: "rsvp-row-label" });
+      const stay = el("a", { class: "rsvp-row", href: "room-board.html", target: "_blank", rel: "noopener" });      const left = el("span", { class: "rsvp-row-label" });
       left.innerHTML = ACTION_ICONS.stay;
       left.appendChild(document.createTextNode("Contribute to your room & board"));
       stay.appendChild(left);
@@ -1138,7 +1137,7 @@ function renderInvite(container, guest) {
       el(
         "p",
         {},
-        `If you’d like to contribute toward your room and board, please do so <a href="room-board.html">here</a>. No pressure at all, we’re just glad you’re coming.`      )
+        `If you’d like to contribute toward your room and board, please do so <a href="room-board.html" target="_blank" rel="noopener">here</a>. No pressure at all, we’re just glad you’re coming.` )
     );
     lateBlocks.push(note);
   }
