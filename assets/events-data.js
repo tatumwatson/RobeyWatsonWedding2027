@@ -82,7 +82,6 @@ window.WEDDING_GOOD_TO_KNOW = {
   parkNot: [
     "Park on the grass",
     "Park on or block the caretaker's drive",
-    "Connect RVs to the lodge. This is strictly prohibited.",
   ],
   parkNote: "Parking and no parking signs are posted throughout the property.",
   weather:
