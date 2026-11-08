@@ -81,6 +81,7 @@ async function makeTitleBadge(text) {
         .then((f) => { document.fonts.add(f); return true; });
     }
     await josefinReady;
+    await document.fonts.load('700 84px "Josefin Sans"', "Aa"); // make sure the bold weight is ready to draw
     const KRAFT = "#E8E1D0", SAGE = "#7F9186", GREEN = "#244F33", INKC = "#1F2D2B";
     const F = 84, H = 220, RING = 14, PADX = 112, GAP = 60, DOT = 24, SPACE = 0.16 * F;
     const chars = Array.from(String(text).toUpperCase());
@@ -115,6 +116,16 @@ async function makeTitleBadge(text) {
 
 // Title at the top of the schedule PDF and photos. The same for every guest.
 const SCHEDULE_TITLE = "Robey-Watson Wedding Weekend";
+
+// The page backgrounds have no transparency, so they are stored as JPEG inside the PDF.
+// That keeps the file much smaller than PNG with no visible difference.
+function toJpegData(img, quality) {
+  const c = document.createElement("canvas");
+  c.width = img.naturalWidth || img.width;
+  c.height = img.naturalHeight || img.height;
+  c.getContext("2d").drawImage(img, 0, 0);
+  return c.toDataURL("image/jpeg", quality);
+}
 
 function safeFileName(name) {
   return String(name || "guest").trim().replace(/\s+/g, "-").toLowerCase();
@@ -194,11 +205,14 @@ async function downloadSchedulePdf(guest, events) {
     if (w > 158) { w = 158; h = (w * b.h) / b.w; }
     doc.addImage(b.url, "PNG", (pageW - w) / 2, 27 + (14 - h) / 2, w, h, alias, "FAST");
   };
-  const drawBg = (alt) => {
-    if (alt) doc.addImage(alt, "PNG", 0, 0, pageW, pageH, "pdf-bg-gtk", "FAST");
-    else if (bg) doc.addImage(bg, "PNG", 0, 0, pageW, pageH, "pdf-bg", "FAST");
+  const bgData = bg ? toJpegData(bg, 0.92) : null;
+  const gtkData = gtkBg ? toJpegData(gtkBg, 0.92) : null;
+  // drawBg(true) uses the watercolor trees page, used for the schedule cards and Good to know
+  const drawBg = (trees) => {
+    if (trees && gtkData) doc.addImage(gtkData, "JPEG", 0, 0, pageW, pageH, "pdf-bg-gtk", "FAST");
+    else if (bgData) doc.addImage(bgData, "JPEG", 0, 0, pageW, pageH, "pdf-bg", "FAST");
   };
-  drawBg();
+  drawBg(useCards);
 
   const M = bg ? TEXT_LAYOUT.margin : 18;       // page margin
   const W = doc.internal.pageSize.getWidth() - M * 2;
@@ -281,7 +295,7 @@ async function downloadSchedulePdf(guest, events) {
     events.forEach((evt, i) => {
       if (i > 0 && i % L.perPage === 0) {
         doc.addPage();
-        drawBg();
+        drawBg(true);
         cy = L.nextTop;
       }
       if (cardImgs[i]) {
@@ -299,7 +313,7 @@ async function downloadSchedulePdf(guest, events) {
       cy += L.h + L.gap;
     });
     doc.addPage();
-    drawBg(useGtk && gtkBg ? gtkBg : null);
+    drawBg(useGtk);
     y = TOP;
   } else {
   // ---- Header ----
@@ -373,7 +387,7 @@ async function downloadSchedulePdf(guest, events) {
       const h = (L.w * img.height) / img.width;
       if (i > 0 && gy + h > GTK_BOTTOM) {
         doc.addPage();
-        drawBg(gtkBg);
+        drawBg(true);
         gy = L.nextTop;
       }
       doc.addImage(img, "PNG", gx, gy, L.w, h, `gtk-${i}`, "FAST");
@@ -461,6 +475,7 @@ async function downloadScheduleImages(guest, events) {
   try {
     const f = await new FontFace("Lora", "url(assets/fonts/lora.ttf)", { weight: "400 700" }).load();
     document.fonts.add(f);
+    await document.fonts.load('400 30px "Lora"', "Aa");
     loraOk = true;
   } catch (err) {}
 
@@ -503,7 +518,7 @@ async function downloadScheduleImages(guest, events) {
   // Schedule pages
   const shown = cardImgs.filter(Boolean);
   for (let i = 0; i < shown.length; i += L.perPage) {
-    const g = newPage(bg);
+    const g = newPage(gtkBg || bg);
     let y = L.firstTop;
     if (i === 0) {
       if (nameBadge) await drawBadge(g, nameBadge);
