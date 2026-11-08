@@ -2,7 +2,9 @@
 title: "Schedule"
 ---
 
-All events take place at the Legacy Lodge in Heber, Arizona. Directions and parking are on the [Travel & Lodging](travel.qmd) page.
+All events take place at the Legacy Lodge in Heber, Arizona. 
+
+Directions and parking are on the [Travel & Lodging](travel.qmd) page.
 
 ::: {#schedule-cards .card-grid}
 Loading...
