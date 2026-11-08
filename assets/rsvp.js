@@ -929,9 +929,9 @@ function buildActionList(guest, options) {
 }
 
 // Shown when someone looks up their name after they already responded.
-function renderThanks(container, guest) {
+function renderThanks(container, guest, justSubmitted) {
   container.innerHTML = "";
-  container.appendChild(el("h3", {}, `Welcome back, ${guest.name}!`));
+  container.appendChild(el("h3", {}, justSubmitted ? `Thank you, ${guest.name}!` : `Welcome back, ${guest.name}!`));
 
   const msg = el("div", { class: "rsvp-status-msg success" });
   msg.textContent = guest.attending
@@ -1219,6 +1219,11 @@ function renderInvite(container, guest) {
         notes: document.getElementById("rsvp-notes").value,
       });
       if (result.ok) {
+        // Everyone declined, so show the sorry-to-miss-you screen and skip the song search.
+        if (attending.length === 0) {
+          renderThanks(container, Object.assign({}, guest, { attending: false }), true);
+          return;
+        }
         // Clear the RSVP questions but keep the song search available.
         Array.from(form.children).forEach((child) => {
           if (!child.classList.contains("song-block")) child.remove();
