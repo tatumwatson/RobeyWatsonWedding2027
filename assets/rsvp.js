@@ -976,7 +976,7 @@ function renderInvite(container, guest) {
 
   container.appendChild(el("h3", {}, `Welcome, ${guest.name}!`));
   container.appendChild(
-    el("p", {}, guest.onProperty
+    el("p", { class: "rsvp-intro" }, guest.onProperty
       ? "We're excited to have you staying with us on property!"
       : "We're excited to celebrate with you! Please let us know what you can make it to.")
   );
@@ -1230,6 +1230,8 @@ function renderInvite(container, guest) {
         });
         const oldMsg = container.querySelector(".rsvp-status-msg");
         if (oldMsg) oldMsg.remove();
+        const intro = container.querySelector(".rsvp-intro");
+        if (intro && !guest.onProperty) intro.textContent = "We're excited to celebrate with you!";
 
         const done = el("div", { class: "rsvp-submit" });
         const thanks = el("div", { class: "rsvp-status-msg success" });
@@ -1237,8 +1239,13 @@ function renderInvite(container, guest) {
         done.appendChild(thanks);
 
         const picks = invitedEvents.filter((evt) => events[evt.key]);
-        if (attending.length > 0 && picks.length) {
-          done.appendChild(buildActionList(guest, { events: picks }));
+        if (attending.length > 0) {
+          done.appendChild(
+            buildActionList(guest, {
+              events: picks,
+              onUpdate: rsvpClosed() ? null : () => renderInvite(container, guest),
+            })
+          );
         }
         form.appendChild(done);
         done.scrollIntoView({ behavior: "smooth", block: "center" });
