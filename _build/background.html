@@ -93,6 +93,7 @@ frame.setAttribute("fill", PANEL);
 frame.setAttribute("stroke", LINE);
 
 // Add #trees to the address to get the Good to know version: watercolor trees inside the border.
+const MIST = 0.3; // how much white mist covers the trees (0 = none, 1 = solid)
 window.BG_READY = Promise.resolve();
 if (location.hash === "#trees") {
   const NS = "http://www.w3.org/2000/svg";
@@ -105,6 +106,7 @@ if (location.hash === "#trees") {
   const g = mk("g", { "clip-path": "url(#treeclip)" });
   g.appendChild(mk("rect", { width: "215.9", height: "279.4", fill: "#F4F7F6" }));
   g.appendChild(mk("image", { href: "../assets/imgs/trees.webp", x: "0", y: "0", width: "215.9", height: "279.4", preserveAspectRatio: "xMidYMid slice" }));
+  g.appendChild(mk("rect", { width: "215.9", height: "279.4", fill: "#F4F7F6", "fill-opacity": MIST }));
   svg.appendChild(g);
   svg.appendChild(mk("path", { d: d, fill: "none", stroke: LINE, "stroke-width": "1.9", "stroke-linejoin": "round" }));
   window.BG_READY = new Promise((res) => { const im = new Image(); im.onload = im.onerror = res; im.src = "../assets/imgs/trees.webp"; });
