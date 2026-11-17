@@ -1099,6 +1099,12 @@ function renderInvite(container, guest) {
   invitedEvents.forEach((evt) => {
     const block = el("div", { class: "rsvp-event-block" });
     block.appendChild(el("h4", {}, `${evt.label} · ${evt.day}`));
+    block.appendChild(
+      el("p", { class: "rsvp-event-when" }, `${evt.day}, ${weddingMonthName()} ${eventDayNumber(evt)} · ${evt.time}`)
+    );
+    if (evt.description) {
+      block.appendChild(el("p", { class: "rsvp-event-desc" }, evt.description));
+    }
 
     const wrap = el("div", { class: "btn-group", role: "group" });
     ["Yes", "No"].forEach((val) => {
