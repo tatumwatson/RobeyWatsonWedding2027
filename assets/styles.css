@@ -203,6 +203,21 @@ main.content:has(.banner) {
   margin-bottom: 0.3rem;
 }
 
+.rsvp-event-when {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #3C4E46;
+  margin: 0 0 0.3rem;
+}
+
+.rsvp-event-desc {
+  font-size: 0.95rem;
+  color: #3C4E46;
+  margin: 0 0 0.7rem;
+}
+
 .rsvp-status-msg {
   margin-top: 1rem;
   padding: 0.8rem 1rem;
