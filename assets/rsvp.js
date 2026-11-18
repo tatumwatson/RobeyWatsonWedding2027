@@ -146,6 +146,8 @@ const USE_CARDS = true; // false = background only with the text schedule
 // 24 mm from the top and 255 mm from the bottom). Cards keep the 1905 x 555 px shape.
 const CARD_LAYOUT = { w: 160, h: (160 * 555) / 1905, gap: 5, perPage: 4, titleY: 36, firstTop: 44, nextTop: 32 };
 const GTK_KEYS = ["gtk_getting", "gtk_parking", "gtk_weather"]; // Good to know card images
+// Guests staying on property get one more card, drawn last
+const gtkKeysFor = (guest) => (guest.onProperty ? [...GTK_KEYS, "gtk_property"] : GTK_KEYS);
 const GTK_BOTTOM = 250; // mm, lowest point a Good to know card may reach
 const TEXT_LAYOUT = { margin: 29, top: 36, bottom: 249 }; // used for text pages when the background is present
 
@@ -182,6 +184,7 @@ async function downloadSchedulePdf(guest, events) {
   }
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ unit: "mm", format: "letter" });
+  const gtkKeys = gtkKeysFor(guest);
   const pageW = doc.internal.pageSize.getWidth();
   const pageH = doc.internal.pageSize.getHeight();
 
@@ -189,12 +192,12 @@ async function downloadSchedulePdf(guest, events) {
     loadImage(PDF_BG_PATH),
     loadImage(PDF_BG_GTK_PATH),
     ...events.map((evt) => loadImage(cardPath(evt.key))),
-    ...GTK_KEYS.map((key) => loadImage(cardPath(key))),
+    ...gtkKeys.map((key) => loadImage(cardPath(key))),
   ]);
   const bg = loaded[0];
   const gtkBg = loaded[1];
   const cardImgs = loaded.slice(2, 2 + events.length);
-  const gtkImgs = loaded.slice(2 + events.length, 2 + events.length + GTK_KEYS.length);
+  const gtkImgs = loaded.slice(2 + events.length, 2 + events.length + gtkKeys.length);
   const useCards = USE_CARDS && (!!bg || cardImgs.some(Boolean));
   const useGtk = useCards && gtkImgs.every(Boolean);
   const nameBadge = useCards ? await makeTitleBadge(SCHEDULE_TITLE) : null;
@@ -455,7 +458,7 @@ async function downloadScheduleImages(guest, events) {
     loadImage(PDF_BG_PATH),
     loadImage(PDF_BG_GTK_PATH),
     ...events.map((evt) => loadImage(cardPath(evt.key))),
-    ...GTK_KEYS.map((key) => loadImage(cardPath(key))),
+    ...gtkKeysFor(guest).map((key) => loadImage(cardPath(key))),
   ]);
   const cardImgs = rest.slice(0, events.length);
   const gtkImgs = rest.slice(events.length);
