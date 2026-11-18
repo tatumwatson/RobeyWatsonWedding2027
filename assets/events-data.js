@@ -87,3 +87,40 @@ window.WEDDING_GOOD_TO_KNOW = {
   weather:
     "Typical May weather in Heber is a high of 72°F and a low of 43°F.",
 };
+
+// ---------------------------------------------------------------
+// "Staying on Property" card. Only guests marked OnProperty get it, as the last Good to know
+// card in the RSVP PDF and photos. Each group is a small heading with a short list.
+// The card image is drawn when the site is published (see _build/good_to_know.html).
+// ---------------------------------------------------------------
+window.WEDDING_ON_PROPERTY = [
+  {
+    heading: "Arriving",
+    items: [
+      "Check in opens at 4 PM on Thursday. Come any time after that and help us get set up before we enjoy the evening together.",
+    ],
+  },
+  {
+    heading: "Meals",
+    items: [
+      "Thursday evening we'll have dinner together.",
+      "Breakfast will be available on Friday, and the reception dinner is that evening. Sandwich supplies, chips, and other lunch foods will be out to grab whenever you're hungry throughout the day.",
+      "Saturday we will have brunch together. The afternoon is come and go as you please, with hot dogs, hamburgers, veggie burgers, and other lunch foods around to grab.",
+      "We'll have coffee, creamer, snacks, water, and the basics ready for you.",
+    ],
+  },
+  {
+    heading: "Checking out",
+    items: [
+      "Check out is at 10 AM sharp on Sunday. Please plan to be packed up and on your way by then. Leftovers and snacks are yours to take on your way out.",
+    ],
+  },
+  {
+    heading: "Misc.",
+    items: [
+      "The property has both wifi and cell service.",
+      "The house runs on solar power and was designed with large groups in mind. Charging phones and plugging in everyday items is no problem. Please avoid anything that draws a lot of power.",
+      "Heber has very limited grocery options, plan on stopping on your way out of Phoenix for anything you might want to bring.",
+    ],
+  },
+];
