@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/schedule.html</loc>
-    <lastmod>2026-11-19T12:38:00.982Z</lastmod>
-  </url>
-  <url>
     <loc>/funds.html</loc>
-    <lastmod>2026-11-19T12:38:00.980Z</lastmod>
-  </url>
-  <url>
-    <loc>/travel.html</loc>
-    <lastmod>2026-11-19T12:38:00.982Z</lastmod>
-  </url>
-  <url>
-    <loc>/rsvp.html</loc>
-    <lastmod>2026-11-19T12:38:00.982Z</lastmod>
-  </url>
-  <url>
-    <loc>/photos.html</loc>
-    <lastmod>2026-11-19T12:38:00.980Z</lastmod>
-  </url>
-  <url>
-    <loc>/room-board.html</loc>
-    <lastmod>2026-11-19T12:38:00.980Z</lastmod>
-  </url>
-  <url>
-    <loc>/story.html</loc>
-    <lastmod>2026-11-19T12:38:00.982Z</lastmod>
-  </url>
-  <url>
-    <loc>/faq.html</loc>
-    <lastmod>2026-11-19T12:38:00.980Z</lastmod>
+    <lastmod>2026-11-19T12:37:45.492Z</lastmod>
   </url>
   <url>
     <loc>/index.html</loc>
-    <lastmod>2026-11-19T12:38:00.980Z</lastmod>
+    <lastmod>2026-11-19T12:37:45.493Z</lastmod>
+  </url>
+  <url>
+    <loc>/faq.html</loc>
+    <lastmod>2026-11-19T12:37:45.492Z</lastmod>
+  </url>
+  <url>
+    <loc>/story.html</loc>
+    <lastmod>2026-11-19T12:37:45.493Z</lastmod>
+  </url>
+  <url>
+    <loc>/travel.html</loc>
+    <lastmod>2026-11-19T12:37:45.493Z</lastmod>
+  </url>
+  <url>
+    <loc>/photos.html</loc>
+    <lastmod>2026-11-19T12:37:45.493Z</lastmod>
+  </url>
+  <url>
+    <loc>/schedule.html</loc>
+    <lastmod>2026-11-19T12:37:45.493Z</lastmod>
+  </url>
+  <url>
+    <loc>/rsvp.html</loc>
+    <lastmod>2026-11-19T12:37:45.493Z</lastmod>
+  </url>
+  <url>
+    <loc>/room-board.html</loc>
+    <lastmod>2026-11-19T12:37:45.493Z</lastmod>
   </url>
 </urlset>

@@ -218,33 +218,6 @@ main.content:has(.banner) {
   margin: 0 0 0.7rem;
 }
 
-.rsvp-picker {
-  margin-top: 1.4rem;
-  padding-top: 1rem;
-  border-top: 1px solid #C4CDC8;
-}
-
-.rsvp-picker h4 {
-  font-family: "Josefin Sans", sans-serif;
-  letter-spacing: 0.06em;
-  color: #1F2D2B;
-  margin-bottom: 0.3rem;
-}
-
-.rsvp-pick {
-  display: block;
-  width: 100%;
-  text-align: left;
-  white-space: normal;
-  margin-bottom: 0.6rem;
-}
-
-.rsvp-pick-note {
-  font-size: 0.9rem;
-  color: #3C4E46;
-  margin: 0.4rem 0 0;
-}
-
 .rsvp-status-msg {
   margin-top: 1rem;
   padding: 0.8rem 1rem;
