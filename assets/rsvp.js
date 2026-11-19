@@ -27,8 +27,9 @@ function showStatus(container, message, type) {
   box.textContent = message;
 }
 
-async function lookupGuest(name) {
-  const url = `${window.RSVP_CONFIG.scriptUrl}?action=lookup&name=${encodeURIComponent(name)}`;
+async function lookupGuest(name, party) {
+  let url = `${window.RSVP_CONFIG.scriptUrl}?action=lookup&name=${encodeURIComponent(name)}`;
+  if (party) url += `&party=${encodeURIComponent(party)}`;
   const res = await fetch(url, { method: "GET" });
   if (!res.ok) throw new Error("Lookup request failed");
   return res.json();
@@ -1222,6 +1223,7 @@ function renderInvite(container, guest) {
       const result = await submitRsvp({
         action: "submit",
         name: guest.name,
+        party: guest.party || "",
         attending,
         events,
         notes: document.getElementById("rsvp-notes").value,
@@ -1297,19 +1299,58 @@ function initRsvp() {
   buttonWrap.appendChild(button);
   app.appendChild(buttonWrap);
 
-  const doLookup = async () => {
-    const name = input.value.trim();
+  // Choices shown when two parties share a name, or when nothing matches exactly
+  // but some names are close (typos, nicknames).
+  let pickerEl = null;
+  const clearPicker = () => {
+    if (pickerEl) pickerEl.remove();
+    pickerEl = null;
+  };
+  const showPicker = (heading, intro, options) => {
+    clearPicker();
+    pickerEl = el("div", { class: "rsvp-picker" });
+    pickerEl.appendChild(el("h4", {}, heading));
+    pickerEl.appendChild(el("p", {}, intro));
+    options.forEach((opt) => {
+      const pick = el("button", { type: "button", class: "btn btn-outline-primary rsvp-pick" });
+      pick.textContent = opt.label;
+      pick.addEventListener("click", () => {
+        pickerEl.querySelectorAll("button").forEach((b) => (b.disabled = true));
+        doLookup(opt.name, opt.party);
+      });
+      pickerEl.appendChild(pick);
+    });
+    pickerEl.appendChild(
+      el("p", { class: "rsvp-pick-note" }, `Not you? Check the spelling above or email us at ${CONTACT_EMAIL}.`)
+    );
+    app.appendChild(pickerEl);
+  };
+
+  // nameArg and partyArg are set when a guest picks a party from the choices
+  const doLookup = async (nameArg, partyArg) => {
+    const name = (nameArg || input.value).trim();
     if (!name) return;
+    const oldMsg = app.querySelector(".rsvp-status-msg");
+    if (oldMsg) oldMsg.remove();
+    if (!partyArg) clearPicker();
     button.disabled = true;
     button.textContent = "Looking...";
     try {
-      const guest = await lookupGuest(name);
+      const guest = await lookupGuest(name, partyArg);
       if (guest.found && guest.responded) {
         renderThanks(app, guest);
       } else if (guest.found && rsvpClosed()) {
         renderClosed(app, guest);
       } else if (guest.found) {
         renderInvite(app, guest);
+      } else if (guest.ambiguous && (guest.choices || []).length) {
+        showPicker("Please select your party", "More than one guest has that name. Choose your party to continue.", guest.choices);
+        button.disabled = false;
+        button.textContent = findText;
+      } else if ((guest.suggestions || []).length) {
+        showPicker("Is this your party?", "We couldn't find that exact name. Did you mean one of these?", guest.suggestions);
+        button.disabled = false;
+        button.textContent = findText;
       } else if (guest.ambiguous) {
         showStatus(app, "More than one guest has that name. Please reach out to us directly and we'll get you set up.", "error");
         button.disabled = false;
@@ -1326,7 +1367,7 @@ function initRsvp() {
     }
   };
 
-  button.addEventListener("click", doLookup);
+  button.addEventListener("click", () => doLookup());
   input.addEventListener("keydown", (e) => {
     if (e.key === "Enter") doLookup();
   });
